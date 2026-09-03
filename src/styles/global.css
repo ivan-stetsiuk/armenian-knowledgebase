@@ -364,7 +364,12 @@ html.is-glass .glass { opacity: 1; }
 .links .sep { height: 1rem; }
 
 @media (max-width: 60rem) {
-  .home { grid-template-columns: 1fr; gap: 1.9rem; padding-block-start: 1.5rem; min-height: 0; }
+  .home { grid-template-columns: 1fr; gap: 1.9rem; padding-block-start: 2.2rem; min-height: 0; }
+
+  /* A 240px halo on a 390px screen reaches into the sticky header and paints
+     over the wordmark. Scaled to the screen it stays clear of it and still
+     surrounds the letter. */
+  .abc__l::after { width: 9rem; height: 9rem; }
 
   /* Tighter labels here: on a phone every 25px decides whether the next block
      is on screen at all, and a reader who cannot see that there is navigation
