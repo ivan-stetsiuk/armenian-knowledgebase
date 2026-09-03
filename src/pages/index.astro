@@ -64,6 +64,8 @@ const sections = [
 
 <Base title="Armenian Knowledge Base">
   <div class="shell home" id="home">
+    <h1 class="sr-only">Armenian Knowledge Base</h1>
+
     <div>
       <span class="label">Alphabet</span>
       <p class="abc" id="abc">
@@ -186,7 +188,8 @@ const sections = [
       /* How many words the layer can actually hold. A phone gets a third of what
          a desktop does, because the alternative is eighteen words on top of each
          other, which is not a cloud but a smudge. */
-      const room = Math.max(6, Math.min(list.length, Math.round((box.width * box.height) / 11000)));
+      const ceiling = box.width < 560 ? 10 : 18;
+      const room = Math.max(6, Math.min(list.length, ceiling, Math.round((box.width * box.height) / 11000)));
       const shown = list.slice(0, room);
 
       /* Rings around the letter: the radius grows with the ring so later words

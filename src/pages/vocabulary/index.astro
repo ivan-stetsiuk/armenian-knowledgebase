@@ -23,9 +23,9 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
         <h1>Words <span class="count">{all.length}</span></h1>
       </header>
 
-      {/* The filter comes before the topics: arriving here from a word on the
-          home page, the search is the thing being used, and thirty-four topic
-          links between the title and it is thirty-four links in the way. */}
+      {/* Filter, then the words. Arriving here from a word on the home page the
+          search is the thing being used, and the topics are a different way in
+          entirely — they belong after the list, not between it and the field. */}
       <div class="filter">
         <input
           type="search"
@@ -37,6 +37,14 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
         <span class="filter__count" id="wcount">{all.length}</span>
       </div>
 
+      <p class="index__group">All words</p>
+
+      <WordTable words={all} showLesson={true} />
+
+      <p id="wempty" hidden style="color:var(--c-grey);padding:2rem 0;font-size:var(--label)">
+        Nothing matches. Try the Armenian spelling, or a lesson number.
+      </p>
+
       <p class="index__group">Topics</p>
       <div class="topics">
         {topics.map((t) => (
@@ -45,14 +53,6 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
           </a>
         ))}
       </div>
-
-      <p class="index__group">All words</p>
-
-      <WordTable words={all} showLesson={true} />
-
-      <p id="wempty" hidden style="color:var(--c-grey);padding:2rem 0;font-size:var(--label)">
-        Nothing matches. Try the Armenian spelling, or a lesson number.
-      </p>
     </div>
   </div>
 

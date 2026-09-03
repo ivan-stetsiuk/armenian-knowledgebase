@@ -92,6 +92,18 @@ img { max-width: 100%; height: auto; }
 hr { border: 0; border-top: 1px solid var(--c-line); margin: 3rem 0; }
 
 .hy, [lang="hy"] { font-family: var(--font-hy); }
+
+/* Available to a screen reader, absent from the page. Used where the design has
+ * no room for something the document still needs — the home page has no visible
+ * title, but a page without an h1 gives assistive software nothing to land on. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 
 /* The two typographic devices of the reference. */
@@ -404,20 +416,10 @@ html.is-glass .glass {
   /* On a narrow screen there is no empty half of the page to scatter into, so
      the cloud stops being an overlay and takes a place of its own between the
      alphabet and the contents. Same interaction, different room. */
-  /* In flow rather than an overlay: on a phone there is no empty half of the
-     page to scatter into. It claims height only while a letter is open, so
-     nothing sits below a screenful of blank space waiting for a tap that may
-     never come — the contents follow straight after the alphabet. */
-  .cloud {
-    position: relative;
-    inset: auto;
-    min-height: 0;
-    order: 2;
-  }
-
-  /* Sized so the alphabet and the cloud together still fit one phone screen.
-     Taller and the page scrolls, which puts the letters under the header. */
-  .home.is-focused .cloud { min-height: 40vh; margin-top: 1.25rem; }
+  /* The cloud stays an overlay here too. In flow it grew the page when a letter
+     opened and shrank it when one closed, so the contents and the links below
+     jumped up and down on every tap. The glass blurs whatever is underneath, so
+     there is nothing to be gained by moving it out of the way. */
   .home > div:nth-of-type(1) { order: 1; }
   .home > div:nth-of-type(2) { order: 3; }
   .home > div:nth-of-type(3) { order: 4; }
@@ -714,8 +716,8 @@ mark { background: color-mix(in srgb, var(--c-ink) 11%, transparent); color: inh
 
 /* ================================================================= images */
 
-.prose img.letter { display: block; max-width: 30rem; margin: 0.5rem 0 1.2rem; }
-.prose img.diagram { display: block; max-width: 24rem; margin: 1rem 0; background: #fff; }
+.prose img.letter { display: block; width: 100%; max-width: 30rem; height: auto; margin: 0.5rem 0 1.2rem; }
+.prose img.diagram { display: block; width: 100%; max-width: 24rem; height: auto; margin: 1rem 0; background: #fff; }
 
 /* ==================================================================== print */
 
