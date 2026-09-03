@@ -35,6 +35,18 @@ jobs:
       # so search covers every word without a second index to keep in sync.
       - run: npm run build
 
+      # Every directive in the content has to reach the page as the markup it
+      # means. A `:::tab` that renders as a plain div still looks like content,
+      # which is how the paradigm tabs stayed broken without anyone noticing.
+      - name: Check the rendered markup
+        run: |
+          sets=$(grep -rho 'class="tabs" data-tabs' dist --include=index.html | wc -l | tr -d ' ')
+          panels=$(grep -rho 'class="tabs__panel"' dist --include=index.html | wc -l | tr -d ' ')
+          stray=$(grep -rhoE 'class="d-[a-z]+"' dist --include=index.html | sort -u | tr '\n' ' ')
+          echo "tab sets: $sets, panels: $panels, unhandled directives: ${stray:-none}"
+          test "$sets" -gt 0 && test "$panels" -ge "$sets" || (echo "::error::tab panels did not render" && exit 1)
+          test -z "$stray" || (echo "::error::a directive reached the page unhandled: $stray" && exit 1)
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

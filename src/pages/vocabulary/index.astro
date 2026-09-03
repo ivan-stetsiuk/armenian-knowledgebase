@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import WordTable from "../../components/WordTable.astro";
-import { words, TOPICS, byArmenian } from "../../lib/vocab";
+import { words, TOPICS, byArmenian, SUFFIXES } from "../../lib/vocab";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const all = words().sort((a, b) => byArmenian(a.hy, b.hy));
@@ -56,7 +56,7 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
     </div>
   </div>
 
-  <script is:inline define:vars={{ total: all.length }}>
+  <script is:inline define:vars={{ total: all.length, SUFFIXES }}>
     const input = document.getElementById("wfilter");
     const count = document.getElementById("wcount");
     const empty = document.getElementById("wempty");
@@ -64,41 +64,65 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
     const tbody = rows[0]?.parentNode;
     const original = rows.slice();
 
+    /* Same rule as the build uses to stem the rows — the suffix list itself is
+       injected, so the two cannot drift apart. */
+    const stemOf = (w) => {
+      const s = w.toLowerCase().trim();
+      for (const suf of SUFFIXES) {
+        if (s.length - suf.length >= 2 && s.endsWith(suf)) return s.slice(0, -suf.length);
+      }
+      return s;
+    };
+
     /* A substring match is not the same as the word you asked for. Coming here
        from the alphabet on the home page, the word clicked has to be the first
        row, not the fourteenth — so matches are ordered by how exactly they
-       answer the query before anything else. */
-    const rank = (row, q) => {
+       answer the query, and words that merely share its root come last. */
+    const rank = (row, q, qs) => {
       const hy = row.dataset.hy || "";
       if (hy === q) return 0;
       if (hy.startsWith(q)) return 1;
-      if (hy.includes(q)) return 2;
+      if (hy.includes(q) || (row.dataset.k || "").includes(q)) return 2;
       return 3;
     };
 
     let timer;
     function apply() {
       const q = input.value.trim().toLowerCase();
+
+      /* Root matching only kicks in for a real word. On two or three letters
+         every stem in the language is a prefix of something and the filter
+         stops filtering. */
+      const qs = q.length >= 4 ? stemOf(q) : "";
+      const kin = qs.length >= 2;
+
       let shown = 0;
+      let related = 0;
       for (const r of rows) {
-        const hit = !q || r.dataset.k.includes(q);
-        r.hidden = !hit;
-        r.classList.remove("is-hit");
-        if (hit) shown++;
+        const direct = !q || r.dataset.k.includes(q);
+        const root = !direct && kin && (r.dataset.stem || "").startsWith(qs);
+        r.hidden = !(direct || root);
+        r.classList.remove("is-hit", "is-kin");
+        if (root) r.classList.add("is-kin");
+        if (direct || root) shown++;
+        if (root) related++;
       }
 
       const frag = document.createDocumentFragment();
       if (q) {
-        const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q) - rank(b, q));
+        const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q, qs) - rank(b, q, qs));
         for (const r of matched) frag.append(r);
         tbody.prepend(frag);
-        if (matched.length && rank(matched[0], q) < 2) matched[0].classList.add("is-hit");
+        if (matched.length && rank(matched[0], q, qs) < 2) matched[0].classList.add("is-hit");
       } else {
         for (const r of original) frag.append(r);
         tbody.append(frag);
       }
 
-      count.textContent = shown === original.length ? String(original.length) : shown + " / " + original.length;
+      count.textContent =
+        shown === original.length
+          ? String(original.length)
+          : shown + " / " + original.length + (related ? " · " + related + " by root" : "");
       empty.hidden = shown !== 0;
     }
 
@@ -146,6 +170,6 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
 
     .filter input:focus { outline: none; border-bottom-color: var(--c-ink); }
     .filter input::placeholder { color: var(--c-grey); }
-    .filter__count { color: var(--c-grey); font-size: var(--label); font-variant-numeric: tabular-nums; }
+    .filter__count { color: var(--c-grey); font-size: var(--label); font-variant-numeric: tabular-nums; white-space: nowrap; }
   </style>
 </Base>

@@ -24,7 +24,9 @@ python3 scripts/check.py                     # repository invariants
 python3 scripts/build_decks.py               # data/*.tsv → dist Anki package
 ```
 
-`scripts/check.py` and `npm run build` both run in CI on every push to `main`.
+`scripts/check.py` and `npm run build` both run in CI on every push to `main`, along with a check that every directive in the content reached the page as the markup it means.
+
+**Editing a remark or rehype plugin?** Delete `node_modules/.astro` first. Astro's content layer caches rendered markdown between builds and does not invalidate it when a plugin changes, so a local build will keep serving the old HTML and a fix will look like it did nothing.
 
 ## Content format
 

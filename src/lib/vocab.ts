@@ -92,6 +92,29 @@ export const TOPICS: [string, string, string][] = [
   ["postposition", "Postpositions", "for, about, with, on, under, near."],
 ];
 
+/* Armenian builds words by piling suffixes on a root: հիշել "to remember" and
+ * հիշեցնել "to remind" share հիշ, but a substring search for one will never find
+ * the other. Stripping the longest ending both words carry gives a stem the
+ * filter can compare, which is what lets a search find a word's relatives.
+ *
+ * Longest first, or -ել would fire before -եցնել and leave two different stems.
+ * The list is deliberately short: these are the endings the lessons actually
+ * teach, and every entry added is another chance to mangle an unrelated word. */
+export const SUFFIXES = [
+  "եցնել", "ացնել", "ցնել", "անալ", "ենալ", "նալ", "ալ", "ել",
+  "ների", "երի", "ներ", "եր",
+  "ից", "ով", "ում", "ին", "ի", "ու", "ը", "ն",
+];
+
+/* A stem shorter than two letters is not a stem, it is a coincidence. */
+export function stem(word: string): string {
+  const w = word.toLowerCase().trim();
+  for (const suf of SUFFIXES) {
+    if (w.length - suf.length >= 2 && w.endsWith(suf)) return w.slice(0, -suf.length);
+  }
+  return w;
+}
+
 /* Armenian alphabetical order. JavaScript's default sort would put every word
  * beginning with a capital letter first, which is not how a dictionary reads. */
 const ARM = "աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտրցուփքևօֆ";

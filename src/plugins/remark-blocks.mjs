@@ -94,6 +94,12 @@ export default function remarkBlocks() {
         return;
       }
 
+      /* A tab is configured by its own tab set, which `visit` reaches first.
+         Without this it falls through to the catch-all below, which overwrites
+         the panel markup with a plain div — the buttons then control nothing
+         and every paradigm renders as one long stack. */
+      if (name === "tab") return;
+
       /* An unknown directive would otherwise render as literal text. */
       if (node.type === "containerDirective") {
         data.hName = "div";

@@ -1,5 +1,6 @@
 ---
 import type { Word } from "../lib/vocab";
+import { stem } from "../lib/vocab";
 
 interface Props {
   words: Word[];
@@ -25,12 +26,12 @@ const key = (w: Word) =>
         <th>Armenian</th>
         <th>English</th>
         <th>In a phrase</th>
-        {showLesson && <th>L</th>}
+        {showLesson && <th class="num">L</th>}
       </tr>
     </thead>
     <tbody>
       {words.map((w) => (
-        <tr data-k={key(w)} data-hy={w.hy.toLowerCase()}>
+        <tr data-k={key(w)} data-hy={w.hy.toLowerCase()} data-stem={stem(w.hy)}>
           <td class="hy">{w.hy}</td>
           <td>
             {w.en}
@@ -77,14 +78,26 @@ const key = (w: Word) =>
 
   /* The row the filter was aiming at, when a word links straight here from the
      alphabet. Marked with a rule rather than a colour: the site has none. */
-  .words tbody tr.is-hit td { background: color-mix(in srgb, var(--c-ink) 6%, transparent); }
-  .words tbody tr.is-hit td:first-child { box-shadow: inset 2px 0 var(--c-ink); }
+  .words tbody tr.is-hit td { background: color-mix(in srgb, var(--c-ink) 7%, transparent); }
+
+  /* Matched through its root rather than its spelling: shown, but marked as the
+     looser answer it is. */
+  .words tbody tr.is-kin td { color: var(--c-ink-2); }
+  .words tbody tr.is-kin .hy::after {
+    content: "·";
+    margin-left: 0.45rem;
+    color: var(--c-grey);
+  }
 
   .words td:last-child, .words th:last-child { padding-right: 0; }
 
   .words .hy { font-family: var(--font-hy); }
   .words .gloss { color: var(--c-grey); }
   .words .note { color: var(--c-grey); font-size: 0.92em; }
+
+  /* The header has to sit over its own column: the lesson numbers are ranged
+     right, so the letter above them is too. */
+  .words thead th.num { text-align: right; }
 
   .words .num {
     font-size: var(--label);

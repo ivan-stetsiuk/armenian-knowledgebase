@@ -23,6 +23,15 @@ export default defineConfig({
     smartypants: false,
     gfm: true,
   },
-  build: { format: "directory" },
+  build: {
+    format: "directory",
+    /* Styles ship inside the page rather than as a hashed file beside it.
+     * GitHub Pages caches HTML for a few minutes, so right after a deploy a
+     * browser can hold a page that points at a stylesheet the new build has
+     * already replaced — the file 404s and the page renders unstyled until a
+     * reload. Inlined, a cached page always carries the styles it was built
+     * with. It costs about 4KB gzipped per page and removes the failure. */
+    inlineStylesheets: "always",
+  },
   devToolbar: { enabled: false },
 });
