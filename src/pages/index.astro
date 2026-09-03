@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import { words } from "../lib/vocab";
+import { words, byArmenian } from "../lib/vocab";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lessons = await getCollection("lessons");
@@ -9,9 +9,31 @@ const grammar = await getCollection("grammar");
 const howto = await getCollection("howto");
 const vocab = words();
 
-/* The 39 letters, in order. The first six lessons are nothing but these, so the
- * alphabet is the contents of the site standing in for a picture of it. */
-const ALPHABET = "Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն Շ Ո Չ Պ Ջ Ռ Ս Վ Տ Ր Ց Ւ Փ Ք Օ Ֆ";
+/* The 38 letters in alphabetical order. The first six lessons are nothing but
+ * these, so the alphabet is the contents of the site standing in for a picture
+ * of it — and clicking a letter shows what has actually been learned under it. */
+const ALPHABET = [..."ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՒՓՔՕՖ"];
+
+/* Words grouped by initial letter. Case-folded, because proper nouns are
+ * capitalised in the corpus and Հայաստան belongs under Հ like everything else. */
+const byLetter = new Map<string, { hy: string; en: string }[]>();
+for (const w of vocab) {
+  const first = w.hy.trim()[0]?.toUpperCase();
+  if (!first) continue;
+  if (!byLetter.has(first)) byLetter.set(first, []);
+  byLetter.get(first)!.push({ hy: w.hy, en: w.en });
+}
+
+/* At most 18 per letter: past that the cloud stops being readable and becomes a
+ * texture. Shortest first — they place well and are the ones most likely to be
+ * recognised at a glance. */
+const cloud: Record<string, { hy: string; en: string }[]> = {};
+for (const letter of ALPHABET) {
+  const list = (byLetter.get(letter) ?? [])
+    .sort((a, b) => a.hy.length - b.hy.length || byArmenian(a.hy, b.hy))
+    .slice(0, 18);
+  if (list.length) cloud[letter] = list;
+}
 
 const sections = [
   { label: "Lessons", href: `${base}/lessons/`, n: lessons.length },
@@ -22,10 +44,25 @@ const sections = [
 ---
 
 <Base title="Armenian Knowledge Base">
-  <div class="shell home">
+  <div class="shell home" id="home">
     <div>
       <span class="label">Alphabet</span>
-      <p class="abc">{ALPHABET}</p>
+      <p class="abc" id="abc">
+        {ALPHABET.map((l) =>
+          cloud[l] ? (
+            <button
+              type="button"
+              class="abc__l"
+              data-l={l}
+              aria-pressed="false"
+              aria-label={`${l}, ${cloud[l].length} words`}
+            >{l}</button>
+          ) : (
+            <span class="abc__l is-empty">{l}</span>
+          )
+        )}
+      </p>
+      <p class="abc__hint" id="abc-hint">Tap a letter</p>
     </div>
 
     <div>
@@ -46,5 +83,150 @@ const sections = [
         <a href="https://github.com/ivan-stetsiuk/armenian-knowledgebase/raw/main/decks/armenian.apkg">Anki deck</a>
       </div>
     </div>
+
+    <div class="cloud" id="cloud" aria-live="polite"></div>
   </div>
+
+  <script is:inline define:vars={{ cloud, base }}>
+    const home = document.getElementById("home");
+    const layer = document.getElementById("cloud");
+    const hint = document.getElementById("abc-hint");
+    const letters = [...document.querySelectorAll(".abc__l[data-l]")];
+    let active = null;
+
+    /* Deterministic jitter: one letter always draws the same cloud, so the page
+       does not reshuffle itself every time you come back to it. */
+    const rnd = (seed) => {
+      let x = seed * 9301 + 49297;
+      return () => ((x = (x * 9301 + 49297) % 233280) / 233280);
+    };
+
+    function clear() {
+      layer.replaceChildren();
+      layer.classList.remove("is-on");
+      home.classList.remove("is-focused");
+      for (const b of letters) {
+        b.classList.remove("is-on");
+        b.setAttribute("aria-pressed", "false");
+      }
+      hint.textContent = "Tap a letter";
+      active = null;
+    }
+
+    function show(btn) {
+      const letter = btn.dataset.l;
+      const list = cloud[letter] || [];
+      clear();
+      active = letter;
+
+      btn.classList.add("is-on");
+      btn.setAttribute("aria-pressed", "true");
+      home.classList.add("is-focused");
+      hint.textContent = letter + " · " + list.length + (list.length === 1 ? " word" : " words");
+
+      const box = layer.getBoundingClientRect();
+      const b = btn.getBoundingClientRect();
+      const cx = b.left - box.left + b.width / 2;
+      const cy = b.top - box.top + b.height / 2;
+      const next = rnd(letter.codePointAt(0));
+
+      /* Rings around the letter: the radius grows with the ring so later words
+         land further out, and the angle is jittered so it never reads as a dial.
+         The horizontal radius is stretched, because the page is wider than it is
+         tall and a word is wider than it is high. */
+      const perRing = 6;
+      const items = list.map((w, i) => {
+        const ring = Math.floor(i / perRing);
+        const angle =
+          ((i % perRing) / perRing) * Math.PI * 2 + ring * 0.8 + (next() - 0.5) * 0.5;
+        const radius = 104 + ring * 86 + next() * 44;
+
+        const a = document.createElement("a");
+        a.className = "cloud__w hy";
+        a.href = base + "/vocabulary/?q=" + encodeURIComponent(w.hy);
+        a.textContent = w.hy;
+        a.title = w.en;
+        a.style.fontSize = 0.95 + next() * 0.5 + "rem";
+        a.style.transitionDelay = i * 22 + "ms";
+        layer.append(a);
+
+        return { el: a, x: cx + Math.cos(angle) * radius * 1.7, y: cy + Math.sin(angle) * radius };
+      });
+
+      /* Each word is centred on its coordinates, so it can only be kept inside
+         the layer once its own width is known — which is why the measuring pass
+         happens after they are all in the DOM. One layout, then arithmetic. */
+      const PAD = 6;
+      for (const m of items) {
+        m.w = m.el.offsetWidth;
+        m.h = m.el.offsetHeight;
+      }
+
+      const clamp = (m) => {
+        m.x = Math.max(m.w / 2 + PAD, Math.min(box.width - m.w / 2 - PAD, m.x));
+        m.y = Math.max(m.h / 2 + PAD, Math.min(box.height - m.h / 2 - PAD, m.y));
+      };
+      items.forEach(clamp);
+
+      /* Push overlapping pairs apart along whichever axis they overlap least,
+         then re-clamp. Sixty passes is far more than this ever needs and still
+         costs nothing: it is arithmetic on at most 18 boxes. */
+      for (let pass = 0; pass < 60; pass++) {
+        let moved = false;
+        for (let i = 0; i < items.length; i++) {
+          for (let j = i + 1; j < items.length; j++) {
+            const a = items[i];
+            const c = items[j];
+            const dx = c.x - a.x;
+            const dy = c.y - a.y;
+            const ox = (a.w + c.w) / 2 + 16 - Math.abs(dx);
+            const oy = (a.h + c.h) / 2 + 6 - Math.abs(dy);
+            if (ox <= 0 || oy <= 0) continue;
+            moved = true;
+            if (oy < ox) {
+              const s = ((dy >= 0 ? 1 : -1) * oy) / 2;
+              a.y -= s;
+              c.y += s;
+            } else {
+              const s = ((dx >= 0 ? 1 : -1) * ox) / 2;
+              a.x -= s;
+              c.x += s;
+            }
+          }
+        }
+        if (!moved) break;
+        items.forEach(clamp);
+      }
+
+      for (const m of items) {
+        m.el.style.left = m.x + "px";
+        m.el.style.top = m.y + "px";
+      }
+
+      requestAnimationFrame(() => layer.classList.add("is-on"));
+    }
+
+    for (const btn of letters) {
+      btn.addEventListener("click", () => (active === btn.dataset.l ? clear() : show(btn)));
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && active) clear();
+    });
+
+    home.addEventListener("click", (e) => {
+      if (active && !e.target.closest(".abc__l") && !e.target.closest(".cloud__w")) clear();
+    });
+
+    /* A resized window would leave the words pointing at the wrong letter. */
+    let t;
+    addEventListener("resize", () => {
+      if (!active) return;
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const btn = letters.find((b) => b.dataset.l === active);
+        if (btn) show(btn);
+      }, 150);
+    });
+  </script>
 </Base>

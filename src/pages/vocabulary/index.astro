@@ -75,11 +75,14 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
       }, 90);
     });
 
-    /* A lesson page links here with ?lesson=7. */
-    const wanted = new URLSearchParams(location.search).get("lesson");
+    /* A lesson page links here with ?lesson=7, the alphabet on the home page
+       with ?q=<word>. Both just prefill the filter. */
+    const params = new URLSearchParams(location.search);
+    const wanted = params.get("q") ?? params.get("lesson");
     if (wanted && input) {
       input.value = wanted;
       input.dispatchEvent(new Event("input"));
+      input.focus();
     }
   </script>
 

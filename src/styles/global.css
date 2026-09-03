@@ -24,6 +24,7 @@
   --c-paper: #ffffff;
   --c-line: #e6e6e6;
   --c-accent: #b8501f;
+  --c-aura: #ff7a1a;   /* the warm halo under a selected letter */
 
   /* Signal colours for the three block types. Desaturated on purpose: on a
    * white page a saturated left rule reads as a warning, not as a category. */
@@ -46,6 +47,7 @@
   --c-paper: #000000;
   --c-line: #242424;
   --c-accent: #e5875c;
+  --c-aura: #ff9a3d;
 
   --c-rule: #7aa9d8;
   --c-vocab: #6cb489;
@@ -183,24 +185,98 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 /* ================================================================ home */
 
 .home {
+  position: relative;
+  /* Room for the word cloud. Without it the layer is only as tall as the
+     alphabet block and the words have nowhere to go but on top of each other. */
+  min-height: 60vh;
   display: grid;
+  align-content: start;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 0.7fr);
   gap: 0 clamp(2rem, 6vw, 7rem);
   padding-block: clamp(3rem, 9vh, 7rem) 6rem;
 }
 
 /* The alphabet is the subject of the first six lessons, so it is content rather
- * than ornament — and it is the one thing that makes the page unmistakably
- * Armenian before a word is read. */
+ * than ornament. Each letter is a button: pressing one lights it and scatters
+ * the words that begin with it across the page. */
 .abc {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 0.45rem;
+  margin: 0;
+  max-width: 26rem;
+}
+
+.abc__l {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0.05em 0.12em;
   font-family: var(--font-hy);
   font-size: clamp(1.7rem, 3vw, 2.6rem);
-  line-height: 1.45;
-  letter-spacing: 0.02em;
-  word-spacing: 0.28em;
-  margin: 0;
+  line-height: 1.4;
+  color: var(--c-ink);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color .18s ease, text-shadow .28s ease, transform .18s ease;
+}
+
+.abc__l.is-empty { color: var(--c-grey); cursor: default; opacity: 0.45; }
+
+.abc__l[data-l]:hover { color: var(--c-aura); }
+
+/* The aura. Three stacked shadows read as one soft bloom rather than a ring,
+ * and the letter itself stays legible because only its colour warms up. */
+.abc__l.is-on {
+  color: var(--c-aura);
+  transform: scale(1.06);
+  text-shadow:
+    0 0 10px color-mix(in srgb, var(--c-aura) 85%, transparent),
+    0 0 28px color-mix(in srgb, var(--c-aura) 60%, transparent),
+    0 0 62px color-mix(in srgb, var(--c-aura) 40%, transparent),
+    0 0 120px color-mix(in srgb, var(--c-aura) 25%, transparent);
+}
+
+.abc__hint {
+  position: relative;
+  z-index: 2;
+  margin: 1.1rem 0 0;
+  font-size: var(--label);
   color: var(--c-grey);
 }
+
+/* The word cloud sits over the whole home grid, so words can use the empty
+ * space to the right instead of being trapped in the alphabet column. */
+.cloud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cloud__w {
+  position: absolute;
+  pointer-events: auto;
+  color: var(--c-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.94);
+  transition: opacity .38s ease, transform .38s cubic-bezier(.2, .7, .3, 1), color .15s ease;
+}
+
+.cloud.is-on .cloud__w { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.cloud__w:hover { color: var(--c-aura); }
+
+/* While a letter is open the other two columns step back, so the cloud has the
+ * page to itself without anything being hidden. */
+.home.is-focused .stack,
+.home.is-focused .links,
+.home.is-focused .label { opacity: .28; transition: opacity .3s ease; }
+.home.is-focused .abc + .abc__hint,
+.home.is-focused > div:first-child .label { opacity: 1; }
 
 .stack { display: flex; flex-direction: column; gap: 0.1rem; }
 
@@ -230,6 +306,10 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 
 @media (max-width: 60rem) {
   .home { grid-template-columns: 1fr; gap: 3.5rem; padding-block-start: 2.5rem; }
+  .cloud { display: none; }
+  .home.is-focused .stack,
+  .home.is-focused .links,
+  .home.is-focused .label { opacity: 1; }
 }
 
 /* ================================================================== layout */
