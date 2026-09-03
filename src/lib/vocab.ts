@@ -49,17 +49,6 @@ export function grammarCards() {
   return readTsv("grammar.tsv");
 }
 
-/* A flag is decoration, not linguistic data, so it lives here and never in the
- * TSV — on an Anki card it would give the answer away. */
-export const FLAGS: Record<string, string> = {
-  "Հայաստան": "🇦🇲", "Թուրքիա": "🇹🇷", "Հունաստան": "🇬🇷", "Հնդկաստան": "🇮🇳",
-  "Պարսկաստան / Իրան": "🇮🇷", "Իրան": "🇮🇷", "Չինաստան": "🇨🇳", "Վրաստան": "🇬🇪",
-  "Ռուսաստան": "🇷🇺", "Ամերիկա / ԱՄՆ": "🇺🇸", "ԱՄՆ": "🇺🇸", "Անգլիա": "🇬🇧",
-  "Ֆրանսիա": "🇫🇷", "Սիրիա": "🇸🇾", "Կանադա": "🇨🇦", "Ճապոնիա": "🇯🇵",
-  "Իտալիա": "🇮🇹", "Իսպանիա": "🇪🇸", "Շվեդիա": "🇸🇪", "Պորտուգալիա": "🇵🇹",
-  "Բրազիլիա": "🇧🇷", "Կորեա": "🇰🇷", "Ադրբեջան": "🇦🇿", "Գերմանիա": "🇩🇪",
-};
-
 export const PARTS_OF_SPEECH = [
   "noun", "verb", "adjective", "adverb", "pronoun", "numeral",
   "postposition", "conjunction", "question", "phrase", "other",

@@ -234,8 +234,8 @@ This transitory ը is also why words like նկար and հրաշք count as more 
 
 :::pitfall{title="Recorded in lessons 3 and 4"}
 
-<span class="ok">✓ դ and բ are different letters; so are մ and ն</span>
-<span class="bad">✗ mixing դ–բ and մ–ն in handwriting (դ – բ / մ–ն խառնում ա)</span>
+<span class="ok">դ and բ are different letters; so are մ and ն</span>
+<span class="bad">mixing դ–բ and մ–ն in handwriting (դ – բ / մ–ն խառնում ա)</span>
 
 Slow down on the round letters: դ has an open bottom, բ a closed loop; ն is one arch, մ has the extra stroke.
 :::

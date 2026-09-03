@@ -1,6 +1,5 @@
 ---
 import type { Word } from "../lib/vocab";
-import { FLAGS } from "../lib/vocab";
 
 interface Props {
   words: Word[];
@@ -34,7 +33,6 @@ const key = (w: Word) =>
         <tr data-k={key(w)} data-hy={w.hy.toLowerCase()}>
           <td class="hy">{w.hy}</td>
           <td>
-            {FLAGS[w.hy] && <span class="flag">{FLAGS[w.hy]}</span>}
             {w.en}
             {w.note && <em class="note"> {w.note}</em>}
           </td>
@@ -80,7 +78,6 @@ const key = (w: Word) =>
   .words .hy { font-family: var(--font-hy); }
   .words .gloss { color: var(--c-grey); }
   .words .note { color: var(--c-grey); font-size: 0.92em; }
-  .words .flag { margin-right: 0.3rem; }
 
   .words .num {
     font-size: var(--label);
