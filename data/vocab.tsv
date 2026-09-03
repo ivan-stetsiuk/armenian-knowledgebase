@@ -1,0 +1,983 @@
+id	hy	en	phrase_hy	phrase_en	lesson	tags	note
+v0001	ճաշ	meal, lunch			1	noun,food,letters	lit. meal
+v0002	ճաշել	to have lunch			1	verb,food,letters	
+v0003	ճաշասենյակ	dining room			1	noun,home,letters	
+v0004	ճանապարհ	road, way			1	noun,city,travel,letters	
+v0005	ճանապարհորդել	to travel			1	verb,travel,letters	
+v0006	հաճելի	pleasant			1	adjective,letters	
+v0007	հաճախ	often			1	adverb,time,letters	
+v0008	ճամպրուկ	suitcase			1	noun,travel,letters	
+v0009	օճառ	soap			1	noun,home,letters	
+v0010	սուրճ	coffee	Մենք սուրճ էինք խմում։	We were drinking coffee.	1	noun,drinks,letters	
+v0011	սրճարան	café	Սրճարան / Սրճարանից	to the café / from the café	1	noun,city,letters	pron. սըրճարան
+v0012	ճիշտ	right, correct			1	adjective,letters	
+v0013	կարճ	short			1	adjective,letters	
+v0014	ճակատ	forehead			1	noun,face,letters	
+v0015	ճակատագիր	destiny, fate			1	noun,abstract,letters	
+v0016	զրո	zero			1	numeral,numbers,letters	
+v0017	զուգարան	toilet			1	noun,home,letters	pron. զուքարան
+v0018	զգեստ	dress	Զգեստդ գեղեցիկ է, որտեղի՞ց ես գնել։	Your dress is beautiful, where did you buy it?	1	noun,clothes,letters,from-exercise	
+v0019	զարթուցիչ	alarm clock			1	noun,home,letters	
+v0020	հազար	thousand			1	numeral,numbers,letters	
+v0021	գազար	carrot			1	noun,food,letters	
+v0022	բազմոց	sofa			1	noun,furniture,letters,home	
+v0023	բազկաթոռ	armchair			1	noun,furniture,letters,home	
+v0024	զարմանալ	to be surprised			1	verb,feelings,letters	
+v0025	զգալ	to feel			1	verb,feelings,letters,from-exercise	
+v0026	երազ	dream			1	noun,abstract,letters	
+v0027	երազել	to dream			1	verb,letters	
+v0028	զանգ	bell			1	noun,letters	
+v0029	զանգել	to phone, to call	Երեկոյան կզանգեմ, կզրուցենք։	I will call in the evening, we will talk.	1	verb,letters	
+v0030	զրուցել	to talk, to converse			1	verb,letters	
+v0031	ձու	egg			1	noun,food,letters	
+v0032	ձեթ	oil			1	noun,food,letters	
+v0033	ձուկ	fish			1	noun,food,nature,letters	pl. ձկներ
+v0034	ձայն	voice			1	noun,letters,from-exercise	
+v0035	ձյուն	snow	Ձյուն գալիս է։	It is snowing.	1	noun,weather,letters	spoken: Ձյուն գալիս ա
+v0036	ձմեռ	winter	Ձմռանը	in winter	1	noun,seasons,letters	
+v0037	ձեռք	hand			1	noun,body,letters	
+v0038	ձեռնոց	glove	Գիտե՞ս որտեղ է իմ ձեռնոցը։	Do you know where my glove is?	1	noun,clothes,letters	
+v0039	ձեռագիր	handwriting			1	noun,letters	
+v0040	ձմերուկ	watermelon			1	noun,food,letters	
+v0041	բարձր	high			1	adjective,letters	pron. բարցր
+v0042	բարձ	pillow			1	noun,home,letters,furniture	pron. բարց
+v0043	դեղձ	peach			1	noun,food,letters	
+v0044	տանձ	pear			1	noun,food,letters	
+v0045	խնձոր	apple			1	noun,food,letters	
+v0046	սոված	hungry	Սոված եմ	I am hungry	1	adjective,feelings	
+v0047	կուշտ	full (not hungry)	Կուշտ եմ	I am full	1	adjective,feelings	
+v0048	հոգնած	tired	Հոգնած եմ	I am tired	1	adjective,feelings,letters	pron. հոքնած
+v0049	ուրախ	glad	Ես ուրախ եմ։	I am glad.	1	adjective,feelings	
+v0050	այո / հա	yes (formal / informal)			1	other,colloquial	
+v0051	ոչ / չէ	no (formal / informal)			1	other,colloquial	
+v0052	բայց	but			1	conjunction,letters	
+v0053	Բարև ձեզ	Hello!			1	phrase,greetings	
+v0054	Ողջույն	Hi!			1	other,greetings	
+v0055	Բարի լույս	Good morning!			1	phrase,greetings	
+v0056	Բարի օր	Good afternoon!			1	phrase,greetings	
+v0057	Բարի երեկո	Good evening!			1	phrase,greetings	
+v0058	Բարի գիշեր	Good night!			1	phrase,greetings	
+v0059	Բարի ճանապարհ	Have a good journey!			1	phrase,greetings,travel	
+v0060	Բարի ախորժակ	Enjoy your meal! Bon appétit!			1	phrase,greetings,food	
+v0061	Անուշ / Անուշ լինի	Enjoy! (said about food)			1	phrase,greetings,food	
+v0062	Բարի գալուստ	Welcome!			1	phrase,greetings	
+v0063	Ցտեսություն	Goodbye!			1	other,greetings	pron. ցըտեսություն
+v0064	Հաջողություն / Հաջող	So long! Good luck!			1	other,greetings	formal alternative to goodbye; Հաջող is the short form
+v0065	Կհանդիպենք	See you soon!			1	other,greetings	lit. we will meet: հանդիպել — to meet, կ- — will
+v0066	Մինչ վաղը	See you tomorrow!			1	phrase,greetings	lit. until tomorrow
+v0067	Արի ծանոթանանք	Let's get acquainted			1	phrase,greetings	
+v0068	Ի՞նչ է քո անունը / Անունդ ի՞նչ է	What's your name?			1	phrase,greetings	
+v0069	Իմ անունը … է / Անունս … է	My name is …			1	phrase,greetings	
+v0070	Իսկ ի՞նչ է քո անունը	And what is your name?			1	phrase,greetings	
+v0071	Որտեղի՞ց ես / եք	Where are you from?			1	phrase,greetings	
+v0072	Ես … -ից եմ	I'm from …	Ես Վրաստանից եմ։	I am from Georgia.	1	phrase,greetings	-ից — from
+v0073	Քանի՞ տարեկան ես	How old are you?			1	phrase,greetings	
+v0074	Ես քսանհինգ տարեկան եմ	I am twenty-five years old.			1	phrase,greetings	
+v0075	անուն	name			1	noun,people,letters	
+v0076	ազգանուն	surname			1	noun,people	
+v0077	իսկ	and, but			1	conjunction	
+v0078	տարեկան	years old			1	other,numbers	
+v0079	քսանհինգ	twenty-five			1	numeral,numbers	
+v0080	Վրաստան	Georgia			1	noun,countries	
+v0081	Ռուսաստան	Russia	Ես Ռուսաստանից եմ։	I am from Russia.	1	noun,countries	
+v0082	ԱՄՆ	USA (Ամերիկայի Միացյալ Նահանգներ)	ԱՄՆ-ից եմ։	I am from the USA.	1	noun,countries	
+v0083	գալ	to come	Դու գալի՞ս ես տուն։	Are you coming home?	2	verb,letters	
+v0084	գնալ	to go	Ես գնում եմ տուն։	I am going home.	2	verb,letters	cf. գնել — to buy
+v0085	գրել	to write			2	verb,letters,school	
+v0086	գնել	to buy			2	verb,letters	
+v0087	երգ	song			2	noun,letters	
+v0088	երգել	to sing	Դու սիրո՞ւմ ես երգել։	Do you like to sing?	2	verb,letters	pron. երքել
+v0089	կանգնել	to stand, to stop			2	verb,letters	
+v0090	գարուն	spring	Գարնանը	in spring	2	noun,seasons,letters	
+v0091	գարի	barley			2	noun,food,letters	
+v0092	գրադարան	library	Նա գնում է գրադարան, իսկ դո՞ւ։	He/she is going to the library, and you?	2	noun,city,letters	
+v0093	միրգ	fruit			2	noun,food,letters	pl. մրգեր
+v0094	կարագ	butter	Ես սիրում եմ ուտել մրգեր ու կարագ։	I like to eat fruit and butter.	2	noun,food,letters	
+v0095	ծառ	tree			2	noun,nature,letters	pl. ծառեր
+v0096	ծեր	old (for people)			2	adjective,people,letters	
+v0097	մեծ	big			2	adjective,letters	
+v0098	ծույլ	lazy			2	adjective,letters	
+v0099	ցածր	low			2	adjective,letters	
+v0100	ծիրան	apricot			2	noun,food,letters	
+v0101	ծաղիկ	flower			2	noun,nature,letters	pl. ծաղիկներ
+v0102	ծնվել	to be born			2	verb,letters	
+v0103	ծիծաղել	to laugh			2	verb,feelings,letters	
+v0104	ծխել	to smoke			2	verb,letters	
+v0105	ծանոթանալ	to get acquainted			2	verb,people,letters	
+v0106	ծամել	to chew			2	verb,food,letters	
+v0107	ծարավ	thirsty	Ծարավ եմ	I am thirsty	2	adjective,feelings,letters	
+v0108	զբաղված	busy	Զբաղված եմ	I am busy	2	adjective,feelings,letters	
+v0109	ամուսնացած	married	Նա ամուսնացած է ու ունի երկու մեծ տուն։	He/she is married and has two big houses.	2	adjective,people,letters	
+v0110	Ծնունդդ շնորհավոր	Happy birthday!			2	phrase,greetings,letters	
+v0111	Ֆրանսիա	France	Քո ընկերները հիմա Ֆրանսիայում են։	Your friends are in France now.	2	noun,countries,letters	
+v0112	ֆիզիկա	physics	Այսօր նրանք ֆիզիկայի դաս չունեն։	Today they have no physics lesson.	2	noun,school,letters	
+v0113	ֆուտբոլ	football	Դու սիրում ես ֆուտբո՞լ խաղալ, թե՞ թենիս։	Do you like to play football, or tennis?	2	noun,letters	
+v0114	ֆուտբոլասեր	football fan			2	noun,people,letters	
+v0115	ունենալ	to have	Ես ունեմ։ Ես չունեմ։	I have. I don't have.	2	verb	
+v0116	գիտենալ	to know	Գիտե՞ս իմ անունը։	Do you know my name?	2	verb	
+v0117	հայերեն	Armenian (language)	Դու հայերեն գիտե՞ս։	Do you know Armenian?	2	noun,languages	
+v0118	անգլերեն	English (language)			2	noun,languages	
+v0119	ռուսերեն	Russian (language)			2	noun,languages	
+v0120	գերմաներեն	German (language)			2	noun,languages	
+v0121	իտալերեն	Italian (language)			2	noun,languages	
+v0122	թույն	cool			3	adjective,colloquial	
+v0123	պատրաստ	ready	Պատրա՞ստ ես։	Are you ready?	3	adjective	
+v0124	ընտանիք	family			3	noun,family	
+v0125	ընտանիքի անդամ	family member			3	phrase,family	pron. անթամ
+v0126	մայր / մայրիկ	mother			3	noun,family	
+v0127	հայր / հայրիկ	father			3	noun,family	
+v0128	քույր / քույրիկ	sister			3	noun,family	
+v0129	եղբայր / ախպեր	brother			3	noun,family	pron. եղպայր; ախպեր is spoken
+v0130	որդի	son			3	noun,family	pron. որթի; gen. որդու
+v0131	դուստր	daughter			3	noun,family	gen. դստեր
+v0132	տատ / տատիկ	grandmother			3	noun,family	
+v0133	պապ / պապիկ	grandfather			3	noun,family	
+v0134	թոռ / թոռնիկ	grandchild			3	noun,family	
+v0135	զարմիկ / զարմուհի	cousin (male / female)			3	noun,family	
+v0136	ընկեր	friend	Ես ունեմ երկու ընկեր։	I have two friends.	3	noun,people,letters	
+v0137	աղջիկ	girl			3	noun,people	
+v0138	տղա	boy			3	noun,people	
+v0139	իմ	my	իմ անունը	my name	3	pronoun,letters	
+v0140	քո	your (singular)	քո քույրը	your sister	3	pronoun	
+v0141	նրա / իր	his, her, its	նրա ազգանունը	his surname	3	pronoun	for նա / ինքը; spoken իրա
+v0142	մեր	our	մեր որդին	our son	3	pronoun,letters	
+v0143	ձեր	your (plural, polite)	ձեր տատիկը	your grandmother	3	pronoun	
+v0144	նրանց / իրենց	their	նրանց եղբայրը	their brother	3	pronoun	for նրանք / իրենք; spoken իրանց
+v0145	ես	I			3	pronoun,letters	
+v0146	երկիր	country	Մեր երկիրը Իրանն է։	Our country is Iran.	3	noun,countries,letters	pl. երկրներ
+v0147	երկու	two			3	numeral,numbers,letters	
+v0148	երեսուն	thirty			3	numeral,numbers,letters	
+v0149	երեկ	yesterday	Ի՞նչ օր էր երեկ	What day was it yesterday?	3	adverb,time,letters	
+v0150	երես	face			3	noun,face,letters	
+v0151	սեր	love			3	noun,feelings,letters	gen. սիրո
+v0152	կես	half	Ժամը մեկ անց կես է	It is half past one	3	noun,numbers,letters,time	
+v0153	տե՛ս	see! (imperative)			3	verb,letters	
+v0154	Կարեն	Karen (male name)			3	noun,people,letters	
+v0155	մատիտ	pencil	Սա ո՞ւմ մատիտն է։ Սա իմ մատիտն է։	Whose pencil is this? This is my pencil.	3	noun,school	
+v0156	մատ	finger	Ես ունեմ տասը մատ։	I have ten fingers.	3	noun,body	pl. մատներ
+v0157	գլուխ	head			3	noun,body,letters,face	
+v0158	գլխարկ	hat			3	noun,clothes,letters,from-exercise	pron. գըլխարկ
+v0159	խանութ	store			3	noun,city,letters	
+v0160	հեռախոս	phone	Դու շատ երկար ես խոսում հեռախոսով։	You talk on the phone for a very long time.	3	noun,letters,from-exercise	
+v0161	խաղալ	to play	խաղալու	(in order) to play	3	verb,letters	
+v0162	խմել	to drink	Նրանք խմում են կաթով թեյ ու խոսում անգլերեն։	They drink tea with milk and speak English.	3	verb,drinks,letters	
+v0163	խոսել	to speak	Ես խոսում եմ հայերեն։	I speak Armenian.	3	verb,letters	
+v0164	խնդրել	to ask for			3	verb,letters	
+v0165	մութ	dark	Մի՛ խաղա, հիմա շատ մութ է։	Don't play, it is very dark now.	3	adjective,weather	
+v0166	հայ	Armenian (person)	Դու հա՞յ ես։	Are you Armenian?	3	noun,people,countries,letters	
+v0167	հույն	Greek (person)			3	noun,people,countries,letters	
+v0168	հետ	with	քեզ հետ	with you	3	postposition,letters	
+v0169	հնդիկ	Indian (person)	Չէ, ես հնդիկ եմ։	No, I am Indian.	3	noun,people,countries,letters	
+v0170	հարկ	floor (storey)	Ո՞ր հարկում է ապրում քո ընկերը	What floor does your friend live on?	3	noun,home,letters	
+v0171	հանել	to take off			3	verb,clothes,letters	
+v0172	հարգել	to respect			3	verb,letters	
+v0173	հավաքել	to collect, to gather			3	verb,letters	
+v0174	հավանել	to like			3	verb,feelings,letters	
+v0175	հավասար	equal			3	adjective,letters	
+v0176	համալսարան	university	Աննան գնում է համալսարան։	Anna goes to university.	3	noun,school,city,letters	
+v0177	բարդ	complex, complicated			4	adjective	pron. բարթ
+v0178	քաղաք	city			4	noun,city	
+v0179	գյուղ	village			4	noun,city	
+v0180	հասցե	address			4	noun,city,home	
+v0181	փողոց	street			4	noun,city	
+v0182	շենք	building			4	noun,city	
+v0183	բնակարան	apartment, flat			4	noun,home	
+v0184	սենյակ	room			4	noun,home,letters	
+v0185	ննջասենյակ	bedroom			4	noun,home	
+v0186	ննջել	to take a nap			4	verb,home	
+v0187	հյուրասենյակ	living room			4	noun,home	
+v0188	հյուր	guest			4	noun,people,home,letters	
+v0189	խոհանոց	kitchen			4	noun,home	
+v0190	առաստաղ	ceiling			4	noun,home	
+v0191	հատակ	floor (пол)			4	noun,home	
+v0192	պատ	wall			4	noun,home	
+v0193	պատուհան / լուսամուտ	window			4	noun,home	
+v0194	միջանցք	corridor			4	noun,home	
+v0195	բաղնիք	bathroom			4	noun,home	
+v0196	դու	you (singular)			4	pronoun,letters	
+v0197	դա	that	Ի՞նչ է դա։ Դա լուսանկար է։	What is that? That is a photograph.	4	pronoun,letters	
+v0198	դաս	lesson	Դասի / Դասից	to class / from class	4	noun,school,letters	
+v0199	դանակ	knife			4	noun,home,food,letters	
+v0200	դարակ	shelf	Դարակում կարմիր մատիտներ կան։	There are red pencils on the shelf.	4	noun,furniture,letters	
+v0201	մարդ	man, person			4	noun,people,letters	pron. մարթ
+v0202	սարդ	spider	Սա սարդ է։	This is a spider.	4	noun,nature,letters	
+v0203	դար	century			4	noun,time,letters	
+v0204	դի՛ր	put it! (imperative)			4	verb,letters	
+v0205	դուրս	outside			4	adverb,letters	
+v0206	կարդալ	to read	Ես կարդում եմ։	I read / I am reading.	4	verb,school,letters	pron. կարթալ, կարթում
+v0207	բակ	yard			4	noun,home,letters	
+v0208	բանալի	key			4	noun,home,letters	
+v0209	բարեկամ	relative			4	noun,family,letters	
+v0210	բերան	mouth			4	noun,face,letters	
+v0211	եղբայր	brother			4	noun,family,letters	
+v0212	բարի	kind			4	adjective,people,letters,feelings	
+v0213	բնական	natural			4	adjective,letters	
+v0214	բարակ	thin			4	adjective,letters	
+v0215	թաց	wet			4	adjective,letters	
+v0216	բաց	open	բաց կանաչ	light green	4	adjective,letters,colours	
+v0217	բացել	to open	Խնդրում եմ, բացի՛ր դուռը։	Please open the door.	4	verb,letters,from-exercise	
+v0218	բացատրել	to explain	Բացատրի՛ր, ո՞վ է այն կինը։	Explain, who is that woman?	4	verb,letters	
+v0219	բերել	to bring			4	verb,letters	
+v0220	բոլոր	all			4	pronoun,letters	
+v0221	բառ	word			4	noun,school,letters	
+v0222	բառարան	dictionary	Գիտե՞ս որտեղ է իմ հայերեն-անգլերեն բառարանը։	Do you know where my Armenian-English dictionary is?	4	noun,school,letters	
+v0223	կա	there is			5	other	
+v0224	կան	there are	Կան շատ հյուրեր իմ հյուրասենյակում։	There are many guests in my living room.	5	other	
+v0225	անել	to do	Ի՞նչ ես անում։	What are you doing? What do you do?	5	verb	
+v0226	ուզել	to want			5	verb	
+v0227	հասկանալ	to understand			5	verb,abstract	
+v0228	միշտ	always	Մենք միշտ խոսում ենք հայերեն։	We always speak Armenian.	5	adverb,time	
+v0229	սովորաբար	usually	Նրանք սովորաբար չեն խոսում հայերեն։	They usually don't speak Armenian.	5	adverb,time	
+v0230	երբեք	never	Նա երբեք չի խոսում հայերեն։	He/she never speaks Armenian.	5	adverb,time	pron. երփեք
+v0231	երբեմն / մեկ-մեկ	sometimes			5	adverb,time	pron. երփեմըն
+v0232	նա	she, he			5	pronoun,letters	
+v0233	Աննա	Anna (female name)			5	noun,people,letters	
+v0234	սանր	comb	Սա իմ սանրն է, իսկ սա Արուսի սանրն է։	This is my comb, and this is Arus's comb.	5	noun,home,letters	
+v0235	նույն	same			5	adjective,letters	
+v0236	նման	similar, like			5	adjective,letters	
+v0237	նուշ	almond			5	noun,food,letters	
+v0238	նշան	sign			5	noun,letters	
+v0239	նվեր	gift			5	noun,letters,from-exercise	
+v0240	նկար	picture	Սա իմ նկարն է, իսկ սա Արամի նկարն է։	This is my picture, and this is Aram's picture.	5	noun,letters	pl. նկարներ
+v0241	նկարագրություն	description			5	noun,abstract,letters	
+v0242	նաև	also			5	adverb,letters	
+v0243	ամիս	month	Այսօր ամսի քանի՞սն է։	What is the date today?	5	noun,calendar,time,letters	gen. ամսի
+v0244	միս	meat			5	noun,food,letters	
+v0245	մարմին	body			5	noun,body,letters	
+v0246	Արամ	Aram (male name)			5	noun,people,letters	
+v0247	Արման	Arman (male name)			5	noun,people,letters	
+v0248	Իրան	Iran	Իրանում կարմիր սունկ կա։	In Iran there is a red mushroom.	5	noun,countries,letters	Իրանում — in Iran
+v0249	կարմիր	red	մեծ կարմիր պայուսակ	big red bag	5	adjective,colours,letters	
+v0250	մասին	about	Իմ մասին · Արամի մասին · Իրանի մասին	about me · about Aram · about Iran	5	postposition,letters	
+v0251	մարդամոտ	sociable			5	adjective,people,letters	
+v0252	մարդասպան	murderer			5	noun,people,letters	
+v0253	մանկություն	childhood			5	noun,abstract,letters	
+v0254	մաղթանք	wish, blessing			5	noun,abstract,letters	
+v0255	մկրատ	scissors			5	noun,home,letters	
+v0256	մուկ	mouse			5	noun,nature,letters	pl. մկներ
+v0257	տուն	home, house	Ես տանն եմ։	I am at home.	6	noun,home,city	տանը — at home
+v0258	տանել	to take			6	verb	
+v0259	որովհետև	because			6	conjunction	
+v0260	երիտասարդ	young	Նրանք երիտասարդ են։	They are young.	6	adjective,people	
+v0261	յասաման	lilac			6	noun,nature,letters	
+v0262	հայր	father			6	noun,family,letters	
+v0263	մայր	mother			6	noun,family,letters	
+v0264	քույր	sister			6	noun,family,letters	
+v0265	հարյուր	hundred			6	numeral,numbers,letters	
+v0266	հայելի	mirror			6	noun,home,letters,furniture	
+v0267	գույն	colour			6	noun,colours,letters	
+v0268	կապույտ	blue			6	adjective,colours,letters	
+v0269	այո	yes			6	other,letters	
+v0270	այս	this	Այս գիրքը / Այս գրքերը	this book / these books	6	pronoun,letters	
+v0271	այդ	that			6	pronoun,letters	
+v0272	այն	that one over there			6	pronoun,letters	
+v0273	մյուս	other			6	adjective,letters	
+v0274	այսօր	today			6	adverb,time,letters	
+v0275	այստեղ	here			6	adverb,letters	spoken ստեղ
+v0276	այսպես	like this, this way			6	adverb,letters	spoken սենց
+v0277	լույս	light			6	noun,letters	
+v0278	Հայաստան	Armenia			6	noun,countries	
+v0279	հայկական	Armenian (adjective)			6	adjective,countries	
+v0280	հունարեն	Greek (language)			6	noun,languages	
+v0281	Հունաստան	Greece			6	noun,countries	
+v0282	հունական	Greek (adjective)			6	adjective,countries	
+v0283	ո՞վ	who? (singular)	Ո՞վ է նա։	Who is he/she?	6	question	
+v0284	ովքե՞ր	who? (plural)	Ովքե՞ր են նրանք։	Who are they?	6	question	
+v0285	ի՞նչ	what? (singular)	Ի՞նչ է սա։	What is this?	6	question	
+v0286	ինչե՞ր	what? (plural)	Ինչե՞ր են սրանք։	What are these?	6	question	
+v0287	ե՞րբ	when?	Ե՞րբ ես գնում։	When are you going?	6	question,time	pron. երփ
+v0288	ինչո՞ւ / ինչի՞ / խի՞	why?			6	question	ինչո՞ւ formal, ինչի՞ spoken, խի՞ very spoken
+v0289	որտե՞ղ	where? (где, location)			6	question	
+v0290	ո՞ւր	where to? (куда, direction)	Ո՞ւր ես գնում։	Where are you going?	6	question	
+v0291	ո՞ր	which?	Ո՞ր մեկն ես ուզում։	Which one do you want?	6	question	
+v0292	ինչպե՞ս / ո՞նց	how?			6	question	
+v0293	ինչպիսի՞	what kind of?			6	question	
+v0294	քանի՞	how many? (countable)			6	question,numbers	
+v0295	ինչքա՞ն	how much? (uncountable)			6	question,numbers	
+v0296	ո՞ւմ	whom? whose?	Ո՞ւմ սուրճն է սա։	Whose coffee is this?	6	question	
+v0297	լալ	to cry			6	verb,feelings	
+v0298	տալ	to give			6	verb	
+v0299	Ի՞նչ օր է այսօր	What day is it today?			7	phrase,calendar	
+v0300	երկուշաբթի	Monday	Երեկ երկուշաբթի էր	Yesterday it was Monday	7	noun,calendar	
+v0301	երեքշաբթի	Tuesday	Այսօր երեքշաբթի է, կիրակի չէ	Today is Tuesday, it is not Sunday	7	noun,calendar	
+v0302	չորեքշաբթի	Wednesday	Վաղը չորեքշաբթի է	Tomorrow is Wednesday	7	noun,calendar	
+v0303	հինգշաբթի	Thursday	Կհանդիպենք հինգշաբթի / հինգշաբթի օրը	See you on Thursday	7	noun,calendar	
+v0304	ուրբաթ	Friday			7	noun,calendar	
+v0305	շաբաթ	Saturday			7	noun,calendar	
+v0306	կիրակի	Sunday			7	noun,calendar	
+v0307	վաղը	tomorrow	Ի՞նչ օր է վաղը	What day is it tomorrow?	7	adverb,time	
+v0308	Ինչպե՞ս ես / Ո՞նց ես	How are you? (singular)			7	phrase,greetings	
+v0309	Ինչպե՞ս եք / Ո՞նց եք	How are you? (plural)			7	phrase,greetings	
+v0310	սովորական	normal, as usual	Ավելի սովորական / պակաս սովորական / ամենասովորական	more ordinary / less ordinary / the most ordinary	7	adjective,feelings	
+v0311	լավ	well, good	Լավ եմ / Լավ չեմ	I am well / I am not well	7	adjective,feelings	
+v0312	վատ	bad	Վատ եմ	I am bad / I feel bad	7	adjective,feelings	
+v0313	տխուր	sad	Տխուր եմ	I am sad	7	adjective,feelings	
+v0314	ազատ	free	Ազատ եմ	I am free	7	adjective,feelings	
+v0315	հիվանդ	sick	Հիվանդ եմ	I am sick	7	adjective,feelings	
+v0316	առողջ	healthy	Առողջ եմ	I am healthy	7	adjective,feelings,body	
+v0317	բարկացած	angry	Բարկացած եմ	I am angry	7	adjective,feelings	
+v0318	անհանգիստ	worried	Անհանգիստ եմ	I am worried	7	adjective,feelings	
+v0319	հանգիստ	relaxed, calm			7	adjective,feelings	
+v0320	հպարտ	proud	Հպարտ եմ	I am proud	7	adjective,feelings	pron. հըպարտ
+v0321	զարմացած	surprised	Զարմացած եմ	I am surprised	7	adjective,feelings	
+v0322	մտահոգված	concerned	Մտահոգված եմ	I am concerned	7	adjective,feelings	pron. մտահոքված
+v0323	հիասթափված	disappointed	Հիասթափված եմ	I am disappointed	7	adjective,feelings	
+v0324	Ի՞նչ նորություն կա	What's new?			7	phrase,greetings	
+v0325	Ամեն ինչ կարգին է	Everything is OK			7	phrase,greetings	
+v0326	Ի՞նչ կա չկա	What's up?			7	phrase,greetings,colloquial	
+v0327	Ինչպե՞ս են գործերդ	How are things going?			7	phrase,greetings	
+v0328	հրաշալի	wonderful			7	adjective,feelings	
+v0329	ապրել	to live			7	verb,from-exercise	
+v0330	երաժշտություն	music			7	noun,from-exercise	
+v0331	ուտելիք	food			7	noun,food,from-exercise	
+v0332	միասին	together			7	adverb,from-exercise	
+v0333	առավոտյան	in the morning			7	adverb,time,from-exercise	
+v0334	Ուրախ տոներ	Happy holidays			8	phrase,greetings	
+v0335	կա / չկա	there is / there is not			8	verb	
+v0336	կան / չկան	there are / there are not			8	verb	
+v0337	խելացի	smart			8	adjective,from-exercise,people	
+v0338	լուրջ	seriously			8	adverb,adjective	
+v0339	աշխատել	to work			8	verb,work	
+v0340	ուտել	to eat	ուտելու	(in order) to eat	8	verb,food	
+v0341	արթնանալ	to wake up			8	verb	
+v0342	ուշանալ	to be late			8	verb,time	
+v0343	պատմել	to tell (рассказывать)			8	verb	
+v0344	ասել	to say (говорить)			8	verb	
+v0345	մնալ	to stay			8	verb,travel	
+v0346	մրսել	to be / feel cold (быть замёрзшим)			8	verb	
+v0347	տխրել	to be sad			8	verb,feelings	
+v0348	ուրախանալ	to be glad, to rejoice (радоваться)			8	verb,feelings	
+v0349	սիրել	to love			8	verb,feelings	
+v0350	հիշել	to remember			8	verb,abstract	
+v0351	մոռանալ	to forget			8	verb	
+v0352	մեկ	1 — one			8	numeral,numbers	
+v0353	երեք	3 — three			8	numeral,numbers	
+v0354	չորս	4 — four			8	numeral,numbers	
+v0355	հինգ	5 — five			8	numeral,numbers	
+v0356	վեց	6 — six			8	numeral,numbers	
+v0357	յոթ	7 — seven			8	numeral,numbers	
+v0358	ութ	8 — eight			8	numeral,numbers	
+v0359	ինը	9 — nine			8	numeral,numbers	
+v0360	տասը / տասն	10 — ten			8	numeral,numbers	
+v0361	տասնմեկ	11 — eleven	Տաս + ն + մեկ = տասնմեկ	ten + n + one = eleven	8	numeral,numbers	
+v0362	տասներկու	12 — twelve			8	numeral,numbers	
+v0363	տասներեք	13 — thirteen			8	numeral,numbers	
+v0364	քսան	20 — twenty			8	numeral,numbers	
+v0365	քսանմեկ	21 — twenty-one			8	numeral,numbers	
+v0366	երեսունմեկ	31 — thirty-one			8	numeral,numbers	
+v0367	քառասուն	40 — forty			8	numeral,numbers	
+v0368	հիսուն	50 — fifty			8	numeral,numbers	
+v0369	վաթսուն	60 — sixty			8	numeral,numbers	
+v0370	յոթանասուն	70 — seventy			8	numeral,numbers	
+v0371	ութսուն	80 — eighty			8	numeral,numbers	
+v0372	իննսուն	90 — ninety			8	numeral,numbers	
+v0373	միլիոն	million			8	numeral,numbers	
+v0374	միլիարդ	billion			8	numeral,numbers	
+v0375	համբույր	kiss			9	noun,feelings	pron. համփույր
+v0376	համբուրել	to kiss			9	verb,feelings	
+v0377	Դու սիրո՞ւմ ես ինձ	Do you love me?			9	phrase,feelings	
+v0378	կարողանալ	can, to be able to	Ես կարող եմ / Ես չեմ կարող	I can / I cannot	9	verb	
+v0379	ծնունդ	birthday	Ե՞րբ է քո ծնունդը	When is your birthday?	9	noun,calendar	
+v0380	վերադառնալ	to return			9	verb,travel	
+v0381	հաջորդ	next	հաջորդ շաբաթ	next week	9	adjective,time	
+v0382	Տարվա ամիսներ	Months of the year			9	phrase,calendar	
+v0383	հունվար	January			9	noun,calendar	
+v0384	փետրվար	February			9	noun,calendar	
+v0385	մարտ	March			9	noun,calendar	
+v0386	ապրիլ	April			9	noun,calendar	
+v0387	մայիս	May			9	noun,calendar	
+v0388	հունիս	June			9	noun,calendar	
+v0389	հուլիս	July			9	noun,calendar	
+v0390	օգոստոս	August			9	noun,calendar	
+v0391	սեպտեմբեր	September			9	noun,calendar	
+v0392	հոկտեմբեր	October			9	noun,calendar	
+v0393	նոյեմբեր	November			9	noun,calendar	
+v0394	դեկտեմբեր	December			9	noun,calendar	
+v0395	Այսօր ամսի քանի՞սն է	What is the date today?			9	phrase,calendar	
+v0396	Այսօր հունվարի ութն է	Today is the 8th of January			9	phrase,calendar	
+v0397	Ամսի քանիսի՞ն	On what date?			9	phrase,calendar	
+v0398	Հունվարի ութին	On the 8th of January			9	phrase,calendar	
+v0399	օգնել	to help	Ինձ օգնի՛ր	Help me	9	verb,from-exercise	pron. օքնել
+v0400	փակել	to close			9	verb,from-exercise	
+v0401	քեզ համար	for you			9	phrase,from-exercise	
+v0402	դուռ	door			9	noun,home,from-exercise	pl. դռներ
+v0403	լուսամուտ / պատուհան	window			9	noun,home,from-exercise	
+v0404	ինձ	me			9	pronoun,from-exercise	
+v0405	առաջին	1st — first	Ես առաջին անգամ եմ Երևանում	I'm in Yerevan for the first time	10	numeral,numbers,adjective	
+v0406	երկրորդ	2nd — second	Երկրորդ անգամ	for the second time	10	numeral,numbers	
+v0407	երրորդ	3rd — third			10	numeral,numbers	
+v0408	չորրորդ	4th — fourth	Իմ ընկերը ապրում է չորրորդ հարկում	My friend lives on the 4th floor	10	numeral,numbers	
+v0409	հինգերորդ	5th — fifth			10	numeral,numbers	
+v0410	վեցերորդ	6th — sixth			10	numeral,numbers	
+v0411	յոթերորդ	7th — seventh			10	numeral,numbers	
+v0412	ութերորդ	8th — eighth			10	numeral,numbers	
+v0413	իններորդ	9th — ninth			10	numeral,numbers	
+v0414	տասներորդ	10th — tenth			10	numeral,numbers	
+v0415	տասնմեկերորդ	11th — eleventh			10	numeral,numbers	
+v0416	անգամ	time, occasion	Երկու անգամ	two times	10	noun,time	pron. անքամ
+v0417	կրկնել	to repeat	Նրանք չեն ուզում կրկնել չորրորդ անգամ	They don't want to repeat it for the fourth time	10	verb	pron. կըրկընել
+v0418	Տասներկուսն է	It is the 12th (of the month)			10	phrase,calendar	
+v0419	քրոջ	sister's			10	noun,family,from-exercise	
+v0420	հայրիկի	father's			10	noun,family,from-exercise	
+v0421	պապիկի	grandfather's			10	noun,family,from-exercise	source prompt says grandmother's
+v0422	Ինչքա՞ն հաճախ	How often?			11	phrase,time	
+v0423	ամիսը մի անգամ	once a month	Ամիսը մի անգամ գնում եմ Իլյայի տուն	Once a month I go to Ilya's house	11	phrase,time	
+v0424	շաբաթը մի անգամ	once a week			11	phrase,time	
+v0425	տարին մի անգամ	once a year			11	phrase,time	
+v0426	ամենալավ	best	Երևանում ո՞վ է քո ամենալավ ընկերը	Who is your best friend in Yerevan?	11	adjective	
+v0427	նախադասություն	sentence			11	noun,school	
+v0428	աշխատասենյակ	study			11	noun,home	
+v0429	պատշգամբ	balcony			11	noun,home	
+v0430	լոգարան / բաղնիք	bathroom			11	noun,home	
+v0431	կահույք	furniture			11	noun,home,furniture	
+v0432	սեղան	table			11	noun,home,furniture	
+v0433	աթոռ	chair			11	noun,home,furniture	
+v0434	պահարան	wardrobe, closet			11	noun,home,furniture	
+v0435	սառնարան	refrigerator			11	noun,home,furniture	
+v0436	մահճակալ	bed			11	noun,home,furniture	
+v0437	օրորոց	cradle, baby bed			11	noun,home,furniture	
+v0438	լուսամփոփ	lamp, lampshade			11	noun,home,furniture	
+v0439	գորգ	carpet			11	noun,home,furniture	
+v0440	վարագույր	curtain			11	noun,home,furniture	
+v0441	ժամացույց	clock			11	noun,home,furniture	
+v0442	ծաղկաման	vase			11	noun,home,furniture	
+v0443	լիքը	full	Լիքը շաքար կա մեջը	There is a lot of sugar in it	11	adjective,from-exercise,other,colloquial	spoken
+v0444	դատարկ	empty			11	adjective,from-exercise	
+v0445	դժվար	difficult, hard	Դժվար էր արթնանալ	It was hard to wake up	12	adjective	pron. դըժվար
+v0446	նույնը	the same			12	pronoun	
+v0447	անցած շաբաթ	last week			12	phrase,time	
+v0448	այս ամիս	this month			12	phrase,time	
+v0449	դահուկ	ski	Դահուկ քշել	to ski	12	noun	
+v0450	քշել	to ride, to drive			12	verb,transport	
+v0451	թիթիզ	fancy, dressed up, looking good			12	adjective,clothes	
+v0452	Նորից ասա	Say it again			12	phrase	
+v0453	երեխա	kid, child			12	noun,people,family	
+v0454	ամենաշատը	most of all, the most	Երբ դու տանն ես, որտե՞ղ ես լինում ամենաշատը	When you are at home, where are you most of the time?	12	adverb	
+v0455	գրասեղան	desk	Ի՞նչ կա քո գրասեղանի վրա հենց հիմա	What is on your desk right now?	12	noun,home,furniture	
+v0456	հենց հիմա	right now			12	phrase,time	
+v0457	համակարգիչ	computer, laptop			12	noun,work	pron. համակարքիչ
+v0458	տուփ	pack, box	Ես մի օրում ծխում եմ մի տուփ սիգարետ	I smoke a pack of cigarettes a day	12	noun	
+v0459	սիգարետ	cigarette	Օրը քսան սիգարետ եմ ծխում	I smoke twenty cigarettes a day	12	noun	
+v0460	թունդ	strong, heavy (of cigarettes, drinks)	Թունդ սիգարետ	heavy cigarettes	12	adjective	
+v0461	քաղցր	sweet			12	adjective,food	
+v0462	ժամանակ	time	Տուն գնալու ժամանակն է	It is time to go home	13	noun,time	
+v0463	հեռուստացույց	TV			13	noun,home	
+v0464	դիտել	to watch			13	verb	
+v0465	նայել	to look (to watch)			13	verb	
+v0466	սիրուն	beautiful, pretty	Ավելի սիրուն / պակաս սիրուն / ամենասիրուն	more beautiful / less beautiful / the most beautiful	13	adjective	
+v0467	երկար	long			13	adjective	
+v0468	հաստ	thick			13	adjective	
+v0469	բարձրահասակ / բոյով	tall (of people)			13	adjective,people	
+v0470	ցածրահասակ / կոլոտ	short (of people)			13	adjective,people	
+v0471	գեր / չաղ	fat			13	adjective,people	
+v0472	նիհար	thin, slim			13	adjective,people	
+v0473	ուժեղ	strong			13	adjective	
+v0474	թույլ	weak			13	adjective	
+v0475	հարուստ	rich			13	adjective	
+v0476	աղքատ	poor			13	adjective,people	
+v0477	հին	old (of things)			13	adjective	
+v0478	նոր	new			13	adjective	
+v0479	ավելի	more	ավելի լավ	better	13	adverb	
+v0480	պակաս	less	պակաս լավ	less good	13	adverb,other,time	
+v0481	ամենից	of all (superlative marker)			13	adverb	
+v0482	քան	than	Նա ավելի բարի է, քան ես	She is kinder than me	13	conjunction	
+v0483	մազ	hair			13	noun,face,body,from-exercise	
+v0484	ժամը տասին	at ten (o'clock)			14	phrase,time	
+v0485	մարզվել	to exercise, to work out			14	verb	
+v0486	շուշուտ	fast, quickly			14	adverb,colloquial	very spoken
+v0487	թե	or			14	conjunction	
+v0488	վերջին	last	վերջինը	the last one	14	adjective	
+v0489	երջանիկ	happy	Ես ավելի երջանիկ եմ Հայաստանում, որովհետև այստեղ կան սարեր։	I am happier in Armenia, because there are mountains here.	14	adjective,feelings	
+v0490	հաստատ	for sure, definitely			14	adverb	
+v0491	սար / լեռ	mountain			14	noun,nature	pl. լեռներ
+v0492	հանդիպել	to meet	Կարող եմ հանդիպել իմ ընկերներին շատ հաճախ։	I can meet my friends very often.	14	verb	
+v0493	շփվել	to hang out, to socialise			14	verb	
+v0494	բոզ	whore			14	noun,vulgar	vulgar
+v0495	հայհոյանք	swear word, cursing (мат)			14	noun	
+v0496	որ	that (conjunction)			14	conjunction	
+v0497	կին	woman			14	noun,people	pl. կանայք
+v0498	հրաշք	miracle, wonder			14	noun	pl. հրաշքներ
+v0499	սիրտ	heart			14	noun,body	pl. սրտեր
+v0500	շուն	dog			14	noun,from-exercise	pl. շներ
+v0501	դասագիրք	textbook			14	noun,school	pl. դասագրքեր
+v0502	տղամարդ	man			14	noun,people	pl. տղամարդիկ
+v0503	տիկին	madam, lady, Mrs			14	noun,people	pl. տիկնայք
+v0504	պարոն	sir, Mr			14	noun,people	pl. պարոնայք
+v0505	գառ	lamb			14	noun	pl. գառներ
+v0506	հարս	bride			14	noun,family	pl. հարսներ
+v0507	ծունկ	knee			14	noun,body	pl. ծնկներ
+v0508	թոռ	grandchild			14	noun,family	pl. թոռներ
+v0509	նուռ	pomegranate			14	noun,food	pl. նռներ
+v0510	ռուս	Russian (person)			14	noun,people,countries	pl. ռուսներ
+v0511	լավանալ	to get better, to recover	Լավ ա, որ լավանում ես։	It's good that you are getting better.	15	verb	
+v0512	վատանալ	to get worse			15	verb	
+v0513	երեկ չէ առաջին օրը	the day before yesterday (позавчера)			15	phrase,time	
+v0514	վաղը չէ մյուս օրը	the day after tomorrow (послезавтра)			15	phrase,time	
+v0515	մի ժամ ու կես / մի ժամ երեսուն րոպե	an hour and a half / one hour thirty minutes			15	phrase,time	
+v0516	քեզ / ձեզ	you (object form: sg. informal / pl. or formal)			15	pronoun	
+v0517	համար	for	քեզ համար	for you	15	postposition	
+v0518	ուղարկել	to send	Ուղարկի	Send! (imperative)	15	verb	
+v0519	սիրած	favourite	Ո՞րն է քո սիրած սրճարանը Երևանում։	Which is your favourite café in Yerevan?	15	adjective	
+v0520	որտեղի՞ց	where from (откуда)	Որտեղի՞ց ես գալիս։	Where are you coming from?	15	question	
+v0521	բանկ	bank	Բանկ / Բանկից	to the bank / from the bank	15	noun,city	
+v0522	հյուրանոց	hotel	Հյուրանոց / Հյուրանոցից	to the hotel / from the hotel	15	noun,city,travel	
+v0523	մարզասրահ	gym	Մարզասրահ / Մարզասրահից	to the gym / from the gym	15	noun,city	
+v0524	վարսավիրանոց	hair salon	Վարսավիրանոց / Վարսավիրանոցից	to the hair salon / from the hair salon	15	noun,city	
+v0525	դեսպանատուն	embassy	Դեսպանատուն / Դեսպանատնից	to the embassy / from the embassy	15	noun,city	
+v0526	դեղատուն	pharmacy	Դեղատուն / Դեղատնից	to the pharmacy / from the pharmacy	15	noun,city	
+v0527	հիվանդանոց	hospital	Հիվանդանոց / Հիվանդանոցից	to the hospital / from the hospital	15	noun,city,body	
+v0528	աշխատանք	work	Աշխատանքի / Աշխատանքից	to work / from work	15	noun,work	
+v0529	հանդիպում	meeting	Հանդիպման / Հանդիպումից	to a meeting / from a meeting	15	noun,work	
+v0530	ընդմիջում	break	Ընդմիջման / Ընդմիջումից	for a break / from a break	15	noun,work	
+v0531	ոգևորված	excited, enthusiastic (воодушевленный)	Շատ ոգևորված եմ	I am very excited	16	adjective,feelings	
+v0532	դեմք	such a character	Դու դեմք ես, նա (ինքը) դեմք ա	You are such a character, he is such a character	16	noun,colloquial	lit. face; spoken
+v0533	սա	this	Ի՞նչ է սա։ Սա գիրք է։	What is this? This is a book.	16	pronoun	
+v0534	սրանք	these	Ինչե՞ր են սրանք։ Սրանք լուսանկարներ են։	What are these? These are photographs.	16	pronoun	
+v0535	դրանք	those	Դրանք իմ գրքերն են։	Those are my books.	16	pronoun	
+v0536	նրանք	those over there			16	pronoun	
+v0537	լուսանկար	photograph			16	noun,from-exercise	pron. լուսանըկար
+v0538	ինչո՞վ	by what, how (by what means)	Ինչո՞վ ես գնում։	How are you getting there?	16	question	
+v0539	ինչո՞ւ	why	Ինչո՞ւ ես գնում։	Why are you going?	16	question	
+v0540	ո՞ւմ հետ	with whom	Ո՞ւմ հետ ես գնում։	With whom are you going?	16	question	
+v0541	ոտք	foot	ոտքով	on foot	16	noun,body,transport	
+v0542	մետրո	metro	մետրոյով	by metro	16	noun,transport	
+v0543	տաքսի	taxi	տաքսիով	by taxi	16	noun,transport	
+v0544	ավտոբուս	bus	ավտոբուսով	by bus	16	noun,transport	
+v0545	ինքնաթիռ	plane	ինքնաթիռով	by plane	16	noun,transport	
+v0546	ավտոմեքենա / մեքենա	car	ավտոմեքենայով / մեքենայով	by car	16	noun,transport	
+v0547	գնացք	train	գնացքով	by train	16	noun,transport	
+v0548	հեծանիվ	bicycle	հեծանիվով	by bicycle	16	noun,transport	
+v0549	պարել	to dance	պարելու	(in order) to dance	16	verb	
+v0550	կեսօրին	at noon			16	adverb,time	
+v0551	երեկոյան	in the evening			16	adverb,time	
+v0552	գիշերը	at night			16	adverb,time	
+v0553	կեսգիշերին	at midnight			16	adverb,time	
+v0554	մենակ	alone			16	adverb	
+v0555	ընկերոջս հետ	with my friend			16	phrase,people	pron. ընկերոչըս
+v0556	ընկերներիս հետ	with my friends			16	phrase,people	
+v0557	գործընկերներիս / իմ գործընկերների հետ	with my colleagues			16	phrase,work	
+v0558	երեխաներիս / իմ երեխաների հետ	with my children			16	phrase,family	
+v0559	ծնողներիս / իմ ծնողների հետ	with my parents			16	phrase,family	
+v0560	տատիկիս հետ	with my grandmother			16	phrase,family	
+v0561	հետաքրքիր	interesting	Սա շատ հետաքրքիր գիրք է։	This is a very interesting book.	17	adjective	
+v0562	սպանել	to kill			17	verb	
+v0563	հիմար	stupid			17	adjective	
+v0564	այդտեղ	there			17	adverb	spoken ըտեղ
+v0565	այնտեղ	over there			17	adverb	spoken ընդեղ
+v0566	այդպես	in that way			17	adverb	spoken տենց
+v0567	այնպես	in that way			17	adverb	spoken նենց
+v0568	այսքան	this much			17	pronoun	spoken էսքան
+v0569	այդքան	that much			17	pronoun	spoken էդքան
+v0570	այնքան	that much			17	pronoun	spoken էնքան
+v0571	այսպիսի	such, this kind of			17	adjective	
+v0572	այդպիսի	such, that kind of			17	adjective	
+v0573	այնպիսի	such, that kind of			17	adjective	
+v0574	դուր գալ	to like (to be pleasing to someone)			17	verb,from-exercise	
+v0575	դյուրին	easy (= հեշտ)			17	adjective,from-exercise	
+v0576	Իսպանիա	Spain	Իսպանիայի դեսպանատուն	the Spanish embassy (lit. Spain's embassy)	18	noun,countries	
+v0577	Որտեղի՞ դեսպանատուն	the embassy of where? (which country's embassy?)			18	question,city	
+v0578	վաճառել	to sell			18	verb	
+v0579	վճարել	to pay	Վճարեցի	I paid	18	verb	Վճարեցի is a simple past form
+v0580	գնել / առնել	to buy	գնելու	(in order) to buy	18	verb	
+v0581	ընկերուհի	female friend	Իմ ընկերուհու անունը Մերի է։	My girlfriend's name is Mary	18	noun,people	gen. ընկերուհու
+v0582	ամեն օր	every day			18	phrase,time	
+v0583	թարգմանել	to translate			18	verb,languages	pron. թարքմանել
+v0584	անցյալ տարի	last year			18	phrase,time	
+v0585	անցյալ շաբաթ	last week			18	phrase,time	also անցած շաբաթ
+v0586	անցյալ ամիս	last month			18	phrase,time	also անցած ամիս
+v0587	եղանակ	weather	Ի՞նչ եղանակ է այսօր։	What is the weather like today?	18	noun,weather,seasons	
+v0588	շոգ	hot	Շատ շոգ է	It is very hot	18	adjective,weather	
+v0589	տաք	warm			18	adjective,weather	
+v0590	ցուրտ	cold			18	adjective,weather	
+v0591	արև	sun			18	noun,weather,nature	
+v0592	արևային / արևոտ	sunny			18	adjective,weather	
+v0593	անձրև	rain	Անձրև չի գալիս։	It is not raining.	18	noun,weather	
+v0594	անձրևային / անձրևոտ	rainy			18	adjective,weather	
+v0595	քամի	wind			18	noun,weather	
+v0596	քամոտ	windy			18	adjective,weather	
+v0597	ձյունոտ	snowy			18	adjective,weather	
+v0598	մառախուղ	fog			18	noun,weather	
+v0599	մառախլապատ	foggy			18	adjective,weather	
+v0600	ջերմաստիճան	temperature	Ինչքա՞ն է օդի ջերմաստիճանը այսօր։	What is the air temperature today?	18	noun,weather	
+v0601	օդ	air	Օդի ջերմաստիճանը պլյուս/մինուս հինգ է։	The air temperature is plus/minus five.	18	noun,weather,nature	pron. օթ
+v0602	ողջ / ամբողջ	whole, entire	Երեկ չէ առաջին օրը ես տանն էի ողջ/ամբողջ օրը։	The day before yesterday I was at home the whole day.	19	adjective	
+v0603	ոչինչ / ոչ մի բան	nothing	Ես ոչ մի բան/ոչինչ չէի անում։	I wasn't doing anything.	19	pronoun	
+v0604	նախաճաշ	breakfast			19	noun,food	
+v0605	նստել	to sit down			19	verb	
+v0606	առաջ	before	Մեր դասից առաջ	before our class	19	postposition,time	
+v0607	հետո	after	Մեր դասից հետո	after our class	19	postposition,time,adverb	
+v0608	ամառ	summer	Ամռանը	in summer	19	noun,seasons	
+v0609	աշուն	autumn, fall	Աշնանը	in autumn	19	noun,seasons	
+v0610	ավելի շուտ	earlier			20	adverb,time	
+v0611	տանտեր	landlord			20	noun,home,people	gen. տանտիրոջ
+v0612	միայն	only			20	adverb	
+v0613	Քանի՞ օրով	for how many days	Քանի՞ օրով ես գնում։	For how many days are you going?	20	question,travel,time	
+v0614	Քանի՞ օրից	in how many days	Քանի՞ օրից ես գնում։	In how many days are you going?	20	question,travel,time	
+v0615	Կորեա	Korea	Ես գնում եմ Կորեա երկու շաբաթով	I am going to Korea for two weeks	20	noun,countries	
+v0616	կորեական	Korean			20	adjective,countries	
+v0617	սկզբում	first, at first	Սկզբում գնում եմ Վրաստան	First I am going to Georgia	20	adverb	
+v0618	թռիչք	flight			20	noun,travel	
+v0619	տևել	to last			20	verb	
+v0620	Ոնց անցավ	How did it go?			20	phrase	
+v0621	ամպամած	cloudy			20	adjective,weather	
+v0622	մի քանի	several, a few			20	other	
+v0623	դրա համար	that's why (поэтому)			20	phrase	
+v0624	շուտով	soon			20	adverb,time	
+v0625	համտեսել / համը տեսնել	to taste			20	verb,food	lit. to see the taste
+v0626	խմիչք	drink			20	noun,drinks	
+v0627	ալկոհոլային խմիչքներ	alcoholic drinks			20	phrase,drinks	
+v0628	ոչ ալկոհոլային խմիչքներ	non-alcoholic drinks			20	phrase,drinks	
+v0629	հաց ուտել	to eat (something), to have a meal			20	phrase,food	lit. to eat bread
+v0630	նախաճաշել	to have breakfast			20	verb,food	
+v0631	ճաշել / լանչ անել	to have lunch			20	verb,food	
+v0632	ընթրիք	dinner			20	noun,food	
+v0633	ընթրել	to have dinner			20	verb,food	
+v0634	Ե՞րբ ենք նախաճաշելու/ճաշելու/ընթրելու։	When are we going to have breakfast/lunch/dinner?			20	phrase,food	
+v0635	Ի՞նչ ենք ուտելու նախաճաշին/ճաշին/ընթրիքին։	What are we going to have for breakfast/lunch/dinner?			20	phrase,food	
+v0636	աղցան	salad			20	noun,food	from աղ — salt: "to sprinkle salt"
+v0637	ապուր	soup			20	noun,food	
+v0638	պատրաստել	to cook, to prepare	Սուրճ պատրաստել	to make coffee	20	verb,food	formal
+v0639	սարքել	to cook, to make	Ճաշ սարքել, սուրճ սարքել	to make a meal, to make coffee	20	verb,food	informal
+v0640	փոխանցել	to pass	Փոխանցի՛ր աղը	Pass the salt	20	verb,food	
+v0641	աղ	salt			20	noun,food	
+v0642	սեղան դնել	to set the table			20	phrase,food	lit. to put the table
+v0643	սեղան հավաքել	to clear the table (собрать)			20	phrase,food	lit. to gather the table
+v0644	ամանները լվանալ	to wash the dishes			20	phrase,home	
+v0645	հաց	bread			20	noun,food	
+v0646	պանիր	cheese			20	noun,food	
+v0647	կանաչի	greens			20	noun,food	
+v0648	կաթ	milk	կաթով / առանց կաթի	with milk / without milk	20	noun,drinks	
+v0649	առանց	without			20	other,postposition	
+v0650	մածուն	yogurt (matsun)			20	noun,food	
+v0651	Սուրճը դա՞ռը, թե՞ քաղցր։	Coffee with or without sugar?			20	phrase,drinks	lit. is the coffee bitter or sweet?
+v0652	դառը	bitter			20	adjective,food	
+v0653	ձվածեղ	omelette			20	noun,food	
+v0654	խաշած ձու	boiled egg			20	phrase,food	
+v0655	բանջարեղեն	vegetables			20	noun,food	
+v0656	բրինձ	rice	բրնձով	with rice (с рисом)	21	noun,food	
+v0657	ուրիշ	other	Ուրիշ խոհանոցները համո՞վ էին	Were the other cuisines tasty?	21	adjective	
+v0658	Ճապոնիա	Japan	ճապոնական	Japanese	21	noun,countries	
+v0659	ատել	to hate	Ես ատում եմ լվանալ ամանները	I hate washing the dishes	21	verb	
+v0660	ոգեշնչել	to inspire			21	verb	pron. ոքեշնչել
+v0661	շաբաթվա համար	for the week			22	phrase,time	
+v0662	շիշ	bottle	Մի շիշ կարմիր գինի	A bottle of red wine	22	noun,drinks	
+v0663	մեղր	honey			22	noun,food	
+v0664	երբևէ	ever	Դու երբևէ եղե՞լ ես Մադրիդում։	Have you ever been to Madrid?	22	adverb,time	
+v0665	եղել եմ	I have been (perfect of լինել)	Ես եղել եմ Մադրիդում	I have been to Madrid	22	phrase	
+v0666	շուշուտ արի	come quickly, hurry up			22	phrase,colloquial	
+v0667	ուրեմն	so, that means			22	conjunction	
+v0668	դեռ	still, yet	Դեռ կես ժամ ունենք	We still have half an hour	22	adverb,time	
+v0669	մինչև	until, before	մինչև հայերենի դասը	before the Armenian lesson	22	postposition,time	
+v0670	պարապել	to practise, to study	Արի միասին հայերենի դասը պարապենք	Let's practise the Armenian lesson together	22	verb,school	
+v0671	կողք	side	Կողքս նստի՛ր	Sit next to me	22	noun	
+v0672	Ժամը քանի՞սն է։	What time is it?			22	question,time	
+v0673	Ժամը քանիսի՞ն։	At what time?			22	question,time	
+v0674	ժամ	hour; o'clock	Ժամը մեկն է	It is one o'clock	22	noun,time	
+v0675	կես ժամ	half an hour			22	phrase,time	
+v0676	քառորդ	quarter	Մեկն անց քառորդ է	It is a quarter past one	22	noun,time	
+v0677	անց	past (of the hour)	Մեկն անց հինգ է	It is five past one (1:05)	22	other,time	
+v0678	րոպե	minute	Ուղիղ երեսուն րոպե	Exactly thirty minutes	22	noun,time	
+v0679	ուղիղ	exactly (of time); straight	Գնա ուղիղ, հետո թեքվիր ձախ	Go straight, then turn left	22	adverb,city,adjective	
+v0680	մարզիչ	coach, trainer	Ո՞վ ա քո մարզիչը։	Who is your coach?	23	noun,people,work	spoken (ա for է)
+v0681	քնել	to sleep	Դու սովորաբար ժամը քանիսի՞ն ես քնում։	What time do you usually go to sleep?	23	verb,from-exercise	source also lists քունել
+v0682	դպրոց	school			23	noun,school	
+v0683	մի ժամից	in an hour			23	phrase,time	ablative -ից
+v0684	քայլել	to walk	Ուզում եմ ավելի շատ քայլել	I want to walk more	23	verb	
+v0685	կարոտել	to miss (someone)			23	verb,feelings	
+v0686	աջ	right			23	adverb,city	
+v0687	ձախ	left			23	adverb,city	
+v0688	թեքվել	to turn	Թեքվիր աջ / թեքվիր ձախ	Turn right / turn left	23	verb,city	
+v0689	քո մասին	about you, about yourself			23	phrase,from-exercise	
+v0690	մեծանալ	to grow, to get bigger			24	verb	from մեծ — big
+v0691	փոքրանալ	to get smaller			24	verb	from փոքր — small
+v0692	Ի՞նչ էիր անում երեկ։	What were you doing yesterday?			24	phrase,time	
+v0693	ռեստորան	restaurant	Մենք Լալի ռեստորանում էինք	We were at the Lali restaurant	24	noun,city,food	
+v0694	ընկերոջ	friend's; (with) a friend — gen./dat. of ընկեր	Ես ռեստորանում էի երկու ընկերոջ հետ	I was at a restaurant with two friends	24	noun,people,from-exercise	
+v0695	հատ	piece (counting word)	Քանի՞ հատ նեգրոնի խմեցիր։	How many negronis did you drink?	24	noun	
+v0696	նեգրոնի	negroni			24	noun,drinks	
+v0697	եթե	if			24	conjunction	
+v0698	լսել	to listen			24	verb	
+v0699	տանը	at home			24	adverb,home	
+v0700	ամուսնանալ	to get married			24	verb,family	
+v0701	իմանալ	to know			24	verb,abstract	
+v0702	ձանձրանալ	to get bored			24	verb,feelings	
+v0703	խոստանալ	to promise			24	verb	
+v0704	բարկանալ	to be angry			24	verb,feelings	
+v0705	հիվանդանալ	to get sick			24	verb,body	
+v0706	առողջանալ	to get well, to recover			24	verb,body	
+v0707	գողանալ	to steal			24	verb	
+v0708	բարձրանալ	to rise, to climb, to get on			24	verb	pron. բարցրանալ
+v0709	հանգստանալ	to rest, to calm down			24	verb	
+v0710	մոտենալ	to come closer, to approach			24	verb	
+v0711	շատ շուտ	very soon; very early			25	phrase,time	
+v0712	արվեստ	art			25	noun,abstract	
+v0713	արվեստագետ	artist			25	noun,work,people	
+v0714	կարևոր	important			25	adjective,abstract	
+v0715	ուռել	to swell; to get high (опухать)			25	verb,colloquial	spoken
+v0716	ուռած	swollen; high			25	adjective,colloquial	spoken
+v0717	ծխած	stoned			25	adjective,colloquial	spoken; lit. smoked
+v0718	ճշմարտություն	truth	Ասա՛ ինձ ճշմարտությունը, սիրելիս	Tell me the truth, my dear	25	noun,abstract	
+v0719	սիրելիս	my dear			25	noun,people	
+v0720	բարեկիրթ	polite	Բարեկի՛րթ եղիր	Be polite	25	adjective,people	
+v0721	զգույշ	careful	Զգո՛ւյշ եղիր	Be careful	25	adjective	
+v0722	ուշադիր	attentive	Ուշադի՛ր եղիր	Be attentive	25	adjective	
+v0723	լավ եղիր	be well			25	phrase,greetings	
+v0724	քեզ լավ նայիր / ձեզ լավ նայեք	take care of yourself / of yourselves			25	phrase,greetings	
+v0725	դնել	to put			25	verb	
+v0726	լալ / լացել	to cry			25	verb,feelings	
+v0727	թողնել	to let, to leave			25	verb	
+v0728	տեսնել	to see			25	verb	
+v0729	առնել	to buy, to take			25	verb	
+v0730	լվանալ	to wash			25	verb	
+v0731	դառնալ	to become, to turn			25	verb	imperative դարձի՛ր, pron. դարցիր
+v0732	լինել	to be			25	verb	
+v0733	վեր կենալ	to get up			25	verb	
+v0734	թանկ	expensive (дорогой, of price)			26	adjective	
+v0735	պատահել	to happen	Ամեն ինչ կարող է պատահել	Anything can happen	26	verb	
+v0736	դավաճանել	to betray			26	verb,people	
+v0737	խաբել	to deceive, to cheat	Մի խաբիր	Don't lie	26	verb,people	
+v0738	հեռանալ	to leave, to go away			26	verb	
+v0739	ներել	to forgive			26	verb,feelings	
+v0740	կասկածել	to doubt, to suspect			26	verb,abstract	
+v0741	հետևել	to follow, to observe			26	verb	
+v0742	նվիրել	to give as a present			26	verb	
+v0743	հավատալ	to believe	Հավատա՛ ինձ	Believe me	26	verb,abstract	
+v0744	վստահ	sure, certain	վստահ լինել	to be sure	26	adjective,abstract	
+v0745	փող	money	Փող չունեմ	I have no money	26	noun	
+v0746	ավտոմեքենա	car			26	noun,transport	
+v0747	խփել	to hit			26	verb	
+v0748	կյանք	life			26	noun,abstract	
+v0749	փոխվել	to change (oneself)			26	verb	
+v0750	հաջողություն	good luck; success			26	noun,greetings	
+v0751	գարնանային դեպրեսիա	spring depression			27	phrase,feelings,seasons	
+v0752	սև սուրճ առանց ինչ-որ բանի	black coffee without anything			27	phrase,drinks	
+v0753	ինչ-որ բան	something			27	pronoun	
+v0754	ունք	eyebrow			27	noun,face	
+v0755	թարթիչ	eyelash			27	noun,face	
+v0756	աչք	eye			27	noun,face	
+v0757	քիթ	nose			27	noun,face	
+v0758	ականջ	ear			27	noun,face	
+v0759	բեղ	moustache			27	noun,face	
+v0760	այտ / թուշ	cheek			27	noun,face	
+v0761	ատամ	tooth			27	noun,face	
+v0762	շուրթ / շրթունք	lip			27	noun,face	
+v0763	լեզու	tongue			27	noun,face	
+v0764	մորուք	beard			27	noun,face	
+v0765	դունչ	chin			27	noun,face	
+v0766	վիզ	neck			27	noun,face,body	
+v0767	էժան	cheap			28	adjective	
+v0768	հաջորդ անգամ	next time			28	phrase,time	
+v0769	հաջորդ օրը	the next day			28	phrase,time	
+v0770	հաջորդ շաբաթ	next week			28	phrase,time	
+v0771	հաջորդ ամիս	next month			28	phrase,time	
+v0772	հաջորդ տարի	next year			28	phrase,time	
+v0773	այսօր երեկոյան	tonight			28	phrase,time,from-exercise	
+v0774	տետր	notebook			28	noun,school,from-exercise	
+v0775	կոնյակ	cognac			29	noun,drinks	
+v0776	պիցա	pizza			29	noun,food	
+v0777	թև	arm			29	noun,body	
+v0778	ուս	shoulder			29	noun,body	
+v0779	կրծքավանդակ	chest			29	noun,body	
+v0780	արմունկ	elbow			29	noun,body	
+v0781	դաստակ	wrist			29	noun,body	
+v0782	փոր	belly			29	noun,body	
+v0783	պորտ	navel			29	noun,body	
+v0784	կրունկ	heel			29	noun,body	
+v0785	եղունգ	nail			29	noun,body	
+v0786	թաթ	foot (sole), paw			29	noun,body	
+v0787	ոտքի մատ	toe			29	noun,body	pl. ոտքի մատներ
+v0788	բութ մատ	thumb			29	noun,body	
+v0789	ցուցամատ	index finger			29	noun,body	
+v0790	միջնամատ	middle finger			29	noun,body	
+v0791	մատանեմատ	ring finger			29	noun,body	
+v0792	ճկույթ	little finger			29	noun,body	
+v0793	կորցնել	to lose			30	verb	
+v0794	գործ	work, job; business			30	noun,work	
+v0795	դրոշ	flag	Ես սիրում եմ Հայաստանի դրոշի գույները	I love the colours of the Armenian flag	30	noun	
+v0796	Ի՞նչ գույն է սա։	What colour is this?			30	question,colours	
+v0797	սև	black	սև գրիչ	black pen	30	adjective,colours	
+v0798	սպիտակ	white	Սպիտակ տուն	white house	30	adjective,colours	less frequently ճերմակ
+v0799	դեղին	yellow	փոքր դեղին աթոռ	small yellow chair	30	adjective,colours	
+v0800	կանաչ	green	կանաչ սեղան	green table	30	adjective,colours	
+v0801	շագանակագույն	brown			30	adjective,colours	from շագանակ — chestnut
+v0802	դարչնագույն	brown, cinnamon-coloured			30	adjective,colours	from դարչին — cinnamon
+v0803	վարդագույն	pink			30	adjective,colours	from վարդ — rose
+v0804	ծիրանագույն	apricot-coloured			30	adjective,colours	from ծիրան — apricot
+v0805	նարնջագույն	orange	նարնջագույն պատ	orange wall	30	adjective,colours	from նարինջ — orange; less frequently from գազար — carrot
+v0806	մոխրագույն	grey	մոխրագույն մազեր	grey hair	30	adjective,colours	from մոխիր — ash
+v0807	ոսկեգույն	gold, golden	ոսկեգույն տետր	golden notebook	30	adjective,colours	from ոսկի — gold
+v0808	արծաթագույն	silver			30	adjective,colours	from արծաթ — silver
+v0809	մանուշակագույն	violet			30	adjective,colours	from մանուշակ — violet
+v0810	մուգ	dark (of a colour)	մուգ կապույտ	dark blue	30	adjective,colours	
+v0811	անգույն	colourless			30	adjective,colours	
+v0812	գունավոր	colourful			30	adjective,colours	
+v0813	մեր դասից հետո / առաջ	after / before our class			31	phrase,time	մեր — our
+v0814	համայնք	community			31	noun,people	
+v0815	մեղրագույն	honey-coloured			31	adjective,colours	
+v0816	միջին	medium			31	adjective	
+v0817	խիտ	dense, thick			31	adjective	
+v0818	այտոսկր	cheekbone			31	noun,face	
+v0819	ծուռ	crooked (кривой); crazy, if about a person			31	adjective	
+v0820	Ես ուզում եմ խոսել իմ ընկերոջ՝ Իլյայի մասին։	I want to talk about my friend Ilya.			31	phrase,people	
+v0821	որպես	as (to work as)			31	other,work	
+v0822	բարձրահասակ	tall			31	adjective,body	pron. բարցրահասակ; spoken բոյով
+v0823	Ինձ թվում ա …	It seems to me … (Мне кажется)			31	phrase,colloquial	spoken
+v0824	կլոր	round			31	adjective	
+v0825	գիժ	crazy, mad			32	adjective,people	
+v0826	կարծել	to think, to suppose	Կարծում եմ	I think	32	verb,abstract	synonym մտածել
+v0827	մտածել	to think	Մտածում եմ	I think	32	verb,abstract	
+v0828	Հավես էր	It was fun			33	phrase,colloquial	
+v0829	Մի րոպե մտածեմ	Let me think for a sec			33	phrase	
+v0830	հիշեցնել	to remind			33	verb	spoken հիշացնել
+v0831	Ամեն ինչ լավ է լինելու	Everything is going to be fine			33	phrase	
+v0832	մեջք	back (body part)			33	noun,body	pron. մեչք
+v0833	ցավել	to hurt	Իմ գլուխը ցավում է	My head hurts	33	verb,body	
+v0834	գործընկեր	colleague			33	noun,work,from-exercise	
+v0835	առաջարկել	to offer			33	verb,from-exercise	pron. առաչարկել
+v0836	հաճախորդ	customer			33	noun,work,from-exercise	
+v0837	համերգ	concert			33	noun,from-exercise	
+v0838	վերանորոգել	to renovate			33	verb,home,from-exercise	
+v0839	համաձայն	agreed, in agreement (to agree)			33	adjective,from-exercise	
+v0840	Ողջ եմ	I'm alive (safe and sound)			34	phrase	
+v0841	բախտավոր	lucky, fortunate	Ո՞վ է այդ բախտավորը։	Who is that lucky one?	34	adjective	
+v0842	Բրյուսել	Brussels			34	noun,city	
+v0843	մասնագետ	specialist	Ի՞նչ մասնագետ ա	What kind of specialist is he/she?	34	noun,work	spoken
+v0844	համերգի գնալ	to go to a concert			34	phrase	
+v0845	ճամփորդել	to travel			35	verb,travel	
+v0846	հոգնեցուցիչ	tiring (утомляющий)			35	adjective	pron. հոքնեցուցիչ
+v0847	կեղտոտ	dirty			35	adjective	
+v0848	Հեսա ասեմ	I'll tell you in a second (щас скажу)			35	phrase,colloquial	spoken
+v0849	գործի համար	for work			35	phrase,work	
+v0850	զանգվել	to call each other, to get in touch by phone (созваниваться)	Պետք ա զանգվեմ իմ գործընկերների հետ	I have to get on a call with my colleagues	35	verb	
+v0851	կապի մեջ	in touch (на связи)	Կապի մեջ, կզանգվենք	We're in touch, we'll call each other (на связи, созвонимся)	35	phrase,colloquial	
+v0852	քայլ	step			35	noun	
+v0853	գաղափար չունեմ	no idea, I have no idea			35	phrase	գաղափար — idea
+v0854	իդեպ	by the way			35	adverb,colloquial	
+v0855	Անունը գրած չի	The name is not written (имя не написано)			35	phrase,colloquial	spoken
+v0856	վարսավիր	hairdresser			36	noun,work	
+v0857	կտրել	to cut, to trim			36	verb	
+v0858	ինքնավստահություն	self-confidence			36	noun,abstract	pron. ինք-նա-վըս-տա-հություն
+v0859	տրամադրություն	mood	Կարևոր ա, որ քո տրամադրությունը բարձր ա	It's important that you are in a good mood	36	noun,feelings	spoken
+v0860	հեշտ	easy			36	adjective	
+v0861	երբեմն	sometimes	Երբեմն շատ սեքս անելը կարող է հոգնեցուցիչ լինել։	Sometimes having a lot of sex can be tiring	36	adverb	
+v0862	երաժիշտ	musician (музыкант)			36	noun,work	
+v0863	ուկրաինացի	Ukrainian (person) (украинец / украинка)			36	noun,countries	
+v0864	ընթացքում	during, within	Շաբաթվա ընթացքում	During the week	36	postposition,time	
+v0865	բույր	scent			36	noun,from-exercise	
+v0866	երկինք	sky			36	noun,nature,from-exercise	
+v0867	տերև	leaf			36	noun,nature,from-exercise	
+v0868	աղմուկ	noise			36	noun,from-exercise	
+v0869	բռնակ	handle			36	noun,home,from-exercise	
+v0870	պահ	moment			36	noun,time,from-exercise	
+v0871	պայծառ	bright			36	adjective,from-exercise	
+v0872	աշխատավարձ	salary			36	noun,work,from-exercise	
+v0873	փորձել	to try			37	verb	
+v0874	համարյա	almost			37	adverb	
+v0875	սիկտիր լինել	to fuck off	Սիկտիր եղի	Fuck off	37	verb,vulgar,colloquial	
+v0876	մեկնել	to depart			37	verb,travel	
+v0877	էջ	page			37	noun,school	
+v0878	սկսվել	to start, to begin	Օրը սկսվում է	The day starts	37	verb	
+v0879	Ի՞նչ ես անելու մեր դասից հետո։	What are you going to do after our lesson?			37	phrase,school	
+v0880	դժբախտաբար	unfortunately			37	adverb	
+v0881	բարեբախտաբար	fortunately			37	adverb	
+v0882	Վստահ չեմ	I'm not sure			37	phrase	
+v0883	ծրագիր	plan			37	noun,from-exercise	
+v0884	Բարի վերադարձ	welcome back			38	phrase,greetings	
+v0885	նվագել	to play music			38	verb	
+v0886	էլ	also, as well, too	Նա Իլյայի ընկերն էլ է	He is Ilia's friend as well	38	other	
+v0887	Մի խոսքով	in a word, in short (короче)			38	phrase,colloquial	
+v0888	ամեն ինչ	everything	Դու ուզում ես իմանալ ամեն ինչ	You want to know everything	38	pronoun	
+v0889	ահավոր	terribly, awfully (ужасно)	Ահավոր շոգ	Terribly hot	38	adverb,weather	
+v0890	Ի՞նչ եղանակ է այսօր։	What's the weather like today?			38	phrase,weather	spoken: Ի՞նչ եղանակ ա այսօր
+v0891	Կարող ես ասել «Այսօր ամսի քանի՞սն է, շաբաթվա ո՞ր օրն է ու ժամը քանի՞սն է»։	Can you say: what is the date today, what day of the week is it and what time is it?			38	phrase,time,calendar	
+v0892	ձանձրալի	boring			38	adjective	
+v0893	արտահայտել	to express			38	verb	
+v0894	արտահայտություն	expression			38	noun,abstract	
+v0895	նախագիծ	plan, project			38	noun,work	gen. նախագծի
+v0896	գեղեցիկ	beautiful			38	adjective	
+v0897	միակ	the only	Իմ միակ պլանը քնելն է	The only plan I have is to sleep	38	adjective	
+v0898	կենտրոնանալ	to focus			38	verb	
+v0899	Իմ ընկերներից երկուսը	two of my friends			38	phrase	
+v0900	ֆրանսիացի	French (person)			38	noun,countries	
+v0901	տեր	owner			38	noun,people	gen. տիրոջ
+v0902	հորաքույր	paternal aunt			38	noun,family	gen. հորաքրոջ
+v0903	մորաքույր	maternal aunt			38	noun,family	gen. մորաքրոջ
+v0904	հորեղբայր	paternal uncle			38	noun,family	gen. հորեղբոր
+v0905	մորեղբայր	maternal uncle			38	noun,family	gen. մորեղբոր
+v0906	կնքահայր	godfather			38	noun,family	gen. կնքահոր
+v0907	կնքամայր	godmother			38	noun,family	gen. կնքամոր
+v0908	ամուսին	husband			38	noun,family	gen. ամուսնու
+v0909	քեռի	maternal uncle			38	noun,family	gen. քեռու
+v0910	հայաստանցի	person from Armenia			38	noun,countries	gen. հայաստանցու
+v0911	ձի	horse			38	noun,nature	gen. ձիու
+v0912	ոսկի	gold			38	noun	gen. ոսկու
+v0913	պայուսակ	bag			38	noun,from-exercise	
+v0914	կոշիկ	shoe			38	noun,clothes,from-exercise	
+v0915	ակնոց	glasses			38	noun,from-exercise	
+v0916	մեքենա	car			38	noun,transport,from-exercise	
+v0917	նամակ	letter			38	noun,from-exercise	
+v0918	անձնագիր	passport			38	noun,travel,from-exercise	
+v0919	օծանելիք	perfume			38	noun,from-exercise	
+v0920	մատանի	ring			38	noun,from-exercise	
+v0921	պոչ	tail			38	noun,nature,from-exercise	
+v0922	գին	price			38	noun,from-exercise	
+v0923	անելիք	things to do	Ի՞նչ անելիքներ ունես այսօր։	What do you have to do today?	39	noun	
+v0924	անտառ	forest			39	noun,nature	
+v0925	ճիշտն ասած / անկեղծ ասած	honestly speaking, to tell the truth			39	phrase	
+v0926	գերմանացի	German (person)			39	noun,countries	
+v0927	Հայաստան · հայ · հայերեն · հայկական	Armenia · Armenian · Armenian (language) · Armenian (adj.)	հայկական կոնյակ	Armenian brandy	39	noun,countries,languages	
+v0928	Թուրքիա · թուրք · թուրքերեն · թուրքական	Turkey · Turk · Turkish (language) · Turkish (adj.)	թուրքական թեյ	Turkish tea	39	noun,countries,languages	
+v0929	Հունաստան · հույն · հունարեն · հունական	Greece · Greek · Greek (language) · Greek (adj.)	հունական պար	Greek dance	39	noun,countries,languages	
+v0930	Հնդկաստան · հնդիկ · հնդկերեն · հնդկական	India · Indian · Hindi · Indian (adj.)	հնդկական փիղ	Indian elephant	39	noun,countries,languages	
+v0931	Պարսկաստան / Իրան · պարսիկ / իրանցի · պարսկերեն · պարսկական / իրանական	Persia / Iran · Persian / Iranian · Persian (language) · Persian / Iranian (adj.)	պարսկական / իրանական գորգ	Persian / Iranian rug	39	noun,countries,languages	
+v0932	Չինաստան · չինացի · չինարեն · չինական	China · Chinese · Chinese (language) · Chinese (adj.)	չինական պատ	Chinese wall	39	noun,countries,languages	
+v0933	Վրաստան · վրացի · վրացերեն · վրացական	Georgia · Georgian · Georgian (language) · Georgian (adj.)	վրացական խինկալի	Georgian khinkali	39	noun,countries,languages	
+v0934	Ռուսաստան · ռուս · ռուսերեն · ռուսական	Russia · Russian · Russian (language) · Russian (adj.)	ռուսական օղի	Russian vodka	39	noun,countries,languages	
+v0935	Ամերիկա (ԱՄՆ) · ամերիկացի · անգլերեն · ամերիկյան	America (USA) · American · English · American (adj.)	ամերիկյան դեսպանատուն	American embassy	39	noun,countries,languages	
+v0936	Անգլիա · անգլիացի · անգլերեն · անգլիական	England · English (person) · English (language) · English (adj.)	անգլիական թեյ	English tea	39	noun,countries,languages	
+v0937	Ֆրանսիա · ֆրանսիացի · ֆրանսերեն · ֆրանսիական	France · French (person) · French (language) · French (adj.)	ֆրանսիական խոհանոց	French cuisine	39	noun,countries,languages	
+v0938	Սիրիա · սիրիացի · արաբերեն · սիրիական	Syria · Syrian · Arabic · Syrian (adj.)	սիրիական ուտելիքներ	Syrian food	39	noun,countries,languages	
+v0939	Կանադա · կանադացի · անգլերեն, ֆրանսերեն · կանադական	Canada · Canadian · English, French · Canadian (adj.)	կանադական պատմություն	Canadian history	39	noun,countries,languages	
+v0940	Ճապոնիա · ճապոնացի · ճապոներեն · ճապոնական	Japan · Japanese · Japanese (language) · Japanese (adj.)	ճապոնական խոհանոց	Japanese cuisine	39	noun,countries,languages	
+v0941	Իտալիա · իտալացի · իտալերեն · իտալական	Italy · Italian · Italian (language) · Italian (adj.)	իտալական պաղպաղակ	Italian ice cream	39	noun,countries,languages	
+v0942	Իսպանիա · իսպանացի · իսպաներեն · իսպանական	Spain · Spanish (person) · Spanish (language) · Spanish (adj.)			39	noun,countries,languages	
+v0943	Շվեդիա · շվեդ / շվեդուհի · շվեդերեն · շվեդական	Sweden · Swede (m. / f.) · Swedish (language) · Swedish (adj.)			39	noun,countries,languages	
+v0944	Պորտուգալիա · պորտուգալացի · պորտուգալերեն · պորտուգալական	Portugal · Portuguese (person) · Portuguese (language) · Portuguese (adj.)			39	noun,countries,languages	
+v0945	Բրազիլիա · բրազիլացի · պորտուգալերեն · բրազիլական	Brazil · Brazilian · Portuguese (language) · Brazilian (adj.)			39	noun,countries,languages	
+v0946	Կորեա · կորեացի · կորեերեն · կորեական	Korea · Korean · Korean (language) · Korean (adj.)			39	noun,countries,languages	
+v0947	Ադրբեջան · ադրբեջանցի · ադրբեջաներեն · ադրբեջանական	Azerbaijan · Azerbaijani · Azerbaijani (language) · Azerbaijani (adj.)			39	noun,countries,languages	
+v0948	պատկեր	image			40	noun	
+v0949	պատկերացնել	to imagine			40	verb	
+v0950	սպասել	to wait			40	verb	
+v0951	սպասեցնել	to make someone wait			40	verb	
+v0952	խոսեցնել	to make someone talk			40	verb	
+v0953	խմեցնել	to make someone drink, to give to drink			40	verb	
+v0954	մշակույթ	culture			40	noun,abstract	
+v0955	մշակել	to cultivate			40	verb	
+v0956	երևի	probably			40	adverb	
+v0957	մարդիկ	people			40	noun,people	gen. մարդկանց
+v0958	կանայք	women			40	noun,people	gen. կանանց
+v0959	անկյուն	angle, corner			40	noun	gen. անկյան
+v0960	արյուն	blood			40	noun,body	gen. արյան
+v0961	կատու	cat			40	noun,nature	gen. կատվի
+v0962	մահ	death			40	noun,abstract	gen. մահվան
+v0963	ուժ	power			40	noun,abstract,from-exercise	
+v0964	իրավունք	right (entitlement)			40	noun,abstract,from-exercise	
+v0965	շրջանառություն	circulation			40	noun,from-exercise	
+v0966	իմաստ	meaning			40	noun,abstract,from-exercise	
+v0967	վախ	fear			40	noun,feelings,from-exercise	
+v0968	կառուցվածք	structure			40	noun,abstract,from-exercise	
+v0969	և այլն	etc., and so on			41	phrase	
+v0970	հարմար	convenient, comfortable			41	adjective	
+v0971	վրա	on	Պայուսակը սեղանի վրա է։	The bag is on the table	41	postposition	
+v0972	տակ	under	Մահճակալի տակ ոչինչ չկա։	There is nothing under the bed	41	postposition	
+v0973	մոտ	near, at	Տան մոտ շատ մարդիկ կան։	There are many people near the house	41	postposition	
+v0974	մեջ	in, among	Մատիտը գրքի մեջ է։	The pencil is in the book	41	postposition	
+v0975	շուրջը	around	Մենք հավաքվել ենք տոնածառի շուրջը։	We have gathered around the Christmas tree	41	postposition	
+v0976	միջև	between	Մեր միջև էլ սեր չկա։	There is no more love between us	41	postposition	
+v0977	վերև / վերևում	above, up, upstairs	Վերևում ոչ ոք չի ապրում։	Nobody lives upstairs	41	postposition	
+v0978	ներքև / ներքևում	below, down, downstairs	Ներքևում աղմուկ է։	There is noise downstairs	41	postposition	
+v0979	կողքին	next to, beside	Այշեն միշտ նստում է իմ կողքին։	Ayshe always sits next to me	41	postposition	
+v0980	դիմաց	across, across from, in front of	Դպրոցի դիմաց մեծ այգի կա։	Across from the school there is a big orchard	41	postposition	
+v0981	միջով	through	Նա քայլեց այգու միջով, որ տուն հասնի։	She walked through the park to get home	41	postposition	
+v0982	դիվանագիտական հարաբերություն	diplomatic relationship			41	noun,abstract,from-exercise	

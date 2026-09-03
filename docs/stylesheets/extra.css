@@ -1,0 +1,79 @@
+/* Design tokens — three colours, one per block type. Nothing decorative. */
+:root {
+  --hy-rule:    #2f5d8a;   /* Rule */
+  --hy-vocab:   #3f7a52;   /* Vocabulary */
+  --hy-pitfall: #b0761f;   /* Pitfall */
+  --hy-ink:     #1c1c1c;
+  --hy-paper:   #fbfaf7;
+  --hy-muted:   #6e6a63;
+
+  --md-primary-fg-color:        var(--hy-rule);
+  --md-primary-fg-color--light: #4a78a6;
+  --md-primary-fg-color--dark:  #23476a;
+  --md-accent-fg-color:         var(--hy-vocab);
+
+  --md-admonition-icon--rule:    url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v4H3V3zm0 6h4v12H3V9zm6 0h12v2H9V9zm0 4h12v2H9v-2zm0 4h12v2H9v-2z"/></svg>');
+  --md-admonition-icon--vocab:   url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 3h7v18H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm9 0h7a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-7V3zm-7 3v2h3V6H6zm0 4v2h3v-2H6zm9-4v2h3V6h-3zm0 4v2h3v-2h-3z"/></svg>');
+  --md-admonition-icon--pitfall: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm-1 7h2v6h-2V9zm0 8h2v2h-2v-2z"/></svg>');
+}
+
+[data-md-color-scheme="slate"] {
+  --hy-ink:   #e8e6e1;
+  --hy-paper: #1e2129;
+  --hy-muted: #a19d95;
+  --md-default-bg-color: var(--hy-paper);
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--hy-paper);
+  --md-default-fg-color: var(--hy-ink);
+}
+
+/* Armenian glyphs fall through to Noto Sans Armenian automatically (Noto Sans has no Armenian range).
+   Armenian looks smaller than Latin at the same size, so tables and paradigms get a touch more room. */
+.md-typeset {
+  font-family: "Noto Sans", "Noto Sans Armenian", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.md-typeset table:not([class]) {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+}
+.hy, .md-typeset .hy {
+  font-family: "Noto Sans Armenian", "Noto Sans", sans-serif;
+  font-size: 1.08em;
+  line-height: 1.7;
+}
+
+/* Line length ≤ 75 characters (Bringhurst / WCAG 1.4.8). Tables may exceed it. */
+.md-typeset > :not(table):not(.tabbed-set) { max-width: 66ch; }
+.md-typeset .admonition, .md-typeset details { max-width: 72ch; }
+
+/* ---- Block types (closed list): rule / vocab / pitfall ---- */
+.md-typeset .admonition.rule, .md-typeset details.rule { border-color: var(--hy-rule); }
+.md-typeset .rule > .admonition-title, .md-typeset .rule > summary { background-color: rgba(47, 93, 138, 0.10); }
+.md-typeset .rule > .admonition-title::before, .md-typeset .rule > summary::before {
+  background-color: var(--hy-rule);
+  -webkit-mask-image: var(--md-admonition-icon--rule); mask-image: var(--md-admonition-icon--rule);
+}
+
+.md-typeset .admonition.vocab, .md-typeset details.vocab { border-color: var(--hy-vocab); }
+.md-typeset .vocab > .admonition-title, .md-typeset .vocab > summary { background-color: rgba(63, 122, 82, 0.10); }
+.md-typeset .vocab > .admonition-title::before, .md-typeset .vocab > summary::before {
+  background-color: var(--hy-vocab);
+  -webkit-mask-image: var(--md-admonition-icon--vocab); mask-image: var(--md-admonition-icon--vocab);
+}
+.md-typeset .vocab table { width: 100%; }
+
+.md-typeset .admonition.pitfall, .md-typeset details.pitfall { border-color: var(--hy-pitfall); }
+.md-typeset .pitfall > .admonition-title, .md-typeset .pitfall > summary { background-color: rgba(176, 118, 31, 0.10); }
+.md-typeset .pitfall > .admonition-title::before, .md-typeset .pitfall > summary::before {
+  background-color: var(--hy-pitfall);
+  -webkit-mask-image: var(--md-admonition-icon--pitfall); mask-image: var(--md-admonition-icon--pitfall);
+}
+/* Correct form dominates: first, larger, green. Wrong form is secondary and muted. */
+.md-typeset .pitfall .ok  { color: var(--hy-vocab); font-weight: 700; font-size: 1.1em; }
+.md-typeset .pitfall .bad { color: var(--hy-muted); text-decoration: line-through; }
+
+/* Letter handwriting strips */
+.md-typeset img.letter { display: block; max-width: 520px; margin: .25rem 0 .75rem; border-radius: 4px; }

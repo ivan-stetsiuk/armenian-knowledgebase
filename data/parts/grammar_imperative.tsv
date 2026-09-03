@@ -1,0 +1,31 @@
+prompt	answer	rule	lesson	tags
+կարդալ → Read! (sg. / pl.)	Կարդա՛ / կարդացե՛ք	imperative	23	imperative,regular
+խաղալ → Play! (sg.)	խաղա՛	imperative	23	imperative,regular
+գրել → Write! (sg. / pl.)	գրի՛ր / գրե՛ք	imperative	23	imperative,regular
+նստել → Sit! (sg.)	նստի՛ր	imperative	23	imperative,regular
+փակել → Close! (sg.)	փակի՛ր	imperative	23	imperative,regular
+գրել → Don't write! (sg.)	մի՛ գրիր	imperative	23	imperative,prohibitive
+կարդալ → Don't read! (pl.)	մի՛ կարդացեք	imperative	23	imperative,prohibitive
+հասկանալ → Understand! (sg. / pl.)	հասկացի՛ր / հասկացե՛ք	imperative	24	imperative,derivative
+ծանոթանալ → Get acquainted! (sg.)	ծանոթացի՛ր	imperative	24	imperative,derivative
+իմանալ → Know! (sg.)	իմացի՛ր	imperative	24	imperative,derivative
+ձանձրանալ → Don't get bored! (sg.)	մի՛ ձանձրացիր	imperative	24	imperative,derivative,prohibitive
+հանգստանալ → Calm down! (sg.)	հանգստացի՛ր	imperative	26	imperative,derivative
+բարկանալ → Don't be angry! (pl.)	մի՛ բարկացեք	imperative	26	imperative,derivative,prohibitive
+խոստանալ → Promise! (sg.)	խոստացի՛ր	imperative	26	imperative,derivative
+մոտենալ → Come closer! (sg.)	մոտեցի՛ր	imperative	24	imperative,derivative
+գալ → Come! (sg. / pl.)	Արի՛ / Եկե՛ք	imperative	25	imperative,irregular
+տալ → Give! (sg. / pl.)	Տո՛ւր / Տվե՛ք	imperative	25	imperative,irregular
+ուտել → Eat! (sg. / pl.)	Կե՛ր / Կերե՛ք	imperative	25	imperative,irregular
+ասել → Say! (sg. / pl.)	Ասա՛ / Ասե՛ք	imperative	25	imperative,irregular
+անել → Do! (sg. / pl.)	Արա՛ / Արե՛ք	imperative	25	imperative,irregular
+լինել → Be! (sg. / pl.)	Եղի՛ր / Եղե՛ք	imperative	25	imperative,irregular
+դնել → Put! (sg. / pl.)	Դի՛ր / Դրե՛ք	imperative	25	imperative,irregular
+տեսնել → See! (sg.)	Տե՛ս	imperative	25	imperative,irregular
+առնել → Buy! / Take! (sg.)	Ա՛ռ	imperative	25	imperative,irregular
+բերել → Bring! (sg.)	Բե՛ր	imperative	25	imperative,irregular
+լվանալ → Wash! (sg. / pl.)	Լվա՛ / Լվացե՛ք	imperative	25	imperative,irregular
+վերադառնալ → Come back! (sg.)	Վերադարձի՛ր	imperative	25	imperative,irregular
+վեր կենալ → Get up! (sg.)	Վե՛ր կաց	imperative	25	imperative,irregular
+be careful (sg.)	Զգո՛ւյշ եղիր	imperative	25	imperative,phrase
+take care of yourself	Քեզ լավ նայիր	imperative	25	imperative,phrase

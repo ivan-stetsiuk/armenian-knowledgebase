@@ -1,0 +1,130 @@
+id	prompt	answer	rule	lesson	tags
+g0001	Where are you from?	Որտեղի՞ց ես։	ablative	1	ablative,question
+g0002	Վրաստան → I am from Georgia	Ես Վրաստանից եմ։	ablative	1	ablative,countries
+g0003	you (pl.) — Բարև ___	ձեզ	dative	1	dative,pronoun
+g0004	սրճարան → in the cafe	սրճարանում	locative	1	locative,city
+g0005	Ֆրանսիա → in France	Ֆրանսիայում	locative	2	locative,countries
+g0006	հեռախոս → on the phone	հեռախոսով	instrumental	3	instrumental
+g0007	նկար → in the picture	նկարում	locative	3	locative
+g0008	դարակ → on the shelf	դարակում	locative	4	locative,home
+g0009	Իրան → in Iran	Իրանում	locative	5	locative,countries
+g0010	հյուրասենյակ → in the living room	հյուրասենյակում	locative	5	locative,home
+g0011	տուն → at home	տանը	locative	6	locative,irregular
+g0012	I am at home.	Ես տանն եմ։	locative	6	locative,irregular
+g0013	Which city are you from?	Ո՞ր քաղաքից ես։	ablative	7	ablative,question
+g0014	լեզու → Which language do you speak?	Ո՞ր լեզվով ես խոսում։	instrumental	7	instrumental,languages
+g0015	Which street do you live on?	Ո՞ր փողոցում ես ապրում։	locative	7	locative,question
+g0016	Լոնդոն → from London	Լոնդոնից	ablative	9	ablative
+g0017	հունվարի ութ → on the 8th of January	հունվարի ութին	dative	9	dative,dates
+g0018	me (Believe ___ !)	ինձ	dative	9	dative,pronoun
+g0019	Երևան → in Yerevan	Երևանում	locative	10	locative,city
+g0020	հարկ → on the fourth floor	չորրորդ հարկում	locative	10	locative,home
+g0021	Փարիզ → in Paris	Փարիզում	locative	11	locative,city
+g0022	խոհանոց → in the kitchen	խոհանոցում	locative	11	locative,home
+g0023	ընկերներ → (meet) my friends	ընկերներին	dative	14	dative,plural
+g0024	Հայաստան → in Armenia	Հայաստանում	locative	14	locative,countries
+g0025	տուն → from home	տնից	ablative	15	ablative
+g0026	բանկ → from the bank	բանկից	ablative	15	ablative
+g0027	հյուրանոց → from the hotel	հյուրանոցից	ablative	15	ablative
+g0028	սրճարան → from the cafe	սրճարանից	ablative	15	ablative
+g0029	դեղատուն → from the pharmacy	դեղատնից	ablative	15	ablative
+g0030	աշխատանք → from work	աշխատանքից	ablative	15	ablative
+g0031	դաս → from class	դասից	ablative	15	ablative
+g0032	հանդիպում → from a meeting	հանդիպումից	ablative	15	ablative
+g0033	աշխատանք → to work (where to?)	աշխատանքի	dative	15	dative
+g0034	դաս → to class	դասի	dative	15	dative
+g0035	հանդիպում → to a meeting	հանդիպման	dative	15	dative
+g0036	you (sg.) — I will give ___ the book	քեզ	dative	15	dative,pronoun
+g0037	with you (sg.)	քեզ հետ	postpositions	15	postposition,pronoun
+g0038	for you (sg.)	քեզ համար	postpositions	15	postposition,pronoun
+g0039	կեսօր → at noon	կեսօրին	dative	16	dative,time
+g0040	How are you getting there? (by what)	Ինչո՞վ ես գնում։	instrumental	16	instrumental,question
+g0041	ոտք → on foot	ոտքով	instrumental	16	instrumental,transport
+g0042	մետրո → by metro	մետրոյով	instrumental	16	instrumental,transport
+g0043	տաքսի → by taxi	տաքսիով	instrumental	16	instrumental,transport
+g0044	ավտոբուս → by bus	ավտոբուսով	instrumental	16	instrumental,transport
+g0045	ինքնաթիռ → by plane	ինքնաթիռով	instrumental	16	instrumental,transport
+g0046	ավտոմեքենա → by car	ավտոմեքենայով	instrumental	16	instrumental,transport
+g0047	գնացք → by train	գնացքով	instrumental	16	instrumental,transport
+g0048	հեծանիվ → by bicycle	հեծանիվով	instrumental	16	instrumental,transport
+g0049	with my friend	ընկերոջս հետ	postpositions	16	postposition,genitive
+g0050	with my parents	իմ ծնողների հետ	postpositions	16	postposition,genitive
+g0051	before / after our class	մեր դասից առաջ / հետո	ablative	19	ablative,postposition
+g0052	ten degrees below zero	տասն աստիճան զրոյից ցածր	ablative	19	ablative,weather
+g0053	ամպեր → (look at) the clouds	ամպերին	dative	19	dative,plural
+g0054	in spring (season + article)	գարնանը	genitive	19	genitive,time
+g0055	before / after our class	մեր դասից առաջ / հետո	postpositions	19	postposition,ablative
+g0056	in two weeks	երկու շաբաթից	ablative	20	ablative,time
+g0057	In how many days?	Քանի՞ օրից։	ablative	20	ablative,time,question
+g0058	նախաճաշ → for breakfast	նախաճաշին	dative	20	dative,food
+g0059	կաթ → with milk	կաթով	instrumental	20	instrumental,food
+g0060	without milk	առանց կաթի	instrumental	20	genitive,food
+g0061	for two weeks (stay)	երկու շաբաթով	instrumental	20	instrumental,time
+g0062	For how many days?	Քանի՞ օրով։	instrumental	20	instrumental,time,question
+g0063	without milk	առանց կաթի	postpositions	20	preposition,genitive
+g0064	բրինձ → with rice	բրնձով	instrumental	21	instrumental,food
+g0065	It is five to one.	Ժամը մեկից հինգ է պակաս։	ablative	22	ablative,time
+g0066	ժամը մեկ → at one o'clock	ժամը մեկին	dative	22	dative,time
+g0067	ամիս → genitive (date: what day of the …)	ամսի	genitive	22	genitive,i
+g0068	Մադրիդ → in Madrid	Մադրիդում	locative	22	locative,city
+g0069	until the Armenian lesson	մինչև հայերենի դասը	postpositions	22	preposition
+g0070	in an hour	մի ժամից	ablative	23	ablative,time
+g0071	Աննա → to Anna	Աննային	dative	26	dative
+g0072	him / her — give ___ the money	նրան	dative	26	dative,pronoun
+g0073	հիվանդանոց → in the hospital	հիվանդանոցում	locative	26	locative,city
+g0074	us — drink with ___	մեզ	dative	29	dative,pronoun
+g0075	with us	մեզ հետ	postpositions	29	postposition,pronoun
+g0076	Իսպանիա → in Spain	Իսպանիայում	locative	33	locative,countries
+g0077	Կորեա → in Korea	Կորեայում	locative	33	locative,countries
+g0078	Ճապոնիա → in Japan	Ճապոնիայում	locative	33	locative,countries
+g0079	համերգ → to a concert (գնալ)	համերգի	dative	34	dative
+g0080	գործընկերներ → (call) my colleagues	գործընկերներին	dative	35	dative,plural
+g0081	գարուն → genitive	գարնան	genitive	36	genitive,an
+g0082	ամառ → genitive	ամռան	genitive	36	genitive,an
+g0083	աշուն → genitive	աշնան	genitive	36	genitive,an
+g0084	ձմեռ → genitive	ձմռան	genitive	36	genitive,an
+g0085	հանդիպում → genitive	հանդիպման	genitive	36	genitive,an
+g0086	հաջողություն → genitive	հաջողության	genitive	36	genitive,an
+g0087	առողջություն → genitive	առողջության	genitive	36	genitive,an
+g0088	դուռ → genitive	դռան	genitive	36	genitive,an
+g0089	մուկ → genitive	մկան	genitive	36	genitive,an
+g0090	շաբաթ → genitive (of the week)	շաբաթվա	genitive	36	genitive,va
+g0091	տարի → genitive	տարվա	genitive	36	genitive,va
+g0092	երեկ → genitive (yesterday's)	երեկվա	genitive	36	genitive,va
+g0093	այսօր → genitive (today's)	այսօրվա	genitive	36	genitive,va
+g0094	during the week	շաբաթվա ընթացքում	postpositions	36	postposition,time
+g0095	սեպտեմբեր → in September	սեպտեմբերին	dative	37	dative,time
+g0096	two of my friends	իմ ընկերներից երկուսը	ablative	38	ablative
+g0097	ընկեր → genitive	ընկերոջ	genitive	38	genitive,oj
+g0098	քույր → genitive	քրոջ	genitive	38	genitive,oj
+g0099	կին → genitive	կնոջ	genitive	38	genitive,oj
+g0100	մայր → genitive	մոր	genitive	38	genitive,o
+g0101	հայր → genitive	հոր	genitive	38	genitive,o
+g0102	եղբայր → genitive	եղբոր	genitive	38	genitive,o
+g0103	մարդ → genitive	մարդու	genitive	38	genitive,u
+g0104	որդի → genitive	որդու	genitive	38	genitive,u
+g0105	գրել → genitive (of writing)	գրելու	genitive	38	genitive,u,infinitive
+g0106	in a word (короче)	մի խոսքով	instrumental	38	instrumental,phrase
+g0107	աղջիկ → genitive	աղջկա	genitive	40	genitive,irregular
+g0108	սեր → genitive	սիրո	genitive	40	genitive,irregular
+g0109	մարդիկ → genitive	մարդկանց	genitive	40	genitive,irregular
+g0110	կատու → genitive	կատվի	genitive	40	genitive,irregular
+g0111	լեզու → genitive	լեզվի	genitive	40	genitive,irregular
+g0112	Աննա → genitive	Աննայի	genitive	41	genitive,i
+g0113	for (postposition)	համար	postpositions	41	postposition
+g0114	about (postposition)	մասին	postpositions	41	postposition
+g0115	with (postposition)	հետ	postpositions	41	postposition
+g0116	on (postposition)	վրա	postpositions	41	postposition
+g0117	under (postposition)	տակ	postpositions	41	postposition
+g0118	near, at (postposition)	մոտ	postpositions	41	postposition
+g0119	in, among (postposition)	մեջ	postpositions	41	postposition
+g0120	around (postposition)	շուրջը	postpositions	41	postposition
+g0121	between (postposition)	միջև	postpositions	41	postposition
+g0122	above, upstairs	վերևում	postpositions	41	postposition
+g0123	below, downstairs	ներքևում	postpositions	41	postposition
+g0124	next to, beside	կողքին	postpositions	41	postposition
+g0125	across from	դիմաց	postpositions	41	postposition
+g0126	through	միջով	postpositions	41	postposition
+g0127	for Anna	Աննայի համար	postpositions	41	postposition,genitive
+g0128	on the table	սեղանի վրա	postpositions	41	postposition,genitive
+g0129	through the park	այգու միջով	postpositions	41	postposition,genitive

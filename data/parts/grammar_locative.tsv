@@ -1,0 +1,20 @@
+prompt	answer	rule	lesson	tags
+Իրան → in Iran	Իրանում	locative	5	locative,countries
+Երևան → in Yerevan	Երևանում	locative	10	locative,city
+Հայաստան → in Armenia	Հայաստանում	locative	14	locative,countries
+Փարիզ → in Paris	Փարիզում	locative	11	locative,city
+Իսպանիա → in Spain	Իսպանիայում	locative	33	locative,countries
+Կորեա → in Korea	Կորեայում	locative	33	locative,countries
+Ճապոնիա → in Japan	Ճապոնիայում	locative	33	locative,countries
+Ֆրանսիա → in France	Ֆրանսիայում	locative	2	locative,countries
+Մադրիդ → in Madrid	Մադրիդում	locative	22	locative,city
+սրճարան → in the cafe	սրճարանում	locative	1	locative,city
+հյուրասենյակ → in the living room	հյուրասենյակում	locative	5	locative,home
+խոհանոց → in the kitchen	խոհանոցում	locative	11	locative,home
+դարակ → on the shelf	դարակում	locative	4	locative,home
+նկար → in the picture	նկարում	locative	3	locative
+հարկ → on the fourth floor	չորրորդ հարկում	locative	10	locative,home
+հիվանդանոց → in the hospital	հիվանդանոցում	locative	26	locative,city
+տուն → at home	տանը	locative	6	locative,irregular
+I am at home.	Ես տանն եմ։	locative	6	locative,irregular
+Which street do you live on?	Ո՞ր փողոցում ես ապրում։	locative	7	locative,question

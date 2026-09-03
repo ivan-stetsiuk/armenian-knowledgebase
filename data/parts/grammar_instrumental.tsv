@@ -1,0 +1,18 @@
+prompt	answer	rule	lesson	tags
+How are you getting there? (by what)	Ինչո՞վ ես գնում։	instrumental	16	instrumental,question
+ոտք → on foot	ոտքով	instrumental	16	instrumental,transport
+մետրո → by metro	մետրոյով	instrumental	16	instrumental,transport
+տաքսի → by taxi	տաքսիով	instrumental	16	instrumental,transport
+ավտոբուս → by bus	ավտոբուսով	instrumental	16	instrumental,transport
+ինքնաթիռ → by plane	ինքնաթիռով	instrumental	16	instrumental,transport
+ավտոմեքենա → by car	ավտոմեքենայով	instrumental	16	instrumental,transport
+գնացք → by train	գնացքով	instrumental	16	instrumental,transport
+հեծանիվ → by bicycle	հեծանիվով	instrumental	16	instrumental,transport
+հեռախոս → on the phone	հեռախոսով	instrumental	3	instrumental
+կաթ → with milk	կաթով	instrumental	20	instrumental,food
+without milk	առանց կաթի	instrumental	20	genitive,food
+լեզու → Which language do you speak?	Ո՞ր լեզվով ես խոսում։	instrumental	7	instrumental,languages
+for two weeks (stay)	երկու շաբաթով	instrumental	20	instrumental,time
+For how many days?	Քանի՞ օրով։	instrumental	20	instrumental,time,question
+բրինձ → with rice	բրնձով	instrumental	21	instrumental,food
+in a word (короче)	մի խոսքով	instrumental	38	instrumental,phrase

@@ -1,0 +1,59 @@
+site_name: Armenian Knowledge Base
+site_description: Personal Eastern Armenian knowledge base built from lessons with a tutor.
+site_url: https://ivan-stetsiuk.github.io/armenian-knowledgebase/
+repo_url: https://github.com/ivan-stetsiuk/armenian-knowledgebase
+repo_name: armenian-knowledgebase
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  font:
+    text: Noto Sans
+    code: Roboto Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - footnotes
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/։՝]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - awesome-pages
+
+extra_css:
+  - https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;700&display=swap
+  - stylesheets/extra.css

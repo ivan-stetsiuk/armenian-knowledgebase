@@ -1,0 +1,29 @@
+prompt	answer	rule	lesson	tags
+ուտել → I will eat	կուտեմ	future-k	28	future
+ուտել → you (sg.) will eat	կուտես	future-k	28	future
+ուտել → he/she will eat	կուտի	future-k	28	future
+ուտել → we will eat	կուտենք	future-k	28	future
+ուտել → you (pl.) will eat	կուտեք	future-k	28	future
+ուտել → they will eat	կուտեն	future-k	28	future
+ուտել → I won't eat	չեմ ուտի	future-k	28	future,negation
+ուտել → he/she won't eat	չի ուտի	future-k	28	future,negation
+գնալ → I will go	կգնամ	future-k	28	future
+գնալ → you (sg.) will go	կգնաս	future-k	28	future
+գնալ → he/she will go	կգնա	future-k	28	future
+գնալ → we will go	կգնանք	future-k	28	future
+գնալ → they will go	կգնան	future-k	28	future
+գնալ → I won't go	չեմ գնա	future-k	28	future,negation
+գնալ → they won't go	չեն գնա	future-k	28	future,negation
+երգել → I will sing	կերգեմ	future-k	28	future
+սիրել → he/she will love	կսիրի	future-k	28	future
+սիրել → we won't love	չենք սիրի	future-k	28	future,negation
+անել → I will do	կանեմ	future-k	38	future
+անել → I won't do	չեմ անի	future-k	38	future,negation
+անել → they will do	կանեն	future-k	38	future
+տալ → I will give (you the book tomorrow)	կտամ	future-k	29	future,irregular
+գալ → I will come	կգամ	future-k	29	future,irregular
+լինել → everything will be fine	ամեն ինչ լավ կլինի	future-k	26	future,irregular
+վերադառնալ → you will come back	կվերադառնաս	future-k	26	future
+See you! (we will meet)	Կհանդիպենք։	future-k	1	future,phrase
+զանգել → I will call in the evening	Երեկոյան կզանգեմ։	future-k	1	future
+խմել → They won't drink with us.	Նրանք չեն խմի մեզ հետ։	future-k	29	future,negation

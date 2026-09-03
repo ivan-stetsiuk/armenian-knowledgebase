@@ -1,0 +1,10 @@
+prompt	answer	rule	lesson	tags
+լինել → I have been to Madrid	Ես եղել եմ Մադրիդում։	perfect	22	perfect
+լինել → I have never been to Madrid	Ես երբեք չեմ եղել Մադրիդում։	perfect	22	perfect,negation
+Have you ever been to Madrid?	Դու երբևէ եղե՞լ ես Մադրիդում։	perfect	22	perfect,question
+I have never been to Syunik.	Ես երբեք չեմ եղել Սյունիքում։	perfect	35	perfect,negation
+հավաքվել → we have gathered	հավաքվել ենք	perfect	41	perfect
+կանաչել → the trees have turned green	Ծառերը կանաչել են։	perfect	19	perfect
+հետևել → I have followed	հետևել եմ	perfect	26	perfect
+ներել → I have forgiven	ներել եմ	perfect	26	perfect
+ever (in questions)	երբևէ	perfect	22	adverb

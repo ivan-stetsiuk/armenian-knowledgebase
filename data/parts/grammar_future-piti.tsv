@@ -1,0 +1,19 @@
+prompt	answer	rule	lesson	tags
+գնալ → I have to go	Ես պիտի գնամ	future-piti	33	modal
+գնալ → you (sg.) have to go	Դու պիտի գնաս	future-piti	33	modal
+գնալ → he/she has to go	Նա պիտի գնա	future-piti	33	modal
+գնալ → we have to go	Մենք պիտի գնանք	future-piti	33	modal
+գնալ → you (pl.) have to go	Դուք պետք է գնաք	future-piti	33	modal
+գնալ → they have to go	Նրանք պետք է գնան	future-piti	33	modal
+գնալ → I don't have to go (two ways)	Ես չպիտի գնամ / Ես պիտի չգնամ	future-piti	33	modal,negation
+ուտել → I have to eat	Ես պիտի ուտեմ	future-piti	33	modal
+ուտել → he/she has to eat	Նա պիտի ուտի	future-piti	33	modal
+ուտել → we have to eat	Մենք պիտի ուտենք	future-piti	33	modal
+ուտել → they have to eat	Նրանք պիտի ուտեն	future-piti	33	modal
+ուտել → he/she doesn't have to eat	Նա չպիտի ուտի	future-piti	33	modal,negation
+խմել → You should not drink much.	Դու չպետք է շատ խմես։	future-piti	33	modal,negation
+մնալ → Your parents have to stay at home.	Քո ծնողները պետք է մնան տանը։	future-piti	33	modal
+աշխատել → I have to work (spoken)	Ես պետք ա աշխատեմ	future-piti	35	modal,spoken
+զանգել → I have to call my colleagues	Պետք ա զանգեմ իմ գործընկերներին։	future-piti	35	modal,spoken
+I have to go to the meeting.	Ես պետք է գնամ հանդիպման։	future-piti	26	modal
+A good friend should…	Լավ ընկերը պետք է…	future-piti	34	modal
