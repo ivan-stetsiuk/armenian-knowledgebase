@@ -48,6 +48,13 @@ const full = title === "Armenian Knowledge Base" ? title : `${title} — Armenia
     <main id="content">
       <slot />
     </main>
+
+    {/* Frosts the whole page while a letter is open. It is a sibling of the
+        content rather than a filter on it, because backdrop-filter blurs what is
+        behind the element — which lets the words and the open letter sit on the
+        glass instead of under it. Inert to the pointer, so a click still lands
+        on the page and closes the cloud. */}
+    <div class="glass" aria-hidden="true"></div>
     <Search />
 
     <script>
