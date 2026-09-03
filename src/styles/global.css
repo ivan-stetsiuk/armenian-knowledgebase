@@ -4,8 +4,10 @@
  *
  * Four rules, taken from the reference and applied without exception:
  *
- * 1. White paper, black ink, one grey. Nothing is beige, nothing is tinted.
- *    The single accent is used for the current item and hover, nowhere else.
+ * 1. White paper, black ink, one grey. Nothing is beige, nothing is tinted and
+ *    there is no accent: black dims to grey on hover, grey brightens to black,
+ *    and a row takes a faint ink wash. The only colour on the site is the halo
+ *    under an open letter, which cycles through the flag.
  * 2. One neutral grotesk at three sizes. No serif, no monospace, no second
  *    voice — hierarchy comes from size and grey, never from a change of face.
  * 3. [Brackets] mark a label; (numbers) in grey mark a count. Both are set in
@@ -23,7 +25,6 @@
   --c-grey: #a6a6a6;   /* [labels], (counts), everything secondary */
   --c-paper: #ffffff;
   --c-line: #e6e6e6;
-  --c-accent: #b8501f;
   /* The halo cycles through the flag, top stripe first. Official values. */
   --flag-red: #d90012;
   --flag-blue: #0033a0;
@@ -50,7 +51,6 @@
   --c-grey: #6e6e6e;
   --c-paper: #000000;
   --c-line: #242424;
-  --c-accent: #e5875c;
 
   --c-rule: #7aa9d8;
   --c-vocab: #6cb489;
@@ -85,7 +85,7 @@ body {
 
 ::selection { background: var(--c-ink); color: var(--c-paper); }
 
-:focus-visible { outline: 1px solid var(--c-accent); outline-offset: 3px; }
+:focus-visible { outline: 1px solid var(--c-ink); outline-offset: 3px; }
 
 a { color: inherit; }
 img { max-width: 100%; height: auto; }
@@ -254,7 +254,7 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.28);
   pointer-events: none;
-  transition: opacity .6s ease, transform .85s cubic-bezier(.16, .84, .28, 1);
+  transition: opacity .6s ease .12s, transform .85s cubic-bezier(.16, .84, .28, 1) .12s;
 }
 
 .abc__l.is-empty { color: var(--c-grey); cursor: default; opacity: 0.45; }
@@ -272,7 +272,11 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
     0 0 92px color-mix(in srgb, var(--c-aura) 35%, transparent);
 }
 
-.abc__l.is-on::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.abc__l.is-on::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity .6s ease 0s, transform .85s cubic-bezier(.16, .84, .28, 1) 0s;
+}
 
 /* Liquid glass. While a letter is open the whole page frosts over and only the
  * open letter and its words stay on top of the glass. It is one sheet over
@@ -288,10 +292,20 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   background: color-mix(in srgb, var(--c-paper) 46%, transparent);
   backdrop-filter: blur(16px) saturate(1.35);
   -webkit-backdrop-filter: blur(16px) saturate(1.35);
-  transition: opacity .5s ease;
+  /* Closing: held back a moment so the words are already leaving before the
+     blur starts to lift. The two are one gesture, and the thing that arrived
+     last should be the first to go. */
+  transition: opacity .55s ease .22s;
 }
 
-html.is-glass .glass { opacity: 1; }
+/* Opening is immediate, and the sheet takes the clicks: while it is up, nothing
+   underneath it is reachable — not the header, not the contents. A click on the
+   glass is what closes the cloud. */
+html.is-glass .glass {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity .5s ease 0s;
+}
 
 /* Above the glass: the letter that was pressed, and the words it produced.
  *
@@ -334,7 +348,7 @@ html.is-glass .glass { opacity: 1; }
   white-space: nowrap;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.94);
-  transition: opacity .34s ease, transform .34s cubic-bezier(.2, .7, .3, 1), color .15s ease;
+  transition: opacity .3s ease, transform .3s cubic-bezier(.2, .7, .3, 1), color .15s ease;
 }
 
 .cloud.is-on .cloud__w { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -359,7 +373,7 @@ html.is-glass .glass { opacity: 1; }
   transition: color .15s ease;
 }
 
-.stack a:hover { color: var(--c-accent); }
+.stack a:hover { color: var(--c-grey); }
 .stack a .count { margin-left: 0.35rem; }
 
 .links { display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; }
@@ -370,7 +384,7 @@ html.is-glass .glass { opacity: 1; }
   text-decoration: none;
   transition: color .15s ease;
 }
-.links a:hover { color: var(--c-accent); }
+.links a:hover { color: var(--c-grey); }
 .links .sep { height: 1rem; }
 
 @media (max-width: 60rem) {
@@ -487,7 +501,7 @@ main { min-height: 62vh; }
 
 .prose a { color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px;
   text-decoration-color: var(--c-grey); transition: color .15s ease, text-decoration-color .15s ease; }
-.prose a:hover { color: var(--c-accent); text-decoration-color: var(--c-accent); }
+.prose a:hover { text-decoration-color: var(--c-ink); }
 
 .prose strong { font-weight: 600; }
 .prose ul, .prose ol { padding-left: 1.1rem; }
@@ -610,15 +624,15 @@ main { min-height: 62vh; }
   border-bottom: 1px solid var(--c-line);
   text-decoration: none;
   color: inherit;
-  transition: color .14s ease;
+  transition: background .14s ease;
 }
 
 .index__row:first-child { border-top: 1px solid var(--c-line); }
-.index__row:hover { color: var(--c-accent); }
+.index__row:hover { background: color-mix(in srgb, var(--c-ink) 4%, transparent); }
 
 .index__no { font-size: var(--label); color: var(--c-grey); font-variant-numeric: tabular-nums;
   transition: color .14s ease; }
-.index__row:hover .index__no { color: var(--c-accent); }
+.index__row:hover .index__no { color: var(--c-ink); }
 
 .index__name { font-size: 1.06rem; letter-spacing: -0.015em; }
 .index__sub { display: block; font-size: var(--label); color: var(--c-grey); margin-top: 0.1rem; }
@@ -650,7 +664,7 @@ main { min-height: 62vh; }
 .rail ul { list-style: none; margin: 0 0 1.6rem; padding: 0; font-size: var(--label); }
 .rail li { margin-bottom: 0.3rem; }
 .rail a { color: var(--c-ink); text-decoration: none; }
-.rail a:hover { color: var(--c-accent); }
+.rail a:hover { color: var(--c-grey); }
 
 .toc ul { list-style: none; margin: 0; padding: 0; }
 .toc a {
@@ -670,7 +684,7 @@ main { min-height: 62vh; }
 }
 .pager a { text-decoration: none; color: var(--c-ink); }
 .pager a:last-child { text-align: right; }
-.pager a:hover { color: var(--c-accent); }
+.pager a:hover { color: var(--c-grey); }
 .pager span { display: block; color: var(--c-grey); margin-bottom: 0.15rem; }
 
 /* ================================================================= search */
@@ -696,7 +710,7 @@ dialog.search::backdrop { background: rgba(0, 0, 0, .3); }
 }
 .pagefind-ui__result-link { color: var(--c-ink) !important; }
 .pagefind-ui__result-excerpt { color: var(--c-ink-2) !important; font-size: .85rem !important; }
-mark { background: none; color: var(--c-accent); }
+mark { background: color-mix(in srgb, var(--c-ink) 11%, transparent); color: inherit; }
 
 /* ================================================================= images */
 

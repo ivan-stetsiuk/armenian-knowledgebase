@@ -73,6 +73,13 @@ const key = (w: Word) =>
     vertical-align: top;
   }
 
+  .words tbody tr:hover td { background: color-mix(in srgb, var(--c-ink) 3.5%, transparent); }
+
+  /* The row the filter was aiming at, when a word links straight here from the
+     alphabet. Marked with a rule rather than a colour: the site has none. */
+  .words tbody tr.is-hit td { background: color-mix(in srgb, var(--c-ink) 6%, transparent); }
+  .words tbody tr.is-hit td:first-child { box-shadow: inset 2px 0 var(--c-ink); }
+
   .words td:last-child, .words th:last-child { padding-right: 0; }
 
   .words .hy { font-family: var(--font-hy); }
@@ -87,5 +94,5 @@ const key = (w: Word) =>
   }
 
   .words .num a { text-decoration: none; color: inherit; }
-  .words .num a:hover { color: var(--c-accent); }
+  .words .num a:hover { color: var(--c-ink); }
 </style>

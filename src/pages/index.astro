@@ -136,7 +136,7 @@ const sections = [
       clearTimeout(closing);
 
       const kids = [...layer.children];
-      kids.forEach((el, i) => (el.style.transitionDelay = (kids.length - 1 - i) * 16 + "ms"));
+      kids.forEach((el, i) => (el.style.transitionDelay = (kids.length - 1 - i) * 12 + "ms"));
 
       layer.classList.remove("is-on");
       home.classList.remove("is-focused");
@@ -152,7 +152,7 @@ const sections = [
         home.classList.remove("is-lifted");
       };
       if (immediate) settle();
-      else closing = setTimeout(settle, 700);
+      else closing = setTimeout(settle, 900);
     }
 
     function show(btn) {
