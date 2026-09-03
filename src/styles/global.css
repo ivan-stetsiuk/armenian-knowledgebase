@@ -199,7 +199,7 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   letter-spacing: 0.02em;
   word-spacing: 0.28em;
   margin: 0;
-  color: var(--c-ink);
+  color: var(--c-grey);
 }
 
 .stack { display: flex; flex-direction: column; gap: 0.1rem; }
@@ -523,20 +523,10 @@ mark { background: none; color: var(--c-accent); }
 .prose img.letter { display: block; max-width: 30rem; margin: 0.5rem 0 1.2rem; }
 .prose img.diagram { display: block; max-width: 24rem; margin: 1rem 0; background: #fff; }
 
-/* ================================================================= footer */
-
-.foot { padding: 2rem 0 3rem; font-size: var(--label); color: var(--c-grey); }
-.foot__in { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: baseline; }
-.foot a { color: var(--c-grey); text-decoration: none; }
-.foot a::before { content: "["; }
-.foot a::after { content: "]"; }
-.foot a:hover { color: var(--c-ink); }
-.foot__sp { margin-left: auto; font-family: var(--font-hy); }
-
 /* ==================================================================== print */
 
 @media print {
-  .head, .doc__aside, .pager, .foot { display: none; }
+  .head, .doc__aside, .pager { display: none; }
   .doc { grid-template-columns: 1fr; }
   .block { break-inside: avoid; }
   .tabs__panel[hidden] { display: block !important; }
