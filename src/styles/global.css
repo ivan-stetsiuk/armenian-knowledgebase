@@ -24,7 +24,12 @@
   --c-paper: #ffffff;
   --c-line: #e6e6e6;
   --c-accent: #b8501f;
-  --c-aura: #ff7a1a;   /* the warm halo under a selected letter */
+  /* The halo cycles through the flag, top stripe first. Lifted a little from
+     the official values so all three glow at the same strength on white. */
+  --flag-red: #e01a2b;
+  --flag-blue: #1454c8;
+  --flag-orange: #f5a209;
+  --c-aura: var(--flag-red);
 
   /* Signal colours for the three block types. Desaturated on purpose: on a
    * white page a saturated left rule reads as a warning, not as a category. */
@@ -47,7 +52,6 @@
   --c-paper: #000000;
   --c-line: #242424;
   --c-accent: #e5875c;
-  --c-aura: #ff9a3d;
 
   --c-rule: #7aa9d8;
   --c-vocab: #6cb489;
@@ -118,7 +122,7 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   width: 100%;
   max-width: 96rem;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 3.4vw, 3.5rem);
+  padding: 0 clamp(1.5rem, 6vw, 6.5rem);
 }
 
 /* ================================================================== header */
@@ -210,6 +214,7 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 }
 
 .abc__l {
+  position: relative;
   appearance: none;
   border: 0;
   background: none;
@@ -220,7 +225,32 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   color: var(--c-ink);
   cursor: pointer;
   border-radius: 6px;
-  transition: color .18s ease, text-shadow .28s ease, transform .18s ease;
+  transition: color .5s ease, text-shadow .7s ease, transform .5s ease;
+}
+
+/* The halo. A radial gradient rather than a shadow, so it can grow: it scales
+ * up over the same three-quarters of a second the words take to arrive, which
+ * is what makes the two read as one event instead of two. */
+.abc__l::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--c-aura) 42%, transparent) 0%,
+    color-mix(in srgb, var(--c-aura) 20%, transparent) 32%,
+    color-mix(in srgb, var(--c-aura) 7%, transparent) 55%,
+    transparent 72%
+  );
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.28);
+  pointer-events: none;
+  transition: opacity .6s ease, transform .85s cubic-bezier(.16, .84, .28, 1);
 }
 
 .abc__l.is-empty { color: var(--c-grey); cursor: default; opacity: 0.45; }
@@ -231,21 +261,18 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
  * and the letter itself stays legible because only its colour warms up. */
 .abc__l.is-on {
   color: var(--c-aura);
-  transform: scale(1.06);
+  transform: scale(1.08);
   text-shadow:
-    0 0 10px color-mix(in srgb, var(--c-aura) 85%, transparent),
-    0 0 28px color-mix(in srgb, var(--c-aura) 60%, transparent),
-    0 0 62px color-mix(in srgb, var(--c-aura) 40%, transparent),
-    0 0 120px color-mix(in srgb, var(--c-aura) 25%, transparent);
+    0 0 14px color-mix(in srgb, var(--c-aura) 80%, transparent),
+    0 0 40px color-mix(in srgb, var(--c-aura) 55%, transparent),
+    0 0 92px color-mix(in srgb, var(--c-aura) 35%, transparent);
 }
 
-.abc__hint {
-  position: relative;
-  z-index: 2;
-  margin: 1.1rem 0 0;
-  font-size: var(--label);
-  color: var(--c-grey);
-}
+.abc__l.is-on::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* While one letter is open the rest step back to grey, so the alphabet stops
+ * competing with the words that just came out of it. */
+.home.is-focused .abc__l:not(.is-on) { color: var(--c-grey); }
 
 /* The word cloud sits over the whole home grid, so words can use the empty
  * space to the right instead of being trapped in the alphabet column. */
@@ -274,8 +301,7 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
  * page to itself without anything being hidden. */
 .home.is-focused .stack,
 .home.is-focused .links,
-.home.is-focused .label { opacity: .28; transition: opacity .3s ease; }
-.home.is-focused .abc + .abc__hint,
+.home.is-focused .label { opacity: .28; transition: opacity .45s ease; }
 .home.is-focused > div:first-child .label { opacity: 1; }
 
 .stack { display: flex; flex-direction: column; gap: 0.1rem; }
@@ -305,8 +331,20 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 .links .sep { height: 1rem; }
 
 @media (max-width: 60rem) {
-  .home { grid-template-columns: 1fr; gap: 3.5rem; padding-block-start: 2.5rem; }
-  .cloud { display: none; }
+  .home { grid-template-columns: 1fr; gap: 2.5rem; padding-block-start: 2rem; min-height: 0; }
+
+  /* On a narrow screen there is no empty half of the page to scatter into, so
+     the cloud stops being an overlay and takes a place of its own between the
+     alphabet and the contents. Same interaction, different room. */
+  .cloud {
+    position: relative;
+    inset: auto;
+    min-height: 52vh;
+    order: 2;
+  }
+  .home > div:nth-of-type(1) { order: 1; }
+  .home > div:nth-of-type(2) { order: 3; }
+  .home > div:nth-of-type(3) { order: 4; }
   .home.is-focused .stack,
   .home.is-focused .links,
   .home.is-focused .label { opacity: 1; }

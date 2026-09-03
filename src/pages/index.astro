@@ -62,7 +62,6 @@ const sections = [
           )
         )}
       </p>
-      <p class="abc__hint" id="abc-hint">Tap a letter</p>
     </div>
 
     <div>
@@ -90,9 +89,14 @@ const sections = [
   <script is:inline define:vars={{ cloud, base }}>
     const home = document.getElementById("home");
     const layer = document.getElementById("cloud");
-    const hint = document.getElementById("abc-hint");
     const letters = [...document.querySelectorAll(".abc__l[data-l]")];
     let active = null;
+
+    /* The halo cycles through the flag, top stripe first: red, then blue, then
+       orange. It is the only feedback that a second press did anything, now
+       that there is no caption under the alphabet. */
+    const FLAG = ["var(--flag-red)", "var(--flag-blue)", "var(--flag-orange)"];
+    let turn = 0;
 
     /* Deterministic jitter: one letter always draws the same cloud, so the page
        does not reshuffle itself every time you come back to it. */
@@ -109,7 +113,6 @@ const sections = [
         b.classList.remove("is-on");
         b.setAttribute("aria-pressed", "false");
       }
-      hint.textContent = "Tap a letter";
       active = null;
     }
 
@@ -119,23 +122,38 @@ const sections = [
       clear();
       active = letter;
 
+      const aura = FLAG[turn++ % FLAG.length];
+      home.style.setProperty("--c-aura", aura);
+
       btn.classList.add("is-on");
       btn.setAttribute("aria-pressed", "true");
       home.classList.add("is-focused");
-      hint.textContent = letter + " · " + list.length + (list.length === 1 ? " word" : " words");
 
       const box = layer.getBoundingClientRect();
       const b = btn.getBoundingClientRect();
-      const cx = b.left - box.left + b.width / 2;
-      const cy = b.top - box.top + b.height / 2;
+      let cx = b.left - box.left + b.width / 2;
+      let cy = b.top - box.top + b.height / 2;
+
+      /* On a narrow screen the cloud sits below the alphabet rather than behind
+         it, so the letter is outside the layer and its centre is meaningless.
+         Aim at the top of the layer instead and let the rings grow downwards. */
+      if (cy < 24 || cy > box.height - 24) cy = Math.min(box.height * 0.42, 190);
+      cx = Math.max(70, Math.min(box.width - 70, cx));
+
       const next = rnd(letter.codePointAt(0));
+
+      /* How many words the layer can actually hold. A phone gets a third of what
+         a desktop does, because the alternative is eighteen words on top of each
+         other, which is not a cloud but a smudge. */
+      const room = Math.max(6, Math.min(list.length, Math.round((box.width * box.height) / 11000)));
+      const shown = list.slice(0, room);
 
       /* Rings around the letter: the radius grows with the ring so later words
          land further out, and the angle is jittered so it never reads as a dial.
          The horizontal radius is stretched, because the page is wider than it is
          tall and a word is wider than it is high. */
       const perRing = 6;
-      const items = list.map((w, i) => {
+      const items = shown.map((w, i) => {
         const ring = Math.floor(i / perRing);
         const angle =
           ((i % perRing) / perRing) * Math.PI * 2 + ring * 0.8 + (next() - 0.5) * 0.5;
@@ -179,8 +197,9 @@ const sections = [
             const c = items[j];
             const dx = c.x - a.x;
             const dy = c.y - a.y;
-            const ox = (a.w + c.w) / 2 + 16 - Math.abs(dx);
-            const oy = (a.h + c.h) / 2 + 6 - Math.abs(dy);
+            const gap = box.width < 560 ? 8 : 16;
+            const ox = (a.w + c.w) / 2 + gap - Math.abs(dx);
+            const oy = (a.h + c.h) / 2 + 5 - Math.abs(dy);
             if (ox <= 0 || oy <= 0) continue;
             moved = true;
             if (oy < ox) {
