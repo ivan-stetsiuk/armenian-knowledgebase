@@ -141,7 +141,7 @@ def main() -> None:
                 f.write(f"{term}\t{definition}\n")
 
     print(f"{out.relative_to(ROOT)}: {len(decks)} decks, {len(vocab)} vocab notes ({2*len(vocab)} cards), "
-          f"{len(grammar)} grammar notes; {len(quizlet)} Quizlet files in dist/quizlet/")
+          f"{len(grammar)} grammar notes; {len(quizlet)} Quizlet files in decks/quizlet/")
 
 
 if __name__ == "__main__":

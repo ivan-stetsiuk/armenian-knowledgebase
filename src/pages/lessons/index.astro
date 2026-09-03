@@ -8,23 +8,11 @@ const lessons = (await getCollection("lessons")).sort((a, b) => b.data.lesson - 
 ---
 
 <Base title="Lessons" section="lessons" description="Chronological record of 41 Armenian lessons.">
-  <div class="shell doc" style="grid-template-columns: minmax(0, 60rem); ">
+  <div class="shell doc wide">
     <div class="doc__body" style="grid-column:1" data-pagefind-body>
       <header class="title">
-        <span class="title__no">01 — Chronology</span>
-        <h1>Lessons</h1>
-        <div class="title__meta">
-          <span>{lessons.length} sessions</span>
-          <span>newest first</span>
-        </div>
+        <h1>Lessons <span class="count">{lessons.length}</span></h1>
       </header>
-
-      <div class="prose" style="margin-bottom:2rem">
-        <p>
-          What happened in each session: the words introduced, each rule in one line with a link
-          to its reference page, and the exercises as they were set.
-        </p>
-      </div>
 
       <div class="index">
         {lessons.map((l) => (

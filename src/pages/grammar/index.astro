@@ -20,24 +20,11 @@ const missing = all.filter((g) => !GROUPS.some((x) => x.slugs.includes(g.id)));
 ---
 
 <Base title="Grammar" section="grammar" description="Armenian grammar reference: 34 topics, each opening with the rule in one line.">
-  <div class="shell doc" style="grid-template-columns: minmax(0, 60rem);">
+  <div class="shell doc wide">
     <div class="doc__body" style="grid-column:1" data-pagefind-body>
       <header class="title">
-        <span class="title__no">02 — Reference</span>
-        <h1>Grammar</h1>
-        <div class="title__meta">
-          <span>{all.length} topics</span>
-          <span>ordered by what builds on what</span>
-        </div>
+        <h1>Grammar <span class="count">{all.length}</span></h1>
       </header>
-
-      <div class="prose" style="margin-bottom:1rem">
-        <p>
-          One page per topic. Each opens with the rule in a single line, then formation, the
-          paradigm in tabs, and usage. The line under each title below is that summary, so most
-          questions are answered without opening anything.
-        </p>
-      </div>
 
       {groups.map((g) => (
         <>

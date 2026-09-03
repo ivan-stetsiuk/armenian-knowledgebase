@@ -17,31 +17,17 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
 ---
 
 <Base title="Words" section="vocabulary" description="1023 Armenian words and expressions from the lessons, by topic.">
-  <div class="shell doc" style="grid-template-columns: minmax(0, 64rem);">
+  <div class="shell doc wide">
     <div class="doc__body" style="grid-column:1" data-pagefind-body>
       <header class="title">
-        <span class="title__no">03 — Glossary</span>
-        <h1>Words</h1>
-        <div class="title__meta">
-          <span>{all.length} entries</span>
-          <span>{topics.length} topics</span>
-          <span>Armenian alphabetical order</span>
-        </div>
+        <h1>Words <span class="count">{all.length}</span></h1>
       </header>
-
-      <div class="prose" style="margin-bottom:1.5rem">
-        <p>
-          Every word introduced in a lesson, with the phrase it came in. This page and the Anki
-          deck are built from the same file, so a card and its entry cannot disagree. Filter below,
-          or use a topic.
-        </p>
-      </div>
 
       <p class="index__group">Topics</p>
       <div class="topics">
         {topics.map((t) => (
-          <a class="chip" href={`${base}/vocabulary/${t.tag}/`} title={t.blurb}>
-            {t.title} <span>{t.n}</span>
+          <a class="topic" href={`${base}/vocabulary/${t.tag}/`} title={t.blurb}>
+            {t.title} <span class="count">{t.n}</span>
           </a>
         ))}
       </div>
@@ -56,12 +42,12 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
           aria-label="Filter words"
           autocomplete="off"
         />
-        <span class="filter__count mono" id="wcount">{all.length}</span>
+        <span class="filter__count" id="wcount">{all.length}</span>
       </div>
 
       <WordTable words={all} showLesson={true} />
 
-      <p class="mono" id="wempty" hidden style="color:var(--c-ink-3);padding:2rem 0">
+      <p id="wempty" hidden style="color:var(--c-grey);padding:2rem 0;font-size:var(--label)">
         Nothing matches. Try the Armenian spelling, or a lesson number.
       </p>
     </div>
@@ -98,49 +84,31 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
   </script>
 
   <style>
-    .topics { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; }
+    .topics { display: flex; flex-wrap: wrap; gap: 0.35rem 1.3rem; margin: 0 0 0.5rem; }
 
-    .chip {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 0.4rem;
-      padding: 0.3rem 0.65rem;
-      border: 1px solid var(--c-line);
-      border-radius: 999px;
-      font-size: 0.8rem;
+    .topic {
+      font-size: 0.95rem;
       text-decoration: none;
-      color: var(--c-ink-2);
-      transition: border-color 0.14s ease, color 0.14s ease, background 0.14s ease;
-    }
-
-    .chip:hover {
       color: var(--c-ink);
-      border-color: var(--c-accent);
-      background: color-mix(in srgb, var(--c-accent) 7%, transparent);
+      transition: color 0.14s ease;
     }
+    .topic:hover { color: var(--c-accent); }
 
-    .chip span {
-      font-family: var(--font-mono);
-      font-size: 0.63rem;
-      color: var(--c-ink-3);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .filter { display: flex; align-items: center; gap: 0.9rem; margin: 1rem 0 0.4rem; }
+    .filter { display: flex; align-items: baseline; gap: 1rem; margin: 0 0 0.4rem; }
 
     .filter input {
       flex: 1;
-      padding: 0.55rem 0.2rem;
+      padding: 0.5rem 0 0.5rem;
       border: 0;
       border-bottom: 1px solid var(--c-line);
       background: none;
       color: var(--c-ink);
-      font-family: inherit;
+      font: inherit;
       font-size: 0.95rem;
     }
 
-    .filter input:focus { outline: none; border-bottom-color: var(--c-accent); }
-    .filter input::placeholder { color: var(--c-ink-3); }
-    .filter__count { color: var(--c-ink-3); font-variant-numeric: tabular-nums; }
+    .filter input:focus { outline: none; border-bottom-color: var(--c-ink); }
+    .filter input::placeholder { color: var(--c-grey); }
+    .filter__count { color: var(--c-grey); font-size: var(--label); font-variant-numeric: tabular-nums; }
   </style>
 </Base>

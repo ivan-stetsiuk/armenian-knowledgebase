@@ -13,7 +13,7 @@ const nav = [
 
 <header class="head">
   <div class="shell head__in">
-    <a class="head__mark" href={`${base}/`}>HY <span>— Armenian Knowledge Base</span></a>
+    <a class="head__mark" href={`${base}/`}>հայերեն</a>
 
     <nav class="head__nav" aria-label="Sections">
       {nav.map((n) => (
@@ -22,20 +22,8 @@ const nav = [
     </nav>
 
     <div class="head__tools">
-      <button class="iconbtn search-open" id="search-open" aria-label="Search" title="Search  /">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
-        </svg>
-      </button>
-      <button class="iconbtn" id="theme" aria-label="Toggle theme">
-        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path>
-        </svg>
-        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"></path>
-        </svg>
-      </button>
+      <button class="linkbtn" id="search-open" title="Search  /">Search</button>
+      <button class="linkbtn" id="theme" aria-label="Toggle theme">Theme</button>
     </div>
   </div>
 </header>

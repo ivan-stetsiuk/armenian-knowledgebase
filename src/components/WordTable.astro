@@ -56,39 +56,35 @@ const key = (w: Word) =>
 </div>
 
 <style>
-  .words { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  .words { width: 100%; border-collapse: collapse; font-size: 0.875rem;
+    font-variant-numeric: tabular-nums; }
 
   .words thead th {
     text-align: left;
-    padding: 0.5rem 0.9rem 0.5rem 0;
-    background: var(--c-paper);
-    border-bottom: 1px solid var(--c-ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.63rem;
-    font-weight: 600;
-    letter-spacing: var(--track);
-    text-transform: uppercase;
-    color: var(--c-ink-3);
+    padding: 0 1.1rem 0.45rem 0;
+    border-bottom: 1px solid var(--c-line);
+    font-size: var(--label);
+    font-weight: 400;
+    color: var(--c-grey);
+    white-space: nowrap;
   }
 
   .words td {
-    padding: 0.42rem 0.9rem 0.42rem 0;
-    border-bottom: 1px solid var(--c-line-2);
+    padding: 0.42rem 1.1rem 0.42rem 0;
+    border-bottom: 1px solid var(--c-line);
     vertical-align: top;
   }
 
-  .words tbody tr:hover td { background: color-mix(in srgb, var(--c-accent) 4%, transparent); }
   .words td:last-child, .words th:last-child { padding-right: 0; }
 
-  .words .hy { font-family: var(--font-hy); font-size: 1.02em; }
-  .words .gloss { color: var(--c-ink-3); }
-  .words .note { color: var(--c-ink-3); font-size: 0.9em; }
+  .words .hy { font-family: var(--font-hy); }
+  .words .gloss { color: var(--c-grey); }
+  .words .note { color: var(--c-grey); font-size: 0.92em; }
   .words .flag { margin-right: 0.3rem; }
 
   .words .num {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--c-ink-3);
+    font-size: var(--label);
+    color: var(--c-grey);
     text-align: right;
     font-variant-numeric: tabular-nums;
   }

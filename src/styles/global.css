@@ -1,19 +1,16 @@
 /* Armenian Knowledge Base — the whole design system.
  *
- * The only file in the repository holding a hex value. Everything else refers
- * to var(--c-*), which is why one set of component rules serves both themes.
+ * The only file in the repository holding a hex value.
  *
- * Three ideas run through all of it:
+ * Four rules, taken from the reference and applied without exception:
  *
- * 1. Three type roles, never mixed up. A serif for what you read (titles), a
- *    grotesk for prose, a monospace for what the machine knows: numbers, dates,
- *    labels, navigation. The mono layer is what makes an index look like an
- *    index instead of a list of links.
- * 2. No boxes. Structure is carried by hairlines, indentation and space. A
- *    filled card says "this is separate"; on a reference page almost nothing is.
- * 3. Colour is a signal, not decoration. Blue is a rule, green is vocabulary,
- *    amber is a mistake I actually made. Apricot — ծիրան, the fruit on the flag —
- *    is chrome only: links and the active item, never a block.
+ * 1. White paper, black ink, one grey. Nothing is beige, nothing is tinted.
+ *    The single accent is used for the current item and hover, nowhere else.
+ * 2. One neutral grotesk at three sizes. No serif, no monospace, no second
+ *    voice — hierarchy comes from size and grey, never from a change of face.
+ * 3. [Brackets] mark a label; (numbers) in grey mark a count. Both are set in
+ *    the body face, smaller and grey, so the page reads as an index.
+ * 4. No boxes and almost no rules. Structure is whitespace and alignment.
  */
 
 /* =============================================================== tokens */
@@ -21,54 +18,43 @@
 :root {
   color-scheme: light dark;
 
+  --c-ink: #000000;
+  --c-ink-2: #555555;
+  --c-grey: #a6a6a6;   /* [labels], (counts), everything secondary */
+  --c-paper: #ffffff;
+  --c-line: #e6e6e6;
   --c-accent: #b8501f;
 
+  /* Signal colours for the three block types. Desaturated on purpose: on a
+   * white page a saturated left rule reads as a warning, not as a category. */
   --c-rule: #2c5c8a;
   --c-vocab: #35704a;
   --c-pitfall: #9a6614;
 
-  --c-ink: #16150f;
-  --c-ink-2: #4a4840;
-  --c-ink-3: #85827a;
-  --c-paper: #f7f6f2;
-  --c-raise: #fffefb;
-  --c-line: #dedbd0;
-  --c-line-2: #eceade;
-
-  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Helvetica Neue", Helvetica, Inter, Arial, system-ui, sans-serif;
   --font-hy: "Noto Sans Armenian", var(--font-sans);
 
-  --step: 0.72rem;      /* the mono label size, used everywhere */
-  --track: 0.1em;       /* and its tracking */
-  --gap: 1.6rem;
-  --rail: 13rem;
-  --measure: 70ch;
-  --head-h: 3.25rem;
+  --label: 0.8125rem;   /* [Sections], (41), metadata */
+  --measure: 34rem;
+  --head-h: 4.5rem;
 }
 
 :root[data-theme="dark"] {
+  --c-ink: #ffffff;
+  --c-ink-2: #b0b0b0;
+  --c-grey: #6e6e6e;
+  --c-paper: #000000;
+  --c-line: #242424;
   --c-accent: #e5875c;
 
   --c-rule: #7aa9d8;
   --c-vocab: #6cb489;
   --c-pitfall: #d2a24e;
-
-  --c-ink: #ecebe4;
-  --c-ink-2: #b3b1a7;
-  --c-ink-3: #85837a;
-  --c-paper: #131311;
-  --c-raise: #1a1a17;
-  --c-line: #2e2e29;
-  --c-line-2: #232320;
 }
 
 /* ============================================================ foundations */
 
-*,
-*::before,
-*::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -78,7 +64,7 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
 body {
@@ -86,58 +72,51 @@ body {
   background: var(--c-paper);
   color: var(--c-ink);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.68;
-  font-feature-settings: "cv05" 1, "ss01" 1;
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.006em;
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: color-mix(in srgb, var(--c-accent) 22%, transparent); }
+::selection { background: var(--c-ink); color: var(--c-paper); }
 
-:focus-visible {
-  outline: 2px solid var(--c-accent);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
+:focus-visible { outline: 1px solid var(--c-accent); outline-offset: 3px; }
 
 a { color: inherit; }
-
 img { max-width: 100%; height: auto; }
+hr { border: 0; border-top: 1px solid var(--c-line); margin: 3rem 0; }
 
-hr {
-  border: 0;
-  border-top: 1px solid var(--c-line);
-  margin: 2.5rem 0;
-}
+.hy, [lang="hy"] { font-family: var(--font-hy); }
+code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 
-/* Armenian is absent from Inter, so it falls through here. At one nominal size
- * Armenian reads visually smaller than Latin, so it is set a step larger —
- * otherwise every mixed line looks like a typo. */
-.hy, [lang="hy"] {
-  font-family: var(--font-hy);
-  font-size: 1.05em;
+/* The two typographic devices of the reference. */
+.label {
+  display: block;
+  font-size: var(--label);
+  color: var(--c-grey);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-bottom: 1.6rem;
 }
+.label::before { content: "["; }
+.label::after { content: "]"; }
 
-/* The mono layer: labels, numbers, dates, nav. */
-.mono, .kicker {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  letter-spacing: var(--track);
-  font-weight: 500;
+.count {
+  color: var(--c-grey);
+  font-size: 0.62em;
+  letter-spacing: 0;
+  vertical-align: baseline;
 }
-
-.kicker {
-  text-transform: uppercase;
-  color: var(--c-ink-3);
-}
+.count::before { content: "("; }
+.count::after { content: ")"; }
 
 /* =================================================================== shell */
 
 .shell {
   width: 100%;
-  max-width: 84rem;
+  max-width: 96rem;
   margin: 0 auto;
-  padding: 0 clamp(1.15rem, 4vw, 3.25rem);
+  padding: 0 clamp(1.25rem, 3.4vw, 3.5rem);
 }
 
 /* ================================================================== header */
@@ -146,750 +125,419 @@ hr {
   position: sticky;
   top: 0;
   z-index: 50;
-  height: var(--head-h);
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--c-line);
-  background: color-mix(in srgb, var(--c-paper) 86%, transparent);
-  backdrop-filter: saturate(1.6) blur(12px);
+  background: var(--c-paper);
+  padding-top: 1.5rem;
+  padding-bottom: 1.1rem;
 }
 
-.head__in {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  width: 100%;
-}
+.head__in { display: flex; align-items: flex-start; gap: 2rem; }
 
+/* The wordmark is the language's own name, set large. It is the only piece of
+ * branding on the site, so it does the whole job on its own. */
 .head__mark {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  font-weight: 600;
-  letter-spacing: var(--track);
+  font-family: var(--font-hy);
+  font-size: 1.85rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  white-space: nowrap;
+  color: var(--c-ink);
 }
 
-.head__mark span { color: var(--c-ink-3); }
+.head__nav { display: flex; gap: 1.4rem; margin-left: auto; align-items: baseline; }
 
-.head__nav {
-  display: flex;
-  gap: 1.15rem;
-  margin-left: auto;
-  align-items: center;
-}
-
-/* Bracketed items: the brackets are the affordance, so nothing needs a box or a
- * hover background to read as clickable. */
 .head__nav a {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  letter-spacing: var(--track);
+  font-size: var(--label);
+  color: var(--c-grey);
   text-decoration: none;
-  color: var(--c-ink-2);
-  transition: color 0.15s ease;
+  transition: color .15s ease;
 }
-
-.head__nav a::before { content: "["; color: var(--c-line); }
-.head__nav a::after  { content: "]"; color: var(--c-line); }
-
+.head__nav a::before { content: "["; }
+.head__nav a::after { content: "]"; }
 .head__nav a:hover { color: var(--c-ink); }
-.head__nav a[aria-current] { color: var(--c-accent); }
-.head__nav a[aria-current]::before,
-.head__nav a[aria-current]::after { color: var(--c-accent); }
+.head__nav a[aria-current] { color: var(--c-ink); }
 
-.head__tools { display: flex; align-items: center; gap: 0.6rem; }
+.head__tools { display: flex; align-items: baseline; gap: 1.4rem; }
 
-.iconbtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.85rem;
-  height: 1.85rem;
+.linkbtn {
+  appearance: none;
+  border: 0;
+  background: none;
   padding: 0;
-  border: 1px solid var(--c-line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--c-ink-2);
+  font: inherit;
+  font-size: var(--label);
+  color: var(--c-grey);
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: color .15s ease;
+}
+.linkbtn::before { content: "["; }
+.linkbtn::after { content: "]"; }
+.linkbtn:hover { color: var(--c-ink); }
+
+@media (max-width: 52rem) {
+  .head__in { flex-wrap: wrap; gap: 1rem 1.1rem; }
+  .head__nav { margin-left: 0; width: 100%; gap: 1rem; flex-wrap: wrap; }
+  .head__tools { margin-left: auto; }
 }
 
-.iconbtn:hover { color: var(--c-ink); border-color: var(--c-ink-3); }
-.iconbtn svg { width: 0.95rem; height: 0.95rem; }
+/* ================================================================ home */
 
-:root[data-theme="dark"] .iconbtn .i-sun { display: block; }
-:root[data-theme="dark"] .iconbtn .i-moon { display: none; }
-.iconbtn .i-sun { display: none; }
-.iconbtn .i-moon { display: block; }
+.home {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 0.7fr);
+  gap: 0 clamp(2rem, 6vw, 7rem);
+  padding-block: clamp(3rem, 9vh, 7rem) 6rem;
+}
 
-@media (max-width: 46rem) {
-  .head__nav { gap: 0.7rem; }
-  .head__nav a { font-size: 0.66rem; }
-  .head__mark span { display: none; }
+/* The alphabet is the subject of the first six lessons, so it is content rather
+ * than ornament — and it is the one thing that makes the page unmistakably
+ * Armenian before a word is read. */
+.abc {
+  font-family: var(--font-hy);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  word-spacing: 0.28em;
+  margin: 0;
+  color: var(--c-ink);
+}
+
+.stack { display: flex; flex-direction: column; gap: 0.1rem; }
+
+.stack a {
+  font-size: clamp(1.6rem, 2.9vw, 2.35rem);
+  line-height: 1.32;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--c-ink);
+  transition: color .15s ease;
+}
+
+.stack a:hover { color: var(--c-accent); }
+.stack a .count { margin-left: 0.35rem; }
+
+.links { display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; }
+
+.links a {
+  font-size: 0.95rem;
+  color: var(--c-ink);
+  text-decoration: none;
+  transition: color .15s ease;
+}
+.links a:hover { color: var(--c-accent); }
+.links .sep { height: 1rem; }
+
+@media (max-width: 60rem) {
+  .home { grid-template-columns: 1fr; gap: 3.5rem; padding-block-start: 2.5rem; }
 }
 
 /* ================================================================== layout */
 
-main { min-height: 60vh; }
+main { min-height: 62vh; }
 
 .doc {
   display: grid;
-  grid-template-columns: var(--rail) minmax(0, var(--measure)) var(--rail);
-  gap: 0 clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: 13rem minmax(0, var(--measure)) 13rem;
+  gap: 0 clamp(2rem, 5vw, 5rem);
   justify-content: center;
-  padding: 3.5rem 0 6rem;
+  padding-block: 2.5rem 6rem;
 }
 
 .doc__rail { grid-column: 1; }
 .doc__body { grid-column: 2; }
 .doc__aside { grid-column: 3; }
 
-.doc__rail > div,
-.doc__aside > div {
-  position: sticky;
-  top: calc(var(--head-h) + 2.5rem);
-}
+.doc__rail > div, .doc__aside > div { position: sticky; top: calc(var(--head-h) + 1.5rem); }
 
 @media (max-width: 78rem) {
   .doc { grid-template-columns: minmax(0, var(--measure)); }
   .doc__rail, .doc__body, .doc__aside { grid-column: 1; }
   .doc__aside { order: -1; margin-bottom: 2rem; }
-  .doc__rail { margin-bottom: 1.75rem; }
+  .doc__rail { margin-bottom: 2rem; }
   .doc__rail > div, .doc__aside > div { position: static; }
 }
 
+/* Index pages are wider than an article: they are lists, not prose. */
+.wide { grid-template-columns: minmax(0, 62rem); justify-content: start; }
+.wide .doc__body { grid-column: 1; }
+
 /* ============================================================== page title */
 
-.title {
-  margin: 0 0 2.2rem;
-  padding-bottom: 1.4rem;
-  border-bottom: 1px solid var(--c-line);
-}
-
-.title__no {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  letter-spacing: var(--track);
-  color: var(--c-accent);
-  margin-bottom: 0.6rem;
-}
+.title { margin: 0 0 3rem; }
 
 .title h1 {
-  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
   font-weight: 400;
-  font-size: clamp(2.2rem, 5.2vw, 3.35rem);
-  line-height: 1.03;
-  letter-spacing: -0.015em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   margin: 0;
 }
 
 .title__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.3rem;
-  margin-top: 0.9rem;
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  color: var(--c-ink-3);
+  margin-top: 0.75rem;
+  font-size: var(--label);
+  color: var(--c-grey);
+  max-width: 46rem;
 }
 
 /* ================================================================== prose */
 
-.prose { font-size: 0.97rem; }
-
-.prose > * { margin-block: 0 1.1em; }
+.prose { font-size: 0.95rem; line-height: 1.62; }
+.prose > * { margin-block: 0 1.05em; }
 
 .prose h2 {
-  font-family: var(--font-display);
+  font-size: 1.32rem;
   font-weight: 400;
-  font-size: 1.72rem;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--c-line);
 }
 
-.prose h3 {
-  font-size: 1.04rem;
-  font-weight: 620;
-  letter-spacing: -0.005em;
-  margin-top: 2.1rem;
-}
+.prose h3 { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; margin-top: 2rem; }
 
 .prose h4 {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  font-weight: 600;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
-  margin-top: 1.8rem;
+  font-size: var(--label);
+  font-weight: 400;
+  color: var(--c-grey);
+  margin-top: 1.7rem;
 }
 
 .prose p, .prose li { max-width: var(--measure); }
 
-.prose a {
-  color: var(--c-ink);
-  text-decoration: none;
-  background-image: linear-gradient(var(--c-accent), var(--c-accent));
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  padding-bottom: 1px;
-  transition: color 0.15s ease, background-size 0.2s ease;
-}
+.prose a { color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--c-grey); transition: color .15s ease, text-decoration-color .15s ease; }
+.prose a:hover { color: var(--c-accent); text-decoration-color: var(--c-accent); }
 
-.prose a:hover { color: var(--c-accent); }
+.prose strong { font-weight: 600; }
+.prose ul, .prose ol { padding-left: 1.1rem; }
+.prose li { margin-bottom: 0.3em; }
+.prose li::marker { color: var(--c-grey); }
 
-.prose strong { font-weight: 640; }
-
-.prose ul, .prose ol { padding-left: 1.15rem; }
-.prose li { margin-bottom: 0.35em; }
-.prose li::marker { color: var(--c-ink-3); }
-
-.prose code {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  padding: 0.1em 0.34em;
-  border-radius: 3px;
-  background: var(--c-line-2);
-}
+.prose code { font-family: var(--font-sans); font-size: 0.95em; color: var(--c-ink-2); }
 
 .prose pre {
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--c-line);
-  border-radius: 4px;
-  background: var(--c-raise);
+  padding: 1rem 0;
+  border-top: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line);
   overflow-x: auto;
   font-size: 0.82rem;
 }
+.prose pre code { color: var(--c-ink); }
 
-.prose pre code { background: none; padding: 0; }
-
+/* The "One line" summary at the top of every grammar page. */
 .prose blockquote {
-  margin: var(--gap) 0;
-  padding: 0 0 0 1.3rem;
-  border-left: 2px solid var(--c-accent);
-  font-size: 1.03rem;
-  color: var(--c-ink);
+  margin: 0 0 2rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.22rem;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  max-width: 42rem;
 }
-
+.prose blockquote strong { font-weight: 400; color: var(--c-grey); }
 .prose blockquote p:last-child { margin-bottom: 0; }
 
 /* ================================================================= tables */
-/* Almost every table is an Armenian form beside its translation. The rules are
- * horizontal only: vertical lines would cut the pair apart, which is the one
- * relationship the table exists to show. */
 
-.prose table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: var(--gap) 0;
-  font-size: 0.86rem;
-  font-variant-numeric: tabular-nums;
-}
+.prose table { width: 100%; border-collapse: collapse; margin: 1.4rem 0;
+  font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 
 .prose thead th {
   text-align: left;
-  padding: 0 0.9rem 0.5rem 0;
-  border-bottom: 1px solid var(--c-ink-3);
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  font-weight: 600;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
+  padding: 0 1.1rem 0.45rem 0;
+  border-bottom: 1px solid var(--c-line);
+  font-size: var(--label);
+  font-weight: 400;
+  color: var(--c-grey);
   white-space: nowrap;
 }
 
-.prose tbody td {
-  padding: 0.5rem 0.9rem 0.5rem 0;
-  border-bottom: 1px solid var(--c-line-2);
-  vertical-align: top;
-}
-
-.prose tbody tr:hover td { background: color-mix(in srgb, var(--c-accent) 4%, transparent); }
+.prose tbody td { padding: 0.42rem 1.1rem 0.42rem 0; border-bottom: 1px solid var(--c-line);
+  vertical-align: top; }
 .prose td:last-child, .prose th:last-child { padding-right: 0; }
 
-/* A wide paradigm scrolls in its own box. The page body never scrolls sideways. */
-.table-wrap { overflow-x: auto; margin: var(--gap) 0; }
+.table-wrap { overflow-x: auto; margin: 1.4rem 0; }
 .table-wrap table { margin: 0; }
 
 /* ============================================== blocks: rule / vocab / pitfall */
-/* A hairline on the left and a mono label on top. No fill, no icon: on a page
- * that is three-quarters blocks, filled cards turn into wallpaper and stop
- * signalling anything. */
 
-.block {
-  margin: 2rem 0;
-  padding-left: 1.3rem;
-  border-left: 2px solid var(--c-line);
-}
-
+.block { margin: 2.2rem 0; padding-left: 1.1rem; border-left: 1px solid var(--c-line); }
 .block > :last-child { margin-bottom: 0; }
 
-.block__kind {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin: 0 0 0.15rem;
-}
+.block__kind { font-size: var(--label); font-weight: 400; margin: 0 0 0.1rem; }
+.block__kind::before { content: "["; }
+.block__kind::after { content: "]"; }
 
-.block__title {
-  font-weight: 640;
-  font-size: 1.02rem;
-  letter-spacing: -0.008em;
-  margin: 0 0 0.7rem;
-}
+.block__title { font-weight: 600; font-size: 0.98rem; margin: 0 0 0.7rem; letter-spacing: -0.01em; }
 
-.block--rule { border-left-color: var(--c-rule); }
-.block--rule .block__kind { color: var(--c-rule); }
-
-.block--vocab { border-left-color: var(--c-vocab); }
-.block--vocab .block__kind { color: var(--c-vocab); }
-
+.block--rule    { border-left-color: var(--c-rule); }
+.block--rule    .block__kind { color: var(--c-rule); }
+.block--vocab   { border-left-color: var(--c-vocab); }
+.block--vocab   .block__kind { color: var(--c-vocab); }
 .block--pitfall { border-left-color: var(--c-pitfall); }
 .block--pitfall .block__kind { color: var(--c-pitfall); }
 
-/* The worked example under a rule. Indented and set in the Armenian face, so a
- * reader scanning for "show me one" finds it without reading the statement. */
-.example {
-  margin: 0.85rem 0;
-  padding: 0.7rem 0 0.7rem 1rem;
-  border-left: 1px solid var(--c-line);
-  background: color-mix(in srgb, var(--c-rule) 3.5%, transparent);
-  font-size: 0.95rem;
-}
-
+.example { margin: 0.8rem 0; padding-left: 1rem; border-left: 1px solid var(--c-line);
+  color: var(--c-ink); }
 .example > :last-child { margin-bottom: 0; }
 
-/* In a pitfall the correct form has to win the first glance. */
-.block--pitfall .ok {
-  display: block;
-  color: var(--c-vocab);
-  font-weight: 650;
-  font-size: 1.06em;
-}
-
-.block--pitfall .bad {
-  display: block;
-  color: var(--c-ink-3);
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
-}
+.block--pitfall .ok  { display: block; color: var(--c-vocab); font-weight: 600; }
+.block--pitfall .bad { display: block; color: var(--c-grey); text-decoration: line-through; }
 
 /* ============================================================= disclosure */
 
-.disclosure {
-  margin: var(--gap) 0;
-  border-top: 1px solid var(--c-line);
-  border-bottom: 1px solid var(--c-line);
-  padding: 0.55rem 0;
-}
+.disclosure { margin: 1.6rem 0; }
 
 .disclosure > summary {
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  letter-spacing: 0.04em;
-  color: var(--c-ink-2);
+  cursor: pointer; list-style: none; display: flex; gap: 0.5rem; align-items: baseline;
+  font-size: var(--label); color: var(--c-grey); transition: color .15s ease;
 }
-
 .disclosure > summary::-webkit-details-marker { display: none; }
-
-.disclosure > summary::before {
-  content: "+";
-  width: 0.8rem;
-  color: var(--c-accent);
-  font-weight: 600;
-}
-
-.disclosure[open] > summary { color: var(--c-ink); margin-bottom: 0.8rem; }
+.disclosure > summary::before { content: "+"; }
+.disclosure > summary:hover { color: var(--c-ink); }
+.disclosure[open] > summary { color: var(--c-ink); margin-bottom: 0.7rem; }
 .disclosure[open] > summary::before { content: "\2212"; }
-.disclosure > :last-child { margin-bottom: 0.3rem; }
+.disclosure > :last-child { margin-bottom: 0; }
 
 /* ==================================================================== tabs */
 
-.tabs { margin: var(--gap) 0; }
-
-.tabs__bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.15rem;
-  border-bottom: 1px solid var(--c-line);
-  margin-bottom: 1rem;
-}
+.tabs { margin: 1.6rem 0; }
+.tabs__bar { display: flex; flex-wrap: wrap; gap: 1.1rem; margin-bottom: 1rem; }
 
 .tabs__btn {
-  appearance: none;
-  border: 0;
-  background: none;
-  padding: 0 0 0.55rem;
-  margin-bottom: -1px;
-  border-bottom: 1px solid transparent;
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  letter-spacing: 0.04em;
-  color: var(--c-ink-3);
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  appearance: none; border: 0; background: none; padding: 0;
+  font: inherit; font-size: var(--label); color: var(--c-grey); cursor: pointer;
+  transition: color .15s ease;
 }
-
+.tabs__btn::before { content: "["; }
+.tabs__btn::after { content: "]"; }
 .tabs__btn:hover { color: var(--c-ink); }
-
-.tabs__btn[aria-selected="true"] {
-  color: var(--c-accent);
-  border-bottom-color: var(--c-accent);
-}
-
-/* Without JS no panel is hidden, so every paradigm is still readable. */
+.tabs__btn[aria-selected="true"] { color: var(--c-ink); }
 .tabs__panel > :first-child { margin-top: 0; }
 
 /* ================================================================= index */
-/* The list that is also the navigation. Number, name, date — three columns of
- * one line each, so forty-one lessons can be scanned in one screen. */
 
-.index { border-top: 1px solid var(--c-line); }
+.index { display: flex; flex-direction: column; }
 
 .index__row {
   display: grid;
-  grid-template-columns: 3.4rem minmax(0, 1fr) auto;
-  gap: 0 1.25rem;
+  grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+  gap: 0 1.4rem;
   align-items: baseline;
-  padding: 0.72rem 0.5rem 0.72rem 0;
-  border-bottom: 1px solid var(--c-line-2);
+  padding: 0.62rem 0;
+  border-bottom: 1px solid var(--c-line);
   text-decoration: none;
   color: inherit;
-  transition: background 0.14s ease, padding-left 0.14s ease;
+  transition: color .14s ease;
 }
 
-.index__row:hover {
-  background: color-mix(in srgb, var(--c-accent) 5%, transparent);
-  padding-left: 0.5rem;
-}
+.index__row:first-child { border-top: 1px solid var(--c-line); }
+.index__row:hover { color: var(--c-accent); }
 
-.index__no {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  color: var(--c-ink-3);
-  font-variant-numeric: tabular-nums;
-}
-
+.index__no { font-size: var(--label); color: var(--c-grey); font-variant-numeric: tabular-nums;
+  transition: color .14s ease; }
 .index__row:hover .index__no { color: var(--c-accent); }
 
-.index__name { font-size: 0.97rem; font-weight: 520; letter-spacing: -0.005em; }
+.index__name { font-size: 1.06rem; letter-spacing: -0.015em; }
+.index__sub { display: block; font-size: var(--label); color: var(--c-grey); margin-top: 0.1rem; }
+.index__meta { font-size: var(--label); color: var(--c-grey); white-space: nowrap; }
 
-.index__sub {
-  display: block;
-  font-size: 0.82rem;
-  color: var(--c-ink-3);
-  font-weight: 400;
-  margin-top: 0.12rem;
-}
-
-.index__meta {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  color: var(--c-ink-3);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-@media (max-width: 40rem) {
-  .index__row { grid-template-columns: 2.6rem minmax(0, 1fr); }
-  .index__meta { grid-column: 2; margin-top: 0.2rem; }
-}
-
-/* Section grouping inside an index. */
 .index__group {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  margin: 2.6rem 0 0.35rem;
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
+  margin: 2.8rem 0 0.9rem;
+  font-size: var(--label);
+  color: var(--c-grey);
 }
-
-.index__group::after {
-  content: "";
-  flex: 1;
-  border-top: 1px solid var(--c-line);
-}
-
-/* ============================================================== home page */
-
-.hero { padding: clamp(3.5rem, 11vh, 7rem) 0 3rem; }
-
-.hero h1 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.7rem, 8.5vw, 6rem);
-  line-height: 0.97;
-  letter-spacing: -0.022em;
-  margin: 0 0 1.4rem;
-  max-width: 16ch;
-}
-
-.hero__lede {
-  max-width: 52ch;
-  font-size: 1.06rem;
-  color: var(--c-ink-2);
-  margin: 0;
-}
-
-/* The alphabet, set once at display size. It is the subject of the first six
- * lessons, so it is content standing in for an illustration. */
-.hero__abc {
-  font-family: var(--font-hy);
-  font-size: clamp(1.05rem, 3.4vw, 1.7rem);
-  line-height: 1.75;
-  letter-spacing: 0.12em;
-  color: var(--c-line);
-  margin: 2.8rem 0 0;
-  word-spacing: 0.2em;
-  user-select: none;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-  gap: 1.5rem 2rem;
-  border-top: 1px solid var(--c-line);
-  padding-top: 1.5rem;
-  margin-top: 3rem;
-}
-
-.stats dt {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
-}
-
-.stats dd {
-  margin: 0.3rem 0 0;
-  font-family: var(--font-display);
-  font-size: 2.15rem;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Section cards on the home page: a row per section, not a grid of tiles. */
-.sections { margin-top: 4.5rem; border-top: 1px solid var(--c-line); }
-
-.section-row {
-  display: grid;
-  grid-template-columns: 3.4rem minmax(0, 1fr) auto;
-  gap: 0 1.25rem;
-  align-items: start;
-  padding: 1.5rem 0.5rem 1.5rem 0;
-  border-bottom: 1px solid var(--c-line-2);
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.14s ease, padding-left 0.14s ease;
-}
-
-.section-row:hover { background: color-mix(in srgb, var(--c-accent) 5%, transparent); padding-left: 0.5rem; }
-
-.section-row h2 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.6rem;
-  line-height: 1.1;
-  margin: 0 0 0.3rem;
-}
-
-.section-row p { margin: 0; color: var(--c-ink-2); font-size: 0.9rem; max-width: 46ch; }
-
-.section-row__go {
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  color: var(--c-ink-3);
-  transition: transform 0.16s ease, color 0.16s ease;
-}
-
-.section-row:hover .section-row__go { color: var(--c-accent); transform: translateX(3px); }
+.index__group::before { content: "["; }
+.index__group::after { content: "]"; }
+.index__group:first-of-type { margin-top: 0; }
 
 @media (max-width: 40rem) {
-  .section-row { grid-template-columns: 2.6rem minmax(0, 1fr); }
-  .section-row__go { display: none; }
+  .index__row { grid-template-columns: 2.4rem minmax(0, 1fr); }
+  .index__meta { grid-column: 2; }
 }
 
 /* ============================================================ rail + toc */
 
-.rail__label {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
-  margin: 0 0 0.6rem;
-}
+.rail__label { font-size: var(--label); color: var(--c-grey); margin: 0 0 0.7rem; }
+.rail__label::before { content: "["; }
+.rail__label::after { content: "]"; }
 
-.rail dl { margin: 0 0 1.5rem; font-size: 0.8rem; }
-.rail dt {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
-  margin-top: 0.75rem;
-}
-.rail dd { margin: 0.1rem 0 0; }
-
-.rail a { color: var(--c-ink-2); text-decoration: none; }
+.rail dl { margin: 0 0 1.6rem; font-size: var(--label); }
+.rail dt { color: var(--c-grey); margin-top: 0.7rem; }
+.rail dd { margin: 0.05rem 0 0; }
+.rail ul { list-style: none; margin: 0 0 1.6rem; padding: 0; font-size: var(--label); }
+.rail li { margin-bottom: 0.3rem; }
+.rail a { color: var(--c-ink); text-decoration: none; }
 .rail a:hover { color: var(--c-accent); }
 
-.rail ul { list-style: none; margin: 0; padding: 0; font-size: 0.8rem; }
-.rail li { margin-bottom: 0.32rem; }
-
 .toc ul { list-style: none; margin: 0; padding: 0; }
-
 .toc a {
-  display: block;
-  padding: 0.22rem 0 0.22rem 0.7rem;
-  border-left: 1px solid var(--c-line);
-  font-size: 0.78rem;
-  line-height: 1.4;
-  color: var(--c-ink-3);
-  text-decoration: none;
-  transition: color 0.14s ease, border-color 0.14s ease;
+  display: block; padding: 0.2rem 0;
+  font-size: var(--label); color: var(--c-grey); text-decoration: none;
+  transition: color .14s ease;
 }
-
-.toc a:hover { color: var(--c-ink); border-left-color: var(--c-ink-3); }
-.toc a.is-active { color: var(--c-accent); border-left-color: var(--c-accent); }
-.toc .lvl-3 a { padding-left: 1.4rem; font-size: 0.74rem; }
+.toc a:hover, .toc a.is-active { color: var(--c-ink); }
+.toc .lvl-3 a { padding-left: 0.9rem; }
 
 /* ============================================================== prev/next */
 
 .pager {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  margin-top: 4rem;
-  border-top: 1px solid var(--c-line);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  margin-top: 4rem; padding-top: 1.1rem; border-top: 1px solid var(--c-line);
+  font-size: var(--label);
 }
-
-.pager a {
-  padding: 1.25rem 0;
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.15s ease;
-}
-
+.pager a { text-decoration: none; color: var(--c-ink); }
 .pager a:last-child { text-align: right; }
 .pager a:hover { color: var(--c-accent); }
-
-.pager span {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--c-ink-3);
-  margin-bottom: 0.3rem;
-}
-
-.pager strong { font-weight: 550; font-size: 0.92rem; }
+.pager span { display: block; color: var(--c-grey); margin-bottom: 0.15rem; }
 
 /* ================================================================= search */
 
-.search-open { cursor: pointer; }
-
 dialog.search {
-  width: min(42rem, 92vw);
-  max-height: 78vh;
-  margin: 8vh auto auto;
-  padding: 0;
-  border: 1px solid var(--c-line);
-  border-radius: 6px;
-  background: var(--c-raise);
-  color: var(--c-ink);
-  overflow: hidden;
+  width: min(40rem, 92vw); max-height: 80vh; margin: 10vh auto auto;
+  padding: 0; border: 1px solid var(--c-line); border-radius: 0;
+  background: var(--c-paper); color: var(--c-ink); overflow: hidden;
 }
+dialog.search::backdrop { background: rgba(0, 0, 0, .3); }
 
-dialog.search::backdrop { background: color-mix(in srgb, var(--c-ink) 42%, transparent); backdrop-filter: blur(3px); }
-
-/* Pagefind ships its own UI; only its variables are set, so it inherits the
- * site rather than arriving with a look of its own. */
 .search__ui {
-  --pagefind-ui-scale: 0.8;
+  --pagefind-ui-scale: .8;
   --pagefind-ui-primary: var(--c-ink);
   --pagefind-ui-text: var(--c-ink);
-  --pagefind-ui-background: var(--c-raise);
+  --pagefind-ui-background: var(--c-paper);
   --pagefind-ui-border: var(--c-line);
-  --pagefind-ui-tag: var(--c-line-2);
+  --pagefind-ui-tag: var(--c-paper);
   --pagefind-ui-border-width: 1px;
-  --pagefind-ui-border-radius: 4px;
+  --pagefind-ui-border-radius: 0;
   --pagefind-ui-font: var(--font-sans);
-  padding: 1rem 1.1rem 1.4rem;
-  overflow-y: auto;
-  max-height: 78vh;
+  padding: 1rem 1.1rem 1.4rem; overflow-y: auto; max-height: 80vh;
 }
-
-.pagefind-ui__result-title { font-weight: 600 !important; }
 .pagefind-ui__result-link { color: var(--c-ink) !important; }
-.pagefind-ui__result-excerpt { color: var(--c-ink-2) !important; font-size: 0.85rem !important; }
-mark { background: color-mix(in srgb, var(--c-accent) 25%, transparent); color: inherit; }
+.pagefind-ui__result-excerpt { color: var(--c-ink-2) !important; font-size: .85rem !important; }
+mark { background: none; color: var(--c-accent); }
 
 /* ================================================================= images */
 
-.prose img.letter {
-  display: block;
-  max-width: 30rem;
-  margin: 0.5rem 0 1.2rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--c-line);
-  border-radius: 3px;
-  background: var(--c-raise);
-}
-
-/* The tutor's diagrams are dark line art on white; on the dark theme they keep
- * their own white ground rather than burning a hole in the page. */
-.prose img.diagram {
-  display: block;
-  max-width: 26rem;
-  margin: 1rem 0;
-  padding: 0.75rem;
-  border: 1px solid var(--c-line);
-  border-radius: 3px;
-  background: #fff;
-}
+.prose img.letter { display: block; max-width: 30rem; margin: 0.5rem 0 1.2rem; }
+.prose img.diagram { display: block; max-width: 24rem; margin: 1rem 0; background: #fff; }
 
 /* ================================================================= footer */
 
-.foot {
-  border-top: 1px solid var(--c-line);
-  padding: 2.2rem 0 3rem;
-  font-family: var(--font-mono);
-  font-size: var(--step);
-  color: var(--c-ink-3);
-}
+.foot { padding: 2rem 0 3rem; font-size: var(--label); color: var(--c-grey); }
+.foot__in { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: baseline; }
+.foot a { color: var(--c-grey); text-decoration: none; }
+.foot a::before { content: "["; }
+.foot a::after { content: "]"; }
+.foot a:hover { color: var(--c-ink); }
+.foot__sp { margin-left: auto; font-family: var(--font-hy); }
 
-.foot__in { display: flex; flex-wrap: wrap; gap: 0.7rem 1.6rem; align-items: baseline; }
-.foot a { color: var(--c-ink-2); text-decoration: none; }
-.foot a:hover { color: var(--c-accent); }
-.foot__sp { margin-left: auto; }
-
-/* ============================================================ print */
+/* ==================================================================== print */
 
 @media print {
-  .head, .doc__aside, .pager, .foot, .search-open { display: none; }
-  .doc { grid-template-columns: 1fr; padding-top: 0; }
+  .head, .doc__aside, .pager, .foot { display: none; }
+  .doc { grid-template-columns: 1fr; }
   .block { break-inside: avoid; }
-  .disclosure[open] > summary::before { content: ""; }
   .tabs__panel[hidden] { display: block !important; }
 }

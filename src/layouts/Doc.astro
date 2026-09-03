@@ -25,11 +25,9 @@ const { title, number, meta = [], section, description, headings, prev, next } =
 
     <article class="doc__body" data-pagefind-body>
       <header class="title">
-        {number && <span class="title__no">{number}</span>}
+        {number && <span class="label">{number}</span>}
         <h1>{title}</h1>
-        {meta.length > 0 && (
-          <div class="title__meta">{meta.map((m) => <span>{m}</span>)}</div>
-        )}
+        {meta.length > 0 && <p class="title__meta">{meta.join(" · ")}</p>}
       </header>
 
       <div class="prose">

@@ -19,21 +19,11 @@ const opener = (body: string) => {
 ---
 
 <Base title="How-to" section="how-to" description="Ready Armenian dialogue scripts for everyday situations.">
-  <div class="shell doc" style="grid-template-columns: minmax(0, 60rem);">
+  <div class="shell doc wide">
     <div class="doc__body" style="grid-column:1" data-pagefind-body>
       <header class="title">
-        <span class="title__no">04 — Scripts</span>
-        <h1>How-to</h1>
-        <div class="title__meta"><span>{items.length} situations</span></div>
+        <h1>How-to <span class="count">{items.length}</span></h1>
       </header>
-
-      <div class="prose" style="margin-bottom:1rem">
-        <p>
-          What to say, and what comes back. Every line here was said in a lesson. No grammar is
-          explained on these pages, only linked, because a script you are about to use is the
-          wrong place to learn a paradigm.
-        </p>
-      </div>
 
       <div class="index">
         {items.map((e, i) => (
