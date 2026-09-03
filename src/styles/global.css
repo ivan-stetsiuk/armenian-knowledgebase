@@ -24,11 +24,10 @@
   --c-paper: #ffffff;
   --c-line: #e6e6e6;
   --c-accent: #b8501f;
-  /* The halo cycles through the flag, top stripe first. Lifted a little from
-     the official values so all three glow at the same strength on white. */
-  --flag-red: #e01a2b;
-  --flag-blue: #1454c8;
-  --flag-orange: #f5a209;
+  /* The halo cycles through the flag, top stripe first. Official values. */
+  --flag-red: #d90012;
+  --flag-blue: #0033a0;
+  --flag-orange: #f2a800;
   --c-aura: var(--flag-red);
 
   /* Signal colours for the three block types. Desaturated on purpose: on a
@@ -181,7 +180,12 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 .linkbtn:hover { color: var(--c-ink); }
 
 @media (max-width: 52rem) {
-  .head__in { flex-wrap: wrap; gap: 1rem 1.1rem; }
+  /* The header wraps to two rows here, so it is made shorter to compensate:
+     it is sticky, and every pixel of it is a pixel of alphabet a thumb cannot
+     reach once the page has scrolled at all. */
+  .head { padding-top: 0.9rem; padding-bottom: 0.7rem; }
+  .head__mark { font-size: 1.5rem; }
+  .head__in { flex-wrap: wrap; gap: 0.7rem 1.1rem; }
   .head__nav { margin-left: 0; width: 100%; gap: 1rem; flex-wrap: wrap; }
   .head__tools { margin-left: auto; }
 }
@@ -270,9 +274,28 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 
 .abc__l.is-on::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-/* While one letter is open the rest step back to grey, so the alphabet stops
- * competing with the words that just came out of it. */
-.home.is-focused .abc__l:not(.is-on) { color: var(--c-grey); }
+/* While one letter is open the rest go grey and out of focus. Blurring them
+ * rather than only fading them is what makes a word legible where it crosses a
+ * letter: a soft shape behind sharp text reads as background, a grey letter
+ * still reads as a letter and fights it.
+ *
+ * The blur is per-letter rather than on the block, because the open letter has
+ * to stay sharp — it is the thing everything else is arranged around. */
+.home.is-focused .abc__l:not(.is-on) {
+  color: var(--c-grey);
+  filter: blur(3px);
+  opacity: .55;
+}
+
+.abc__l:not(.is-on) { transition: color .5s ease, filter .45s ease, opacity .45s ease; }
+
+/* The alphabet stops taking clicks while a letter is open, so the next click
+ * anywhere collapses the cloud instead of landing on whichever word happens to
+ * be lying over the letter you were aiming at. */
+.home.is-focused .abc { pointer-events: none; }
+
+/* …and the words move above it, so nothing is read through a letter. */
+.home.is-focused .cloud { z-index: 3; }
 
 /* The word cloud sits over the whole home grid, so words can use the empty
  * space to the right instead of being trapped in the alphabet column. */
@@ -339,7 +362,9 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   .cloud {
     position: relative;
     inset: auto;
-    min-height: 52vh;
+    /* Sized so the alphabet and the cloud together still fit one phone screen.
+       Taller and the page scrolls, which puts the letters under the header. */
+    min-height: 40vh;
     order: 2;
   }
   .home > div:nth-of-type(1) { order: 1; }

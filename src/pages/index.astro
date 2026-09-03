@@ -9,16 +9,35 @@ const grammar = await getCollection("grammar");
 const howto = await getCollection("howto");
 const vocab = words();
 
-/* The 38 letters in alphabetical order. The first six lessons are nothing but
- * these, so the alphabet is the contents of the site standing in for a picture
- * of it — and clicking a letter shows what has actually been learned under it. */
-const ALPHABET = [..."ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՒՓՔՕՖ"];
+/* The 39 letters, in the order and the forms the tutor's own table gives in
+ * lesson 1. Two of them are digraphs rather than single code points: ՈՒ, which
+ * modern Eastern Armenian teaches in place of the obsolete Ւ, and ԵՎ, the
+ * ligature written և in lower case. Uppercase throughout — they are being shown
+ * as the alphabet here, not as words.
+ *
+ * The first six lessons are nothing but these, so the alphabet is the contents
+ * of the site standing in for a picture of it; pressing a letter shows what has
+ * actually been learned under it. */
+const ALPHABET = [
+  "Ա", "Բ", "Գ", "Դ", "Ե", "Զ", "Է", "Ը", "Թ", "Ժ",
+  "Ի", "Լ", "Խ", "Ծ", "Կ", "Հ", "Ձ", "Ղ", "Ճ", "Մ",
+  "Յ", "Ն", "Շ", "Ո", "Չ", "Պ", "Ջ", "Ռ", "Ս", "Վ",
+  "Տ", "Ր", "Ց", "ՈՒ", "Փ", "Ք", "ԵՎ", "Օ", "Ֆ",
+];
 
 /* Words grouped by initial letter. Case-folded, because proper nouns are
- * capitalised in the corpus and Հայաստան belongs under Հ like everything else. */
+ * capitalised in the corpus and Հայաստան belongs under Հ like everything else.
+ * The digraphs are tested first: ուտել starts with ՈՒ, not with Ո. */
+const initial = (word: string): string => {
+  const w = word.trim().toUpperCase();
+  if (w.startsWith("ՈՒ")) return "ՈՒ";
+  if (w.startsWith("ԵՎ") || w.startsWith("Եւ".toUpperCase()) || word.trim().startsWith("և")) return "ԵՎ";
+  return w[0] ?? "";
+};
+
 const byLetter = new Map<string, { hy: string; en: string }[]>();
 for (const w of vocab) {
-  const first = w.hy.trim()[0]?.toUpperCase();
+  const first = initial(w.hy);
   if (!first) continue;
   if (!byLetter.has(first)) byLetter.set(first, []);
   byLetter.get(first)!.push({ hy: w.hy, en: w.en });
@@ -233,8 +252,13 @@ const sections = [
       if (e.key === "Escape" && active) clear();
     });
 
-    home.addEventListener("click", (e) => {
-      if (active && !e.target.closest(".abc__l") && !e.target.closest(".cloud__w")) clear();
+    /* On the document, not on .home: the page is taller than that block, and a
+       click in the space below it has to close the cloud too. Clicks on a letter
+       or on one of the words are left alone — one opens, the other navigates. */
+    document.addEventListener("click", (e) => {
+      if (!active) return;
+      if (e.target.closest(".abc__l") || e.target.closest(".cloud__w")) return;
+      clear();
     });
 
     /* A resized window would leave the words pointing at the wrong letter. */
