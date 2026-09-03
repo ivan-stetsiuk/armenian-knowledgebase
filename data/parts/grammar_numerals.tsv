@@ -1,0 +1,31 @@
+prompt	answer	rule	lesson	tags
+0	զրո	numerals	8	numeral
+1	մեկ	numerals	8	numeral
+2	երկու	numerals	8	numeral
+3	երեք	numerals	8	numeral
+4	չորս	numerals	8	numeral
+5	հինգ	numerals	8	numeral
+6	վեց	numerals	8	numeral
+7	յոթ	numerals	8	numeral
+8	ութ	numerals	8	numeral
+9	ինը	numerals	8	numeral
+10	տասը / տասն	numerals	8	numeral
+11	տասնմեկ	numerals	8	numeral
+12	տասներկու	numerals	8	numeral
+20	քսան	numerals	8	numeral
+21	քսանմեկ	numerals	8	numeral
+30	երեսուն	numerals	8	numeral
+40	քառասուն	numerals	8	numeral
+50	հիսուն	numerals	8	numeral
+100	հարյուր	numerals	8	numeral
+1000	հազար	numerals	8	numeral
+million	միլիոն	numerals	8	numeral
+billion	միլիարդ	numerals	8	numeral
+1st	առաջին	numerals	10	numeral,ordinal
+2nd	երկրորդ	numerals	10	numeral,ordinal
+3rd	երրորդ	numerals	10	numeral,ordinal
+4th	չորրորդ	numerals	10	numeral,ordinal
+5th	հինգերորդ	numerals	10	numeral,ordinal
+11th	տասնմեկերորդ	numerals	10	numeral,ordinal
+two times	երկու անգամ	numerals	10	numeral
+for the second time	երկրորդ անգամ	numerals	10	numeral,ordinal

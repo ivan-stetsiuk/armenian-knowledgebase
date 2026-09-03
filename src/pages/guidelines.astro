@@ -1,0 +1,26 @@
+---
+import Doc from "../layouts/Doc.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "guidelines");
+const { Content, headings } = await render(entry!);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Doc
+  title="Guidelines"
+  number="Project"
+  meta={["how this base is built, and why"]}
+  headings={headings}
+  description="How the Armenian knowledge base is structured, and the reasoning behind it."
+>
+  <Fragment slot="rail">
+    <p class="rail__label">Elsewhere</p>
+    <ul>
+      <li><a href={`${base}/admin/`}>Edit the site</a></li>
+      <li><a href="https://github.com/ivan-stetsiuk/armenian-knowledgebase">Repository</a></li>
+    </ul>
+  </Fragment>
+
+  <Content />
+</Doc>

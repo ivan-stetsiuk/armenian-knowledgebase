@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Edit — Armenian Knowledge Base</title>
+    <link rel="icon" href="/armenian-knowledgebase/favicon.svg" type="image/svg+xml" />
+    <style>
+      /* Shown while the CMS bundle loads, and left visible if it cannot. */
+      #boot {
+        font: 14px/1.6 system-ui, sans-serif;
+        color: #4a4840;
+        max-width: 34rem;
+        margin: 18vh auto;
+        padding: 0 1.5rem;
+      }
+      #boot h1 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+      #boot code { background: #eceade; padding: 0.1em 0.35em; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <div id="boot">
+      <h1>Loading the editor…</h1>
+      <p>
+        If this message stays, the CMS could not reach GitHub. Check that
+        <code>public/admin/config.yml</code> has a <code>base_url</code> pointing at a running
+        OAuth helper — the steps are in the repository README.
+      </p>
+    </div>
+
+    <script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        // The CMS replaces the page body once it initialises.
+        setTimeout(() => {
+          if (document.querySelector("#nc-root, .css-nc-root")) document.getElementById("boot")?.remove();
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>

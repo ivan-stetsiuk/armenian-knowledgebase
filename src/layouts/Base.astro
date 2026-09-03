@@ -1,0 +1,122 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Search from "../components/Search.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  section?: string;
+}
+
+const { title, description = "A personal Eastern Armenian reference built from lessons with a tutor.", section } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const full = title === "Armenian Knowledge Base" ? title : `${title} — Armenian Knowledge Base`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{full}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Armenian:wght@400;500;700&display=swap"
+    />
+
+    {/* Applied before first paint so a dark-theme reader never sees a white flash. */}
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem("hy-theme");
+          const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) document.documentElement.dataset.theme = "dark";
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body>
+    <Header section={section} />
+    <main id="content">
+      <slot />
+    </main>
+    <Footer />
+    <Search />
+
+    <script>
+      /* Theme toggle. Stored per browser; the OS preference is the default. */
+      const root = document.documentElement;
+      document.getElementById("theme")?.addEventListener("click", () => {
+        const dark = root.dataset.theme === "dark";
+        dark ? delete root.dataset.theme : (root.dataset.theme = "dark");
+        try { localStorage.setItem("hy-theme", dark ? "light" : "dark"); } catch (e) {}
+      });
+
+      /* Tabs. Panels are all visible until this runs, so a paradigm is readable
+         with JavaScript off — it just stops being a tab set. */
+      for (const set of document.querySelectorAll("[data-tabs]")) {
+        const btns = [...set.querySelectorAll(".tabs__btn")];
+        const panels = [...set.querySelectorAll(".tabs__panel")];
+        panels.forEach((p, i) => (p.hidden = i !== 0));
+
+        const select = (i) => {
+          btns.forEach((b, n) => {
+            b.setAttribute("aria-selected", String(n === i));
+            b.tabIndex = n === i ? 0 : -1;
+          });
+          panels.forEach((p, n) => (p.hidden = n !== i));
+        };
+
+        btns.forEach((b, i) => {
+          b.addEventListener("click", () => select(i));
+          b.addEventListener("keydown", (e) => {
+            const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+            if (!d) return;
+            e.preventDefault();
+            const next = (i + d + btns.length) % btns.length;
+            select(next);
+            btns[next].focus();
+          });
+        });
+      }
+
+      /* Wide tables scroll inside their own box rather than widening the page. */
+      for (const t of document.querySelectorAll(".prose > table")) {
+        const wrap = document.createElement("div");
+        wrap.className = "table-wrap";
+        t.replaceWith(wrap);
+        wrap.append(t);
+      }
+
+      /* Highlight the section of the page currently in view in the contents. */
+      const links = [...document.querySelectorAll(".toc a")];
+      if (links.length) {
+        const byId = new Map(links.map((a) => [decodeURIComponent(a.hash.slice(1)), a]));
+        const seen = new Set();
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) e.isIntersecting ? seen.add(e.target.id) : seen.delete(e.target.id);
+            let current = null;
+            for (const [id] of byId) if (seen.has(id)) { current = id; break; }
+            links.forEach((a) => a.classList.remove("is-active"));
+            if (current) byId.get(current)?.classList.add("is-active");
+          },
+          { rootMargin: "-80px 0px -70% 0px" }
+        );
+        for (const id of byId.keys()) {
+          const el = document.getElementById(id);
+          if (el) io.observe(el);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Validate the repository's own invariants, beyond what `mkdocs build --strict` catches.
+"""Validate the repository's own invariants — the ones the site build cannot see.
 
-  1. Lesson front matter: lesson number matches the file name, date is a real date,
-     source_lesson present, grammar slugs point at existing grammar pages.
-  2. Lesson numbering is continuous and dates increase with the lesson number.
-  3. Every lesson referenced in data/vocab.tsv has a page, and vice versa.
-  4. Only the three allowed admonition types are used (rule / vocab / pitfall) and at
-     most one pitfall per lesson.
-  5. Grammar pages never link back to lessons and always open with a "One line" summary.
-  6. data/grammar.tsv rule slugs point at existing grammar pages.
+  1. Lesson front matter: the lesson number matches the file name, the date parses,
+     and every grammar slug names a page that exists.
+  2. Lesson numbering is continuous, and dates rise with the number.
+  3. Every lesson with words has a page, and every lesson page has words.
+  4. Directive fences nest correctly: an outer block must carry more colons than
+     anything inside it, or remark closes it at the first inner `:::`.
+  5. Grammar pages never link back to a lesson, and each opens with "One line".
+  6. data/grammar.tsv points only at grammar pages that exist.
 
-Exit code 1 and a list of problems if anything fails.
+Exits 1 with a list of problems if anything fails.
 """
 from __future__ import annotations
 
@@ -21,10 +21,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-LESSONS = ROOT / "docs" / "lessons"
-GRAMMAR = ROOT / "docs" / "grammar"
+LESSONS = ROOT / "src" / "content" / "lessons"
+GRAMMAR = ROOT / "src" / "content" / "grammar"
+HOWTO = ROOT / "src" / "content" / "howto"
 
-ALLOWED_BLOCKS = {"rule", "vocab", "pitfall"}
+BLOCKS = {"rule", "vocab", "pitfall"}
 problems: list[str] = []
 
 
@@ -32,24 +33,47 @@ def fail(msg: str) -> None:
     problems.append(msg)
 
 
-def front_matter(text: str) -> dict[str, str]:
-    m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+def front_matter(text: str) -> tuple[dict[str, str], str]:
+    m = re.match(r"^---\n(.*?)\n---\n(.*)$", text, re.S)
     if not m:
-        return {}
+        return {}, text
     out = {}
     for line in m.group(1).splitlines():
         if ":" in line:
             k, v = line.split(":", 1)
-            out[k.strip()] = v.strip()
-    return out
+            out[k.strip()] = v.strip().strip('"')
+    return out, m.group(2)
+
+
+def check_fences(rel: str, body: str) -> None:
+    """A directive is closed by the first fence of the same length or longer, so
+    a `:::rule` containing a `:::example` loses everything after the example."""
+    stack: list[tuple[str, int, int]] = []
+    for n, line in enumerate(body.split("\n"), start=1):
+        m = re.match(r"^(:{3,})\s*([a-z]*)", line)
+        if not m:
+            continue
+        colons, name = len(m.group(1)), m.group(2)
+        if name:
+            if stack and colons >= stack[-1][1]:
+                fail(f"{rel}:{n}: `{name}` opens with {colons} colons inside "
+                     f"`{stack[-1][0]}` which has {stack[-1][1]} — the outer block "
+                     f"closes here instead of wrapping this one")
+            stack.append((name, colons, n))
+        else:
+            while stack and stack[-1][1] > colons:
+                stack.pop()
+            if stack:
+                stack.pop()
+    for name, _, n in stack:
+        fail(f"{rel}:{n}: `{name}` is never closed")
 
 
 def check_lessons(grammar_slugs: set[str]) -> set[int]:
     numbers: dict[int, dt.date] = {}
-    for path in sorted(LESSONS.glob("L*.md")):
-        rel = path.relative_to(ROOT)
-        text = path.read_text(encoding="utf-8")
-        fm = front_matter(text)
+    for path in sorted(LESSONS.glob("*.md")):
+        rel = str(path.relative_to(ROOT))
+        fm, body = front_matter(path.read_text(encoding="utf-8"))
         if not fm:
             fail(f"{rel}: no front matter")
             continue
@@ -59,56 +83,60 @@ def check_lessons(grammar_slugs: set[str]) -> set[int]:
         except ValueError:
             fail(f"{rel}: lesson must be an integer, got {fm.get('lesson')!r}")
             continue
-        if number != int(path.stem[1:]):
+        if f"l{number:02d}" != path.stem:
             fail(f"{rel}: front matter lesson {number} does not match the file name")
 
         try:
-            date = dt.date.fromisoformat(fm.get("date", ""))
+            numbers[number] = dt.date.fromisoformat(fm.get("date", ""))
         except ValueError:
             fail(f"{rel}: date must be YYYY-MM-DD, got {fm.get('date')!r}")
-            continue
-        numbers[number] = date
-
-        if not fm.get("source_lesson", "").isdigit():
-            fail(f"{rel}: source_lesson missing or not a number")
 
         for slug in re.findall(r"[a-z0-9-]+", fm.get("grammar", "")):
             if slug not in grammar_slugs:
                 fail(f"{rel}: front matter names unknown grammar page {slug!r}")
 
-        blocks = re.findall(r"^\s*(?:!!!|\?\?\?\+?)\s+([a-z]+)", text, re.M)
-        for block in blocks:
-            if block not in ALLOWED_BLOCKS and block != "note":
-                fail(f"{rel}: block type {block!r} is not one of {sorted(ALLOWED_BLOCKS)} (or a `??? note` collapsible)")
-        if blocks.count("pitfall") > 1:
-            fail(f"{rel}: {blocks.count('pitfall')} pitfall blocks, at most one per lesson")
+        for name in re.findall(r"^:{3,}([a-z]+)", body, re.M):
+            if name not in BLOCKS | {"details", "tabs", "tab", "example"}:
+                fail(f"{rel}: unknown block type {name!r}")
+        if len(re.findall(r"^:{3,}pitfall", body, re.M)) > 1:
+            fail(f"{rel}: more than one pitfall block; at most one per lesson")
+
+        check_fences(rel, body)
 
     if numbers:
-        expected = set(range(1, max(numbers) + 1))
-        missing = sorted(expected - set(numbers))
+        missing = sorted(set(range(1, max(numbers) + 1)) - set(numbers))
         if missing:
             fail(f"lesson numbering has holes: {missing}")
-        ordered = [numbers[n] for n in sorted(numbers)]
-        for (a_n, a), (b_n, b) in zip(sorted(numbers.items()), sorted(numbers.items())[1:]):
+        ordered = sorted(numbers.items())
+        for (an, a), (bn, b) in zip(ordered, ordered[1:]):
             if b < a:
-                fail(f"lesson {b_n} ({b}) is dated before lesson {a_n} ({a})")
-        del ordered
+                fail(f"lesson {bn} is dated before lesson {an}")
     return set(numbers)
 
 
 def check_grammar() -> set[str]:
     slugs = set()
     for path in sorted(GRAMMAR.glob("*.md")):
-        if path.name == "index.md":
-            continue
-        rel = path.relative_to(ROOT)
+        rel = str(path.relative_to(ROOT))
         slugs.add(path.stem)
-        text = path.read_text(encoding="utf-8")
-        if "../lessons/" in text or "](lessons/" in text:
+        fm, body = front_matter(path.read_text(encoding="utf-8"))
+        if not fm.get("title"):
+            fail(f"{rel}: missing title in front matter")
+        if "/lessons/" in body:
             fail(f"{rel}: grammar pages must not link to lessons")
-        if not re.search(r"^>\s*\*\*One line", text, re.M):
+        if not re.search(r"^>\s*\*\*One line", body, re.M):
             fail(f"{rel}: missing the mandatory '> **One line.**' summary")
+        check_fences(rel, body)
     return slugs
+
+
+def check_howto() -> None:
+    for path in sorted(HOWTO.glob("*.md")):
+        rel = str(path.relative_to(ROOT))
+        fm, body = front_matter(path.read_text(encoding="utf-8"))
+        if not fm.get("title"):
+            fail(f"{rel}: missing title in front matter")
+        check_fences(rel, body)
 
 
 def check_data(lesson_numbers: set[int], grammar_slugs: set[str]) -> None:
@@ -133,6 +161,7 @@ def check_data(lesson_numbers: set[int], grammar_slugs: set[str]) -> None:
 def main() -> None:
     grammar_slugs = check_grammar()
     lesson_numbers = check_lessons(grammar_slugs)
+    check_howto()
     check_data(lesson_numbers, grammar_slugs)
 
     if problems:

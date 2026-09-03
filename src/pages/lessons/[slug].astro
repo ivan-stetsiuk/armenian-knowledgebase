@@ -1,0 +1,57 @@
+---
+import Doc from "../../layouts/Doc.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const lessons = (await getCollection("lessons")).sort((a, b) => a.data.lesson - b.data.lesson);
+  return lessons.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: lessons[i - 1] ?? null, next: lessons[i + 1] ?? null },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content, headings } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const grammar = await getCollection("grammar");
+const titleOf = (slug: string) => grammar.find((g) => g.id === slug)?.data.title ?? slug;
+
+const meta: string[] = entry.data.topics ? [entry.data.topics] : [];
+---
+
+<Doc
+  title={entry.data.title}
+  number="Lessons"
+  meta={meta}
+  section="lessons"
+  description={entry.data.topics ?? `Armenian lesson ${entry.data.lesson}.`}
+  headings={headings}
+  prev={prev ? { href: `${base}/lessons/${prev.id}/`, label: prev.data.title } : null}
+  next={next ? { href: `${base}/lessons/${next.id}/`, label: next.data.title } : null}
+>
+  <Fragment slot="rail">
+    <p class="rail__label">Grammar here</p>
+    {entry.data.grammar.length > 0 ? (
+      <ul>
+        {entry.data.grammar.map((g) => (
+          <li><a href={`${base}/grammar/${g}/`}>{titleOf(g)}</a></li>
+        ))}
+      </ul>
+    ) : (
+      <p style="font-size:.8rem;color:var(--c-ink-3);margin:0">No new grammar.</p>
+    )}
+
+    <dl>
+      <dt>Flashcards</dt>
+      <dd><code>hy::vocab::L{String(entry.data.lesson).padStart(2, "0")}</code></dd>
+    </dl>
+
+    <p class="rail__label">Words</p>
+    <ul>
+      <li><a href={`${base}/vocabulary/?lesson=${entry.data.lesson}`}>From this lesson</a></li>
+    </ul>
+  </Fragment>
+
+  <Content />
+</Doc>

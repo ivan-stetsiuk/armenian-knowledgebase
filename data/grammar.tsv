@@ -1,130 +1,700 @@
 id	prompt	answer	rule	lesson	tags
 g0001	Where are you from?	Որտեղի՞ց ես։	ablative	1	ablative,question
 g0002	Վրաստան → I am from Georgia	Ես Վրաստանից եմ։	ablative	1	ablative,countries
-g0003	you (pl.) — Բարև ___	ձեզ	dative	1	dative,pronoun
-g0004	սրճարան → in the cafe	սրճարանում	locative	1	locative,city
-g0005	Ֆրանսիա → in France	Ֆրանսիայում	locative	2	locative,countries
-g0006	հեռախոս → on the phone	հեռախոսով	instrumental	3	instrumental
-g0007	նկար → in the picture	նկարում	locative	3	locative
-g0008	դարակ → on the shelf	դարակում	locative	4	locative,home
-g0009	Իրան → in Iran	Իրանում	locative	5	locative,countries
-g0010	հյուրասենյակ → in the living room	հյուրասենյակում	locative	5	locative,home
-g0011	տուն → at home	տանը	locative	6	locative,irregular
-g0012	I am at home.	Ես տանն եմ։	locative	6	locative,irregular
-g0013	Which city are you from?	Ո՞ր քաղաքից ես։	ablative	7	ablative,question
-g0014	լեզու → Which language do you speak?	Ո՞ր լեզվով ես խոսում։	instrumental	7	instrumental,languages
-g0015	Which street do you live on?	Ո՞ր փողոցում ես ապրում։	locative	7	locative,question
-g0016	Լոնդոն → from London	Լոնդոնից	ablative	9	ablative
-g0017	հունվարի ութ → on the 8th of January	հունվարի ութին	dative	9	dative,dates
-g0018	me (Believe ___ !)	ինձ	dative	9	dative,pronoun
-g0019	Երևան → in Yerevan	Երևանում	locative	10	locative,city
-g0020	հարկ → on the fourth floor	չորրորդ հարկում	locative	10	locative,home
-g0021	Փարիզ → in Paris	Փարիզում	locative	11	locative,city
-g0022	խոհանոց → in the kitchen	խոհանոցում	locative	11	locative,home
-g0023	ընկերներ → (meet) my friends	ընկերներին	dative	14	dative,plural
-g0024	Հայաստան → in Armenia	Հայաստանում	locative	14	locative,countries
-g0025	տուն → from home	տնից	ablative	15	ablative
-g0026	բանկ → from the bank	բանկից	ablative	15	ablative
-g0027	հյուրանոց → from the hotel	հյուրանոցից	ablative	15	ablative
-g0028	սրճարան → from the cafe	սրճարանից	ablative	15	ablative
-g0029	դեղատուն → from the pharmacy	դեղատնից	ablative	15	ablative
-g0030	աշխատանք → from work	աշխատանքից	ablative	15	ablative
-g0031	դաս → from class	դասից	ablative	15	ablative
-g0032	հանդիպում → from a meeting	հանդիպումից	ablative	15	ablative
-g0033	աշխատանք → to work (where to?)	աշխատանքի	dative	15	dative
-g0034	դաս → to class	դասի	dative	15	dative
-g0035	հանդիպում → to a meeting	հանդիպման	dative	15	dative
-g0036	you (sg.) — I will give ___ the book	քեզ	dative	15	dative,pronoun
-g0037	with you (sg.)	քեզ հետ	postpositions	15	postposition,pronoun
-g0038	for you (sg.)	քեզ համար	postpositions	15	postposition,pronoun
-g0039	կեսօր → at noon	կեսօրին	dative	16	dative,time
-g0040	How are you getting there? (by what)	Ինչո՞վ ես գնում։	instrumental	16	instrumental,question
-g0041	ոտք → on foot	ոտքով	instrumental	16	instrumental,transport
-g0042	մետրո → by metro	մետրոյով	instrumental	16	instrumental,transport
-g0043	տաքսի → by taxi	տաքսիով	instrumental	16	instrumental,transport
-g0044	ավտոբուս → by bus	ավտոբուսով	instrumental	16	instrumental,transport
-g0045	ինքնաթիռ → by plane	ինքնաթիռով	instrumental	16	instrumental,transport
-g0046	ավտոմեքենա → by car	ավտոմեքենայով	instrumental	16	instrumental,transport
-g0047	գնացք → by train	գնացքով	instrumental	16	instrumental,transport
-g0048	հեծանիվ → by bicycle	հեծանիվով	instrumental	16	instrumental,transport
-g0049	with my friend	ընկերոջս հետ	postpositions	16	postposition,genitive
-g0050	with my parents	իմ ծնողների հետ	postpositions	16	postposition,genitive
-g0051	before / after our class	մեր դասից առաջ / հետո	ablative	19	ablative,postposition
-g0052	ten degrees below zero	տասն աստիճան զրոյից ցածր	ablative	19	ablative,weather
-g0053	ամպեր → (look at) the clouds	ամպերին	dative	19	dative,plural
-g0054	in spring (season + article)	գարնանը	genitive	19	genitive,time
-g0055	before / after our class	մեր դասից առաջ / հետո	postpositions	19	postposition,ablative
-g0056	in two weeks	երկու շաբաթից	ablative	20	ablative,time
-g0057	In how many days?	Քանի՞ օրից։	ablative	20	ablative,time,question
-g0058	նախաճաշ → for breakfast	նախաճաշին	dative	20	dative,food
-g0059	կաթ → with milk	կաթով	instrumental	20	instrumental,food
-g0060	without milk	առանց կաթի	instrumental	20	genitive,food
-g0061	for two weeks (stay)	երկու շաբաթով	instrumental	20	instrumental,time
-g0062	For how many days?	Քանի՞ օրով։	instrumental	20	instrumental,time,question
-g0063	without milk	առանց կաթի	postpositions	20	preposition,genitive
-g0064	բրինձ → with rice	բրնձով	instrumental	21	instrumental,food
-g0065	It is five to one.	Ժամը մեկից հինգ է պակաս։	ablative	22	ablative,time
-g0066	ժամը մեկ → at one o'clock	ժամը մեկին	dative	22	dative,time
-g0067	ամիս → genitive (date: what day of the …)	ամսի	genitive	22	genitive,i
-g0068	Մադրիդ → in Madrid	Մադրիդում	locative	22	locative,city
-g0069	until the Armenian lesson	մինչև հայերենի դասը	postpositions	22	preposition
-g0070	in an hour	մի ժամից	ablative	23	ablative,time
-g0071	Աննա → to Anna	Աննային	dative	26	dative
-g0072	him / her — give ___ the money	նրան	dative	26	dative,pronoun
-g0073	հիվանդանոց → in the hospital	հիվանդանոցում	locative	26	locative,city
-g0074	us — drink with ___	մեզ	dative	29	dative,pronoun
-g0075	with us	մեզ հետ	postpositions	29	postposition,pronoun
-g0076	Իսպանիա → in Spain	Իսպանիայում	locative	33	locative,countries
-g0077	Կորեա → in Korea	Կորեայում	locative	33	locative,countries
-g0078	Ճապոնիա → in Japan	Ճապոնիայում	locative	33	locative,countries
-g0079	համերգ → to a concert (գնալ)	համերգի	dative	34	dative
-g0080	գործընկերներ → (call) my colleagues	գործընկերներին	dative	35	dative,plural
-g0081	գարուն → genitive	գարնան	genitive	36	genitive,an
-g0082	ամառ → genitive	ամռան	genitive	36	genitive,an
-g0083	աշուն → genitive	աշնան	genitive	36	genitive,an
-g0084	ձմեռ → genitive	ձմռան	genitive	36	genitive,an
-g0085	հանդիպում → genitive	հանդիպման	genitive	36	genitive,an
-g0086	հաջողություն → genitive	հաջողության	genitive	36	genitive,an
-g0087	առողջություն → genitive	առողջության	genitive	36	genitive,an
-g0088	դուռ → genitive	դռան	genitive	36	genitive,an
-g0089	մուկ → genitive	մկան	genitive	36	genitive,an
-g0090	շաբաթ → genitive (of the week)	շաբաթվա	genitive	36	genitive,va
-g0091	տարի → genitive	տարվա	genitive	36	genitive,va
-g0092	երեկ → genitive (yesterday's)	երեկվա	genitive	36	genitive,va
-g0093	այսօր → genitive (today's)	այսօրվա	genitive	36	genitive,va
-g0094	during the week	շաբաթվա ընթացքում	postpositions	36	postposition,time
-g0095	սեպտեմբեր → in September	սեպտեմբերին	dative	37	dative,time
-g0096	two of my friends	իմ ընկերներից երկուսը	ablative	38	ablative
-g0097	ընկեր → genitive	ընկերոջ	genitive	38	genitive,oj
-g0098	քույր → genitive	քրոջ	genitive	38	genitive,oj
-g0099	կին → genitive	կնոջ	genitive	38	genitive,oj
-g0100	մայր → genitive	մոր	genitive	38	genitive,o
-g0101	հայր → genitive	հոր	genitive	38	genitive,o
-g0102	եղբայր → genitive	եղբոր	genitive	38	genitive,o
-g0103	մարդ → genitive	մարդու	genitive	38	genitive,u
-g0104	որդի → genitive	որդու	genitive	38	genitive,u
-g0105	գրել → genitive (of writing)	գրելու	genitive	38	genitive,u,infinitive
-g0106	in a word (короче)	մի խոսքով	instrumental	38	instrumental,phrase
-g0107	աղջիկ → genitive	աղջկա	genitive	40	genitive,irregular
-g0108	սեր → genitive	սիրո	genitive	40	genitive,irregular
-g0109	մարդիկ → genitive	մարդկանց	genitive	40	genitive,irregular
-g0110	կատու → genitive	կատվի	genitive	40	genitive,irregular
-g0111	լեզու → genitive	լեզվի	genitive	40	genitive,irregular
-g0112	Աննա → genitive	Աննայի	genitive	41	genitive,i
-g0113	for (postposition)	համար	postpositions	41	postposition
-g0114	about (postposition)	մասին	postpositions	41	postposition
-g0115	with (postposition)	հետ	postpositions	41	postposition
-g0116	on (postposition)	վրա	postpositions	41	postposition
-g0117	under (postposition)	տակ	postpositions	41	postposition
-g0118	near, at (postposition)	մոտ	postpositions	41	postposition
-g0119	in, among (postposition)	մեջ	postpositions	41	postposition
-g0120	around (postposition)	շուրջը	postpositions	41	postposition
-g0121	between (postposition)	միջև	postpositions	41	postposition
-g0122	above, upstairs	վերևում	postpositions	41	postposition
-g0123	below, downstairs	ներքևում	postpositions	41	postposition
-g0124	next to, beside	կողքին	postpositions	41	postposition
-g0125	across from	դիմաց	postpositions	41	postposition
-g0126	through	միջով	postpositions	41	postposition
-g0127	for Anna	Աննայի համար	postpositions	41	postposition,genitive
-g0128	on the table	սեղանի վրա	postpositions	41	postposition,genitive
-g0129	through the park	այգու միջով	postpositions	41	postposition,genitive
+g0003	Ձ ձ → sound	dz	alphabet	1	alphabet,letters
+g0004	Ճ ճ → sound	ch (plosive)	alphabet	1	alphabet,letters
+g0005	Զ զ → sound	z	alphabet	1	alphabet,letters
+g0006	Ղ ղ → sound	gh (like the French r)	alphabet	1	alphabet,letters
+g0007	Ո ո → sound	vo	alphabet	1	alphabet,letters
+g0008	Եվ և → reads as	yev	alphabet	1	alphabet,letters
+g0009	բարձր → pronunciation	բարցր	alphabet	1	alphabet,pronunciation
+g0010	զուգարան → pronunciation	զուքարան	alphabet	1	alphabet,pronunciation
+g0011	սրճարան → hidden ը	սըր-ճարան	alphabet	1	alphabet,pronunciation
+g0012	and / but (contrast, 'and what about')	իսկ	conjunctions	1	conjunction
+g0013	but	բայց	conjunctions	1	conjunction
+g0014	And what is your name?	Իսկ ի՞նչ է քո անունը։	conjunctions	1	conjunction,question
+g0015	you (pl.) — Բարև ___	ձեզ	dative	1	dative,pronoun
+g0016	See you! (we will meet)	Կհանդիպենք։	future-k	1	future,phrase
+g0017	զանգել → I will call in the evening	Երեկոյան կզանգեմ։	future-k	1	future
+g0018	սրճարան → in the cafe	սրճարանում	locative	1	locative,city
+g0019	Where are you from? — I am from Georgia.	Որտեղի՞ց ես։ — Ես Վրաստանից եմ։	nationality-suffixes	1	countries,ablative
+g0020	Նա ուրախ ___ (she is not glad)	չէ / չի	negation	1	negation
+g0021	no (formal)	ոչ	negation	1	negation
+g0022	no (informal)	չէ	negation	1	negation
+g0023	I am (ես ___)	եմ	to-be	1	to-be
+g0024	you are (դու ___)	ես	to-be	1	to-be
+g0025	he/she is (նա ___)	է	to-be	1	to-be
+g0026	we are (մենք ___)	ենք	to-be	1	to-be
+g0027	you (pl.) are (դուք ___)	եք	to-be	1	to-be
+g0028	they are (նրանք ___)	են	to-be	1	to-be
+g0029	I am not (ես ___)	չեմ	to-be	1	to-be,negation
+g0030	you are not (դու ___)	չես	to-be	1	to-be,negation
+g0031	he/she is not (նա ___)	չէ / չի	to-be	1	to-be,negation
+g0032	we are not (մենք ___)	չենք	to-be	1	to-be,negation
+g0033	you (pl.) are not (դուք ___)	չեք	to-be	1	to-be,negation
+g0034	they are not (նրանք ___)	չեն	to-be	1	to-be,negation
+g0035	I am glad	Ես ուրախ եմ	to-be	1	to-be
+g0036	We are not glad	Մենք ուրախ չենք	to-be	1	to-be,negation
+g0037	I am hungry	Սոված եմ	to-be	1	to-be
+g0038	I am full	Կուշտ եմ	to-be	1	to-be
+g0039	I am tired	Հոգնած եմ	to-be	1	to-be
+g0040	yes (formal / informal)	այո / հա	to-be	1	to-be
+g0041	no (formal / informal)	ոչ / չէ	to-be	1	to-be,negation
+g0042	Գ գ → sound	g	alphabet	2	alphabet,letters
+g0043	Ծ ծ → sound	ts (plosive)	alphabet	2	alphabet,letters
+g0044	Ֆ ֆ → sound	f	alphabet	2	alphabet,letters
+g0045	հոգնած → pronunciation	հոքնած	alphabet	2	alphabet,pronunciation
+g0046	and (everyday, joins words and clauses)	ու	conjunctions	2	conjunction
+g0047	Do you like to play football or tennis?	Դու սիրում ես ֆուտբո՞լ խաղալ, թե՞ թենիս։	conjunctions	2	conjunction,question
+g0048	He is going to the library, and you?	Նա գնում է գրադարան, իսկ դո՞ւ։	conjunctions	2	conjunction
+g0049	Ֆրանսիա → in France	Ֆրանսիայում	locative	2	locative,countries
+g0050	Հայաստան → language	հայերեն	nationality-suffixes	2	languages
+g0051	Ռուսաստան → language	ռուսերեն	nationality-suffixes	2	languages
+g0052	German (language)	գերմաներեն	nationality-suffixes	2	languages
+g0053	Italian (language)	իտալերեն	nationality-suffixes	2	languages
+g0054	English (language)	անգլերեն	nationality-suffixes	2	languages
+g0055	I don't have	չունեմ	negation	2	negation
+g0056	I don't know	չգիտեմ	negation	2	negation
+g0057	ունենալ → I have	Ես ունեմ	to-have-and-to-know	2	have
+g0058	ունենալ → you (sg.) have	Դու ունես	to-have-and-to-know	2	have
+g0059	ունենալ → he/she has	Նա ունի	to-have-and-to-know	2	have
+g0060	ունենալ → we have	Մենք ունենք	to-have-and-to-know	2	have
+g0061	ունենալ → you (pl.) have	Դուք ունեք	to-have-and-to-know	2	have
+g0062	ունենալ → they have	Նրանք ունեն	to-have-and-to-know	2	have
+g0063	ունենալ → I don't have	Ես չունեմ	to-have-and-to-know	2	have,negation
+g0064	ունենալ → he/she doesn't have	Նա չունի	to-have-and-to-know	2	have,negation
+g0065	գիտենալ → I know	Ես գիտեմ	to-have-and-to-know	2	know
+g0066	գիտենալ → you (sg.) know	Դու գիտես	to-have-and-to-know	2	know
+g0067	գիտենալ → he/she knows	Նա գիտի	to-have-and-to-know	2	know
+g0068	գիտենալ → we know	Մենք գիտենք	to-have-and-to-know	2	know
+g0069	գիտենալ → they know	Նրանք գիտեն	to-have-and-to-know	2	know
+g0070	գիտենալ → I don't know	Ես չգիտեմ	to-have-and-to-know	2	know,negation
+g0071	գիտենալ → he/she doesn't know	Նա չգիտի	to-have-and-to-know	2	know,negation
+g0072	Do you know my name?	Գիտե՞ս իմ անունը։	to-have-and-to-know	2	know,question
+g0073	Are you coming home?	Դու գալի՞ս ես տուն։	word-order	2	word-order,question
+g0074	Ե ե → sound	ye	alphabet	3	alphabet,letters
+g0075	Խ խ → sound	kh	alphabet	3	alphabet,letters
+g0076	Հ հ → sound	h	alphabet	3	alphabet,letters
+g0077	եղբայր → pronunciation	եղպայր	alphabet	3	alphabet,pronunciation
+g0078	գլխարկ → hidden ը	գըլ-խարկ	alphabet	3	alphabet,pronunciation
+g0079	իմ ընտանիք → definite	իմ ընտանիքը	definite-article	3	article
+g0080	քո քույր → definite	քո քույրը	definite-article	3	article
+g0081	մեր որդի → definite	մեր որդին	definite-article	3	article
+g0082	Սա իմ մատիտ__ է (This is my pencil)	ն	definite-article	3	article
+g0083	Կարեն__ ու Աննա__ (Karen and Anna)	Կարենն ու Աննան	definite-article	3	article
+g0084	հեռախոս → on the phone	հեռախոսով	instrumental	3	instrumental
+g0085	նկար → in the picture	նկարում	locative	3	locative
+g0086	Don't play, it is very dark now.	Մի՛ խաղա, հիմա շատ մութ է։	negation	3	negation,imperative
+g0087	ընկեր → plural	ընկերներ	plural	3	plural
+g0088	my	իմ	possessive-pronouns	3	possessive
+g0089	your (one person)	քո	possessive-pronouns	3	possessive
+g0090	his / her / its	նրա / իր	possessive-pronouns	3	possessive
+g0091	our	մեր	possessive-pronouns	3	possessive
+g0092	your (several / polite)	ձեր	possessive-pronouns	3	possessive
+g0093	their	նրանց / իրենց	possessive-pronouns	3	possessive
+g0094	my name	իմ անունը	possessive-pronouns	3	possessive,article
+g0095	his surname	նրա ազգանունը	possessive-pronouns	3	possessive,article
+g0096	my family	իմ ընտանիքը	possessive-pronouns	3	possessive,article
+g0097	your sister	քո քույրը	possessive-pronouns	3	possessive,article
+g0098	his/her friend	նրա / իր ընկերը	possessive-pronouns	3	possessive,article
+g0099	our son	մեր որդին	possessive-pronouns	3	possessive,article
+g0100	your (pl.) grandmother	ձեր տատիկը	possessive-pronouns	3	possessive,article
+g0101	their brother	նրանց / իրենց եղբայրը	possessive-pronouns	3	possessive,article
+g0102	Are you Armenian? — No, I am Indian.	Դու հա՞յ ես։ — Չէ, ես հնդիկ եմ։	to-be	3	to-be,question
+g0103	I have two friends.	Ես ունեմ երկու ընկեր։	to-have-and-to-know	3	have
+g0104	You talk on the phone very long.	Դու շատ երկար ես խոսում հեռախոսով։	word-order	3	word-order
+g0105	Դ դ → sound	d	alphabet	4	alphabet,letters
+g0106	Բ բ → sound	b	alphabet	4	alphabet,letters
+g0107	մարդ → pronunciation	մարթ	alphabet	4	alphabet,pronunciation
+g0108	կարդալ → pronunciation	կարթալ	alphabet	4	alphabet,pronunciation
+g0109	դարակ → on the shelf	դարակում	locative	4	locative,home
+g0110	կարդալ → I am reading	Ես կարդում եմ	present-tense	4	present
+g0111	There are red pencils on the shelf.	Դարակում կարմիր մատիտներ կան։	there-is	4	there-is
+g0112	Ն ն → sound	n	alphabet	5	alphabet,letters
+g0113	Մ մ → sound	m	alphabet	5	alphabet,letters
+g0114	երբեք → pronunciation	երփեք	alphabet	5	alphabet,pronunciation
+g0115	Իրան → in Iran	Իրանում	locative	5	locative,countries
+g0116	հյուրասենյակ → in the living room	հյուրասենյակում	locative	5	locative,home
+g0117	Ես ___ գնում (I am not going)	չեմ	negation	5	negation
+g0118	Նա ___ խոսում (he does not speak)	չի	negation	5	negation
+g0119	there is not	չկա	negation	5	negation
+g0120	never	երբեք	negation	5	negation
+g0121	He never speaks Armenian.	Նա երբեք չի խոսում հայերեն։	negation	5	negation
+g0122	անել → I do / I am doing	Ես անում եմ	present-tense	5	present
+g0123	անել → you (sg.) do	Դու անում ես	present-tense	5	present
+g0124	անել → he/she does	Նա անում է	present-tense	5	present
+g0125	անել → we do	Մենք անում ենք	present-tense	5	present
+g0126	անել → you (pl.) do	Դուք անում եք	present-tense	5	present
+g0127	անել → they do	Նրանք անում են	present-tense	5	present
+g0128	անել → I don't do	Ես չեմ անում	present-tense	5	present,negation
+g0129	անել → he/she doesn't do	Նա չի անում	present-tense	5	present,negation
+g0130	անել → they don't do	Նրանք չեն անում	present-tense	5	present,negation
+g0131	What are you doing?	Ի՞նչ ես անում։	present-tense	5	present,question
+g0132	խոսել → We always speak Armenian.	Մենք միշտ խոսում ենք հայերեն։	present-tense	5	present,adverb
+g0133	խոսել → He never speaks Armenian.	Նա երբեք չի խոսում հայերեն։	present-tense	5	present,adverb,negation
+g0134	always	միշտ	present-tense	5	adverb
+g0135	usually	սովորաբար	present-tense	5	adverb
+g0136	often	հաճախ	present-tense	5	adverb
+g0137	never	երբեք	present-tense	5	adverb
+g0138	sometimes	երբեմն / մեկ-մեկ	present-tense	5	adverb
+g0139	there is	կա	there-is	5	there-is
+g0140	there are	կան	there-is	5	there-is
+g0141	There are many guests in my living room.	Կան շատ հյուրեր իմ հյուրասենյակում։	there-is	5	there-is
+g0142	What are you doing?	Ի՞նչ ես անում։	word-order	5	word-order,question
+g0143	I speak Armenian.	Ես խոսում եմ հայերեն։	word-order	5	word-order
+g0144	We always speak Armenian.	Մենք միշտ խոսում ենք հայերեն։	word-order	5	word-order
+g0145	They usually don't speak Armenian.	Նրանք սովորաբար չեն խոսում հայերեն։	word-order	5	word-order,negation
+g0146	Յ յ → sound	y	alphabet	6	alphabet,letters
+g0147	because	որովհետև	conjunctions	6	conjunction
+g0148	Ես տան__ եմ (I am at home)	ն	definite-article	6	article
+g0149	տուն → at home	տանը	locative	6	locative,irregular
+g0150	I am at home.	Ես տանն եմ։	locative	6	locative,irregular
+g0151	Հայաստան → nationality	հայ	nationality-suffixes	6	countries
+g0152	Հայաստան → adjective	հայկական	nationality-suffixes	6	countries
+g0153	Հունաստան → nationality	հույն	nationality-suffixes	6	countries
+g0154	Հունաստան → language	հունարեն	nationality-suffixes	6	languages
+g0155	Հունաստան → adjective	հունական	nationality-suffixes	6	countries
+g0156	գալ → I am coming	Ես գալիս եմ	present-tense	6	present,irregular
+g0157	գալ → he/she is coming	Նա գալիս է	present-tense	6	present,irregular
+g0158	գալ → I am not coming	Ես չեմ գալիս	present-tense	6	present,irregular,negation
+g0159	լալ → I am crying	Ես լալիս եմ	present-tense	6	present,irregular
+g0160	տալ → I am giving	Ես տալիս եմ	present-tense	6	present,irregular
+g0161	who? (one person)	ո՞վ	question-words	6	question
+g0162	who? (several)	ովքե՞ր	question-words	6	question
+g0163	what? (one)	ի՞նչ	question-words	6	question
+g0164	what? (several)	ինչե՞ր	question-words	6	question
+g0165	when?	ե՞րբ	question-words	6	question
+g0166	why? (formal)	ինչո՞ւ	question-words	6	question
+g0167	why? (spoken)	ինչի՞	question-words	6	question,spoken
+g0168	why? (very spoken)	խի՞	question-words	6	question,spoken
+g0169	where? (location, где)	որտե՞ղ	question-words	6	question
+g0170	where to? (куда)	ո՞ւր	question-words	6	question
+g0171	which?	ո՞ր	question-words	6	question
+g0172	how?	ինչպե՞ս / ո՞նց	question-words	6	question
+g0173	what kind of?	ինչպիսի՞	question-words	6	question
+g0174	how many? (countable)	քանի՞	question-words	6	question
+g0175	how much? (uncountable)	ինչքա՞ն	question-words	6	question
+g0176	whom? whose?	ո՞ւմ	question-words	6	question
+g0177	I am at home	Ես տանն եմ	to-be	6	to-be
+g0178	Which city are you from?	Ո՞ր քաղաքից ես։	ablative	7	ablative,question
+g0179	or (in statements)	կամ	conjunctions	7	conjunction
+g0180	Monday	երկուշաբթի	dates	7	calendar
+g0181	Tuesday	երեքշաբթի	dates	7	calendar
+g0182	Wednesday	չորեքշաբթի	dates	7	calendar
+g0183	Thursday	հինգշաբթի	dates	7	calendar
+g0184	Friday	ուրբաթ	dates	7	calendar
+g0185	Saturday	շաբաթ	dates	7	calendar
+g0186	Sunday	կիրակի	dates	7	calendar
+g0187	What day is it today?	Ի՞նչ օր է այսօր։	dates	7	calendar,question
+g0188	Ո՞ւմ գիրք__ է սա (Whose book is this?)	ն	definite-article	7	article,question
+g0189	Ո՞ր մեկ__ է քո տունը (Which one is your house?)	ն	definite-article	7	article,question
+g0190	yours (from քո)	քոնը	definite-article	7	article
+g0191	լեզու → Which language do you speak?	Ո՞ր լեզվով ես խոսում։	instrumental	7	instrumental,languages
+g0192	Which street do you live on?	Ո՞ր փողոցում ես ապրում։	locative	7	locative,question
+g0193	Which house is yours?	Ո՞ր տունն է քոնը։	possessive-pronouns	7	possessive,question
+g0194	Which one is your house?	Ո՞ր մեկն է քո տունը։	question-words	7	question,article
+g0195	Whose book is this?	Ո՞ւմ գիրքն է սա։	question-words	7	question,article
+g0196	What's new?	Ի՞նչ նորություն կա։	there-is	7	there-is,question
+g0197	What's up?	Ի՞նչ կա չկա։	there-is	7	there-is,question
+g0198	How many sisters do you have?	Քանի՞ քույր ունես։	to-have-and-to-know	7	have,question
+g0199	0	զրո	numerals	8	numeral
+g0200	1	մեկ	numerals	8	numeral
+g0201	2	երկու	numerals	8	numeral
+g0202	3	երեք	numerals	8	numeral
+g0203	4	չորս	numerals	8	numeral
+g0204	5	հինգ	numerals	8	numeral
+g0205	6	վեց	numerals	8	numeral
+g0206	7	յոթ	numerals	8	numeral
+g0207	8	ութ	numerals	8	numeral
+g0208	9	ինը	numerals	8	numeral
+g0209	10	տասը / տասն	numerals	8	numeral
+g0210	11	տասնմեկ	numerals	8	numeral
+g0211	12	տասներկու	numerals	8	numeral
+g0212	20	քսան	numerals	8	numeral
+g0213	21	քսանմեկ	numerals	8	numeral
+g0214	30	երեսուն	numerals	8	numeral
+g0215	40	քառասուն	numerals	8	numeral
+g0216	50	հիսուն	numerals	8	numeral
+g0217	100	հարյուր	numerals	8	numeral
+g0218	1000	հազար	numerals	8	numeral
+g0219	million	միլիոն	numerals	8	numeral
+g0220	billion	միլիարդ	numerals	8	numeral
+g0221	there is not	չկա	there-is	8	there-is,negation
+g0222	there are not	չկան	there-is	8	there-is,negation
+g0223	Լոնդոն → from London	Լոնդոնից	ablative	9	ablative
+g0224	օգնել → pronunciation	օքնել	alphabet	9	alphabet,pronunciation
+g0225	կարողանալ → I can	Ես կարող եմ	can	9	modal
+g0226	կարողանալ → you (sg.) can	Դու կարող ես	can	9	modal
+g0227	կարողանալ → he/she can	Նա կարող է	can	9	modal
+g0228	կարողանալ → we can	Մենք կարող ենք	can	9	modal
+g0229	կարողանալ → you (pl.) can	Դուք կարող եք	can	9	modal
+g0230	կարողանալ → they can	Նրանք կարող են	can	9	modal
+g0231	կարողանալ → I can't	Ես չեմ կարող	can	9	modal,negation
+g0232	կարողանալ → he/she can't	Նա չի կարող	can	9	modal,negation
+g0233	կարողանալ → they can't	Նրանք չեն կարող	can	9	modal,negation
+g0234	Can you help me?	Կարո՞ղ ես օգնել ինձ։	can	9	modal,question
+g0235	January	հունվար	dates	9	calendar
+g0236	February	փետրվար	dates	9	calendar
+g0237	March	մարտ	dates	9	calendar
+g0238	April	ապրիլ	dates	9	calendar
+g0239	May	մայիս	dates	9	calendar
+g0240	June	հունիս	dates	9	calendar
+g0241	July	հուլիս	dates	9	calendar
+g0242	August	օգոստոս	dates	9	calendar
+g0243	September	սեպտեմբեր	dates	9	calendar
+g0244	October	հոկտեմբեր	dates	9	calendar
+g0245	November	նոյեմբեր	dates	9	calendar
+g0246	December	դեկտեմբեր	dates	9	calendar
+g0247	What is the date today?	Այսօր ամսի քանի՞սն է։	dates	9	calendar,question
+g0248	Today is the 8th of January.	Այսօր հունվարի ութն է։	dates	9	calendar
+g0249	On what date?	Ամսի քանիսի՞ն։	dates	9	calendar,question
+g0250	on the 8th of January	հունվարի ութին	dates	9	calendar,dative
+g0251	հունվարի ութ → on the 8th of January	հունվարի ութին	dative	9	dative,dates
+g0252	me (Believe ___ !)	ինձ	dative	9	dative,pronoun
+g0253	I can't	չեմ կարող	negation	9	negation
+g0254	What is the date today?	Այսօր ամսի քանի՞սն է։	question-words	9	question,dates
+g0255	անգամ → pronunciation	անքամ	alphabet	10	alphabet,pronunciation
+g0256	Երևան → in Yerevan	Երևանում	locative	10	locative,city
+g0257	հարկ → on the fourth floor	չորրորդ հարկում	locative	10	locative,home
+g0258	1st	առաջին	numerals	10	numeral,ordinal
+g0259	2nd	երկրորդ	numerals	10	numeral,ordinal
+g0260	3rd	երրորդ	numerals	10	numeral,ordinal
+g0261	4th	չորրորդ	numerals	10	numeral,ordinal
+g0262	5th	հինգերորդ	numerals	10	numeral,ordinal
+g0263	11th	տասնմեկերորդ	numerals	10	numeral,ordinal
+g0264	two times	երկու անգամ	numerals	10	numeral
+g0265	for the second time	երկրորդ անգամ	numerals	10	numeral,ordinal
+g0266	Փարիզ → in Paris	Փարիզում	locative	11	locative,city
+g0267	խոհանոց → in the kitchen	խոհանոցում	locative	11	locative,home
+g0268	how often?	ինչքա՞ն հաճախ	question-words	11	question
+g0269	this month	այս ամիս	dates	12	calendar
+g0270	I smoke twenty cigarettes a day. (object in focus)	Օրը քսան սիգարետ եմ ծխում։	word-order	12	word-order
+g0271	կարճ → antonym	երկար	adjectives-comparison	13	adjective,antonym
+g0272	բարակ → antonym	հաստ	adjectives-comparison	13	adjective,antonym
+g0273	բարձր → antonym	ցածր	adjectives-comparison	13	adjective,antonym
+g0274	բարձրահասակ (բոյով) → antonym	ցածրահասակ (կոլոտ)	adjectives-comparison	13	adjective,antonym
+g0275	գեր (չաղ) → antonym	նիհար	adjectives-comparison	13	adjective,antonym
+g0276	ուժեղ → antonym	թույլ	adjectives-comparison	13	adjective,antonym
+g0277	հարուստ → antonym	աղքատ	adjectives-comparison	13	adjective,antonym
+g0278	հին → antonym	նոր	adjectives-comparison	13	adjective,antonym
+g0279	ծեր → antonym	երիտասարդ	adjectives-comparison	13	adjective,antonym
+g0280	տխուր → antonym	ուրախ	adjectives-comparison	13	adjective,antonym
+g0281	more (comparative word)	ավելի	adjectives-comparison	13	comparison
+g0282	less (comparative word)	պակաս	adjectives-comparison	13	comparison
+g0283	than	քան	adjectives-comparison	13	comparison
+g0284	the most (prefix)	ամենա-	adjectives-comparison	13	comparison
+g0285	from all (superlative word)	ամենից	adjectives-comparison	13	comparison
+g0286	լավ → better	ավելի լավ	adjectives-comparison	13	comparison
+g0287	լավ → less good	պակաս լավ	adjectives-comparison	13	comparison
+g0288	լավ → the best	ամենալավ / լավագույն	adjectives-comparison	13	comparison
+g0289	մեծ → the biggest	ամենամեծ / մեծագույն	adjectives-comparison	13	comparison
+g0290	սիրուն → the prettiest	ամենասիրուն	adjectives-comparison	13	comparison
+g0291	սովորական → more ordinary	ավելի սովորական	adjectives-comparison	13	comparison
+g0292	She is kinder than me.	Նա ավելի բարի է, քան ես։	adjectives-comparison	13	comparison
+g0293	I can meet my friends very often.	Կարող եմ հանդիպել իմ ընկերներին շատ հաճախ։	can	14	modal
+g0294	that (Լավ ա, ___ լավանում ես)	որ	conjunctions	14	conjunction
+g0295	or (in questions)	թե՞	conjunctions	14	conjunction,question
+g0296	ընկերներ → (meet) my friends	ընկերներին	dative	14	dative,plural
+g0297	the last one (վերջին)	վերջինը	definite-article	14	article
+g0298	the next one (հաջորդ)	հաջորդը	definite-article	14	article
+g0299	Հայաստան → in Armenia	Հայաստանում	locative	14	locative,countries
+g0300	ծառ → plural	ծառեր	plural	14	plural
+g0301	ծաղիկ → plural	ծաղիկներ	plural	14	plural
+g0302	նկար → plural	նկարներ	plural	14	plural
+g0303	հրաշք → plural	հրաշքներ	plural	14	plural
+g0304	սիրտ → plural	սրտեր	plural	14	plural,vowel-drop
+g0305	միրգ → plural	մրգեր	plural	14	plural,vowel-drop
+g0306	տուն → plural	տներ	plural	14	plural,vowel-drop
+g0307	շուն → plural	շներ	plural	14	plural,vowel-drop
+g0308	երկիր → plural	երկրներ	plural	14	plural,vowel-drop
+g0309	դասագիրք → plural	դասագրքեր	plural	14	plural,compound
+g0310	սար → plural	սարեր	plural	14	plural
+g0311	մարդ → plural	մարդիկ	plural	14	plural,irregular
+g0312	տղամարդ → plural	տղամարդիկ	plural	14	plural,irregular
+g0313	կին → plural	կանայք	plural	14	plural,irregular
+g0314	տիկին → plural	տիկնայք	plural	14	plural,irregular
+g0315	պարոն → plural	պարոնայք	plural	14	plural,irregular
+g0316	ռուս → plural	ռուսներ	plural	14	plural,irregular
+g0317	դուռ → plural	դռներ	plural	14	plural,irregular
+g0318	ձուկ → plural	ձկներ	plural	14	plural,irregular
+g0319	մուկ → plural	մկներ	plural	14	plural,irregular
+g0320	գառ → plural	գառներ	plural	14	plural,irregular
+g0321	լեռ → plural	լեռներ	plural	14	plural,irregular
+g0322	մատ → plural	մատներ	plural	14	plural,irregular
+g0323	հարս → plural	հարսներ	plural	14	plural,irregular
+g0324	ծունկ → plural	ծնկներ	plural	14	plural,irregular
+g0325	թոռ → plural	թոռներ	plural	14	plural,irregular
+g0326	նուռ → plural	նռներ	plural	14	plural,irregular
+g0327	at ten	ժամը տասին	telling-time	14	time,dative
+g0328	… because there are mountains here	… որովհետև այստեղ կան սարեր	there-is	14	there-is
+g0329	տուն → from home	տնից	ablative	15	ablative
+g0330	բանկ → from the bank	բանկից	ablative	15	ablative
+g0331	հյուրանոց → from the hotel	հյուրանոցից	ablative	15	ablative
+g0332	սրճարան → from the cafe	սրճարանից	ablative	15	ablative
+g0333	դեղատուն → from the pharmacy	դեղատնից	ablative	15	ablative
+g0334	աշխատանք → from work	աշխատանքից	ablative	15	ablative
+g0335	դաս → from class	դասից	ablative	15	ablative
+g0336	հանդիպում → from a meeting	հանդիպումից	ablative	15	ablative
+g0337	the day before yesterday	երեկ չէ առաջին օրը	dates	15	calendar
+g0338	the day after tomorrow	վաղը չէ մյուս օրը	dates	15	calendar
+g0339	աշխատանք → to work (where to?)	աշխատանքի	dative	15	dative
+g0340	դաս → to class	դասի	dative	15	dative
+g0341	հանդիպում → to a meeting	հանդիպման	dative	15	dative
+g0342	you (sg.) — I will give ___ the book	քեզ	dative	15	dative,pronoun
+g0343	with you (sg.)	քեզ հետ	postpositions	15	postposition,pronoun
+g0344	for you (sg.)	քեզ համար	postpositions	15	postposition,pronoun
+g0345	Where are you going?	Ո՞ւր ես գնում։	question-words	15	question
+g0346	Where are you coming from?	Որտեղի՞ց ես գալիս։	question-words	15	question,ablative
+g0347	an hour and a half	մի ժամ ու կես	telling-time	15	time
+g0348	լավ → to get better	լավանալ	verbs-anal	15	verb,anal
+g0349	վատ → to get worse	վատանալ	verbs-anal	15	verb,anal
+g0350	լավանալ → It's good that you are getting better.	Լավ ա, որ լավանում ես։	verbs-anal	15	present,spoken
+g0351	Where are you going?	Ո՞ւր ես գնում։	word-order	15	word-order,question
+g0352	կեսօր → at noon	կեսօրին	dative	16	dative,time
+g0353	this book (այս գիրք)	այս գիրքը	definite-article	16	article,demonstrative
+g0354	these books (այս գրքեր)	այս գրքերը	definite-article	16	article,demonstrative
+g0355	Դրանք իմ գրքեր__ են (Those are my books)	ն	definite-article	16	article
+g0356	this (as a noun)	սա	demonstratives	16	demonstrative
+g0357	that, it (as a noun)	դա	demonstratives	16	demonstrative
+g0358	that one over there (as a noun)	նա	demonstratives	16	demonstrative
+g0359	these	սրանք	demonstratives	16	demonstrative
+g0360	those	դրանք	demonstratives	16	demonstrative
+g0361	those over there	նրանք	demonstratives	16	demonstrative
+g0362	this + noun	այս … ը/ն	demonstratives	16	demonstrative
+g0363	that + noun	այդ … ը/ն	demonstratives	16	demonstrative
+g0364	that (over there) + noun	այն … ը/ն	demonstratives	16	demonstrative
+g0365	this book	այս գիրքը	demonstratives	16	demonstrative,article
+g0366	these books	այս գրքերը	demonstratives	16	demonstrative,article
+g0367	What is this? — This is a book.	Ի՞նչ է սա։ — Սա գիրք է։	demonstratives	16	demonstrative,question
+g0368	What are these? — These are photographs.	Ինչե՞ր են սրանք։ — Սրանք լուսանկարներ են։	demonstratives	16	demonstrative,question
+g0369	ուտել → (Why are you going?) To eat.	Ուտելու։	future-u	16	purpose
+g0370	խաղալ → in order to play	խաղալու	future-u	16	purpose
+g0371	How are you getting there? (by what)	Ինչո՞վ ես գնում։	instrumental	16	instrumental,question
+g0372	ոտք → on foot	ոտքով	instrumental	16	instrumental,transport
+g0373	մետրո → by metro	մետրոյով	instrumental	16	instrumental,transport
+g0374	տաքսի → by taxi	տաքսիով	instrumental	16	instrumental,transport
+g0375	ավտոբուս → by bus	ավտոբուսով	instrumental	16	instrumental,transport
+g0376	ինքնաթիռ → by plane	ինքնաթիռով	instrumental	16	instrumental,transport
+g0377	ավտոմեքենա → by car	ավտոմեքենայով	instrumental	16	instrumental,transport
+g0378	գնացք → by train	գնացքով	instrumental	16	instrumental,transport
+g0379	հեծանիվ → by bicycle	հեծանիվով	instrumental	16	instrumental,transport
+g0380	գիրք → plural	գրքեր	plural	16	plural,vowel-drop
+g0381	Those are my books.	Դրանք իմ գրքերն են։	possessive-pronouns	16	possessive,article
+g0382	his / her (spoken)	իրա	possessive-pronouns	16	possessive,spoken
+g0383	their (spoken)	իրանց	possessive-pronouns	16	possessive,spoken
+g0384	with my friend	ընկերոջս հետ	postpositions	16	postposition,genitive
+g0385	with my parents	իմ ծնողների հետ	postpositions	16	postposition,genitive
+g0386	how? by what means? (by bus, on foot…)	ինչո՞վ	question-words	16	question,instrumental
+g0387	with whom?	ո՞ւմ հետ	question-words	16	question
+g0388	he/she (emphatic pronoun, also spoken)	ինքը	to-be	16	to-be,pronoun
+g0389	they (spoken)	իրանք	to-be	16	to-be,pronoun,spoken
+g0390	not … (but)	ոչ թե	conjunctions	17	particle,negation
+g0391	here (spoken?)	այստեղ (spoken ստեղ)	demonstratives	17	demonstrative,adverb
+g0392	there (spoken?)	այդտեղ (spoken ըտեղ)	demonstratives	17	demonstrative,adverb
+g0393	over there (spoken?)	այնտեղ (spoken ընդեղ)	demonstratives	17	demonstrative,adverb
+g0394	in this way (spoken?)	այսպես (spoken սենց)	demonstratives	17	demonstrative,adverb
+g0395	in that way (spoken?)	այդպես (spoken տենց)	demonstratives	17	demonstrative,adverb
+g0396	this much (spoken?)	այսքան (spoken էսքան)	demonstratives	17	demonstrative,adverb
+g0397	that much (spoken?)	այդքան (spoken էդքան)	demonstratives	17	demonstrative,adverb
+g0398	such, this kind of	այսպիսի	demonstratives	17	demonstrative
+g0399	such (that kind, far)	այնպիսի	demonstratives	17	demonstrative
+g0400	last week	անցյալ / անցած շաբաթ	dates	18	calendar
+g0401	գնալ → going to go (form)	գնալու	future-u	18	future
+g0402	գնել → going to buy (form)	գնելու	future-u	18	future
+g0403	I was not	չէի	negation	18	negation
+g0404	I was	ես էի	past-of-to-be	18	past
+g0405	you (sg.) were	դու էիր	past-of-to-be	18	past
+g0406	he/she was	նա էր	past-of-to-be	18	past
+g0407	we were	մենք էինք	past-of-to-be	18	past
+g0408	you (pl.) were	դուք էիք	past-of-to-be	18	past
+g0409	they were	նրանք էին	past-of-to-be	18	past
+g0410	I wasn't	ես չէի	past-of-to-be	18	past,negation
+g0411	he/she wasn't	նա չէր	past-of-to-be	18	past,negation
+g0412	they weren't	նրանք չէին	past-of-to-be	18	past,negation
+g0413	ուտել → I was eating	Ես ուտում էի	past-of-to-be	18	imperfect
+g0414	ուտել → you (sg.) were eating	Դու ուտում էիր	past-of-to-be	18	imperfect
+g0415	ուտել → he/she was eating	Նա ուտում էր	past-of-to-be	18	imperfect
+g0416	ուտել → we were eating	Մենք ուտում էինք	past-of-to-be	18	imperfect
+g0417	ուտել → I wasn't eating	Ես չէի ուտում	past-of-to-be	18	imperfect,negation
+g0418	Yesterday I was glad.	Երեկ ես ուրախ էի։	past-of-to-be	18	past
+g0419	the day before yesterday	երեկ չէ առաջին օրը	past-of-to-be	18	time
+g0420	last week	անցյալ շաբաթ	past-of-to-be	18	time
+g0421	last month	անցյալ ամիս	past-of-to-be	18	time
+g0422	before / after our class	մեր դասից առաջ / հետո	ablative	19	ablative,postposition
+g0423	ten degrees below zero	տասն աստիճան զրոյից ցածր	ablative	19	ablative,weather
+g0424	ամպեր → (look at) the clouds	ամպերին	dative	19	dative,plural
+g0425	It is going to rain.	Անձրև է գալու։	future-u	19	future,weather
+g0426	in spring (season + article)	գարնանը	genitive	19	genitive,time
+g0427	nothing	ոչինչ / ոչ մի բան	negation	19	negation
+g0428	I was doing nothing.	Ես ոչինչ չէի անում։	negation	19	negation
+g0429	We were drinking coffee.	Մենք սուրճ էինք խմում։	past-of-to-be	19	imperfect,word-order
+g0430	I was at home all day.	Ես տանն էի ողջ օրը։	past-of-to-be	19	past
+g0431	մնալ → we stayed (We missed the sun)	Արևին կարոտ մնացինք։	past-simple	19	aorist
+g0432	կանաչել → the trees have turned green	Ծառերը կանաչել են։	perfect	19	perfect
+g0433	before / after our class	մեր դասից առաջ / հետո	postpositions	19	postposition,ablative
+g0434	We were drinking coffee. (neutral order)	Մենք խմում էինք սուրճ։	word-order	19	word-order
+g0435	We were drinking coffee. (object in focus)	Մենք սուրճ էինք խմում։	word-order	19	word-order
+g0436	in two weeks	երկու շաբաթից	ablative	20	ablative,time
+g0437	In how many days?	Քանի՞ օրից։	ablative	20	ablative,time,question
+g0438	that's why (поэтому)	դրա համար	conjunctions	20	conjunction,phrase
+g0439	then, after	հետո	conjunctions	20	conjunction
+g0440	նախաճաշ → for breakfast	նախաճաշին	dative	20	dative,food
+g0441	When are we going to have breakfast?	Ե՞րբ ենք նախաճաշելու։	future-u	20	future,question
+g0442	կաթ → with milk	կաթով	instrumental	20	instrumental,food
+g0443	without milk	առանց կաթի	instrumental	20	genitive,food
+g0444	for two weeks (stay)	երկու շաբաթով	instrumental	20	instrumental,time
+g0445	For how many days?	Քանի՞ օրով։	instrumental	20	instrumental,time,question
+g0446	վճարել → I paid	Վճարեցի	past-simple	20	aorist
+g0447	անցնել → How did it go?	Ո՞նց անցավ։	past-simple	20	aorist,phrase
+g0448	without milk	առանց կաթի	postpositions	20	preposition,genitive
+g0449	բրինձ → with rice	բրնձով	instrumental	21	instrumental,food
+g0450	It is five to one.	Ժամը մեկից հինգ է պակաս։	ablative	22	ablative,time
+g0451	so, that means	ուրեմն	conjunctions	22	conjunction
+g0452	ժամը մեկ → at one o'clock	ժամը մեկին	dative	22	dative,time
+g0453	Ժամը մեկ__ է (It is one o'clock)	ն	definite-article	22	article,time
+g0454	ամիս → genitive (date: what day of the …)	ամսի	genitive	22	genitive,i
+g0455	Մադրիդ → in Madrid	Մադրիդում	locative	22	locative,city
+g0456	աշխատել → How many hours did you work?	Քանի՞ ժամ աշխատեցիր։	past-simple	22	aorist,question
+g0457	լինել → I have been to Madrid	Ես եղել եմ Մադրիդում։	perfect	22	perfect
+g0458	լինել → I have never been to Madrid	Ես երբեք չեմ եղել Մադրիդում։	perfect	22	perfect,negation
+g0459	Have you ever been to Madrid?	Դու երբևէ եղե՞լ ես Մադրիդում։	perfect	22	perfect,question
+g0460	ever (in questions)	երբևէ	perfect	22	adverb
+g0461	until the Armenian lesson	մինչև հայերենի դասը	postpositions	22	preposition
+g0462	What time is it?	Ժամը քանի՞սն է։	question-words	22	question,time
+g0463	At what time?	Ժամը քանիսի՞ն։	question-words	22	question,time
+g0464	What time is it?	Ժամը քանի՞սն է։	telling-time	22	time,question
+g0465	It is one o'clock.	Ժամը մեկն է։	telling-time	22	time
+g0466	It is two o'clock.	Ժամը երկուսն է։	telling-time	22	time
+g0467	It is half past one.	Ժամը մեկ անց կես է։	telling-time	22	time
+g0468	It is half past eight.	Ութն անց կես է։	telling-time	22	time
+g0469	It is a quarter past one.	Մեկն անց քառորդ է։	telling-time	22	time
+g0470	It is 1:05.	Մեկն անց հինգ է։	telling-time	22	time
+g0471	It is five to one (12:55).	Մեկից հինգ է պակաս։	telling-time	22	time
+g0472	At what time?	Ժամը քանիսի՞ն։	telling-time	22	time,question
+g0473	at one	ժամը մեկին	telling-time	22	time,dative
+g0474	at two	ժամը երկուսին	telling-time	22	time,dative
+g0475	at half past one	ժամը մեկ անց կեսին	telling-time	22	time,dative
+g0476	at a quarter past one	մեկն անց քառորդին	telling-time	22	time,dative
+g0477	at 1:05	մեկն անց հինգին	telling-time	22	time,dative
+g0478	at five to one	մեկից հինգ պակաս	telling-time	22	time
+g0479	half an hour	կես ժամ	telling-time	22	time
+g0480	exactly thirty minutes	ուղիղ երեսուն րոպե	telling-time	22	time
+g0481	in an hour	մի ժամից	ablative	23	ablative,time
+g0482	կարդալ → Read! (sg. / pl.)	Կարդա՛ / կարդացե՛ք	imperative	23	imperative,regular
+g0483	խաղալ → Play! (sg.)	խաղա՛	imperative	23	imperative,regular
+g0484	գրել → Write! (sg. / pl.)	գրի՛ր / գրե՛ք	imperative	23	imperative,regular
+g0485	նստել → Sit! (sg.)	նստի՛ր	imperative	23	imperative,regular
+g0486	փակել → Close! (sg.)	փակի՛ր	imperative	23	imperative,regular
+g0487	գրել → Don't write! (sg.)	մի՛ գրիր	imperative	23	imperative,prohibitive
+g0488	կարդալ → Don't read! (pl.)	մի՛ կարդացեք	imperative	23	imperative,prohibitive
+g0489	Don't read! (one person)	Մի՛ կարդա	negation	23	negation,imperative
+g0490	Don't write! (several people)	Մի՛ գրեք	negation	23	negation,imperative
+g0491	in an hour	մի ժամից	telling-time	23	time,ablative
+g0492	if	եթե	conjunctions	24	conjunction
+g0493	հասկանալ → Understand! (sg. / pl.)	հասկացի՛ր / հասկացե՛ք	imperative	24	imperative,derivative
+g0494	ծանոթանալ → Get acquainted! (sg.)	ծանոթացի՛ր	imperative	24	imperative,derivative
+g0495	իմանալ → Know! (sg.)	իմացի՛ր	imperative	24	imperative,derivative
+g0496	ձանձրանալ → Don't get bored! (sg.)	մի՛ ձանձրացիր	imperative	24	imperative,derivative,prohibitive
+g0497	մոտենալ → Come closer! (sg.)	մոտեցի՛ր	imperative	24	imperative,derivative
+g0498	What were you doing yesterday?	Ի՞նչ էիր անում երեկ։	past-of-to-be	24	imperfect,question
+g0499	խմել → I drank	Ես խմեցի	past-simple	24	aorist
+g0500	խմել → How many did you drink?	Քանի՞ հատ խմեցիր։	past-simple	24	aorist,question
+g0501	to understand	հասկանալ	verbs-anal	24	verb,anal
+g0502	to get acquainted	ծանոթանալ	verbs-anal	24	verb,anal
+g0503	to get married	ամուսնանալ	verbs-anal	24	verb,anal
+g0504	to know, to find out	իմանալ	verbs-anal	24	verb,anal
+g0505	մեծ → to grow	մեծանալ	verbs-anal	24	verb,anal
+g0506	փոքր → to get smaller	փոքրանալ	verbs-anal	24	verb,anal
+g0507	հասկանալ → Understand! (sg.)	հասկացի՛ր	verbs-anal	24	imperative,derivative
+g0508	մոտենալ → Come closer! (sg.)	մոտեցի՛ր	verbs-anal	24	imperative,derivative
+g0509	գալ → Come! (sg. / pl.)	Արի՛ / Եկե՛ք	imperative	25	imperative,irregular
+g0510	տալ → Give! (sg. / pl.)	Տո՛ւր / Տվե՛ք	imperative	25	imperative,irregular
+g0511	ուտել → Eat! (sg. / pl.)	Կե՛ր / Կերե՛ք	imperative	25	imperative,irregular
+g0512	ասել → Say! (sg. / pl.)	Ասա՛ / Ասե՛ք	imperative	25	imperative,irregular
+g0513	անել → Do! (sg. / pl.)	Արա՛ / Արե՛ք	imperative	25	imperative,irregular
+g0514	լինել → Be! (sg. / pl.)	Եղի՛ր / Եղե՛ք	imperative	25	imperative,irregular
+g0515	դնել → Put! (sg. / pl.)	Դի՛ր / Դրե՛ք	imperative	25	imperative,irregular
+g0516	տեսնել → See! (sg.)	Տե՛ս	imperative	25	imperative,irregular
+g0517	առնել → Buy! / Take! (sg.)	Ա՛ռ	imperative	25	imperative,irregular
+g0518	բերել → Bring! (sg.)	Բե՛ր	imperative	25	imperative,irregular
+g0519	լվանալ → Wash! (sg. / pl.)	Լվա՛ / Լվացե՛ք	imperative	25	imperative,irregular
+g0520	վերադառնալ → Come back! (sg.)	Վերադարձի՛ր	imperative	25	imperative,irregular
+g0521	վեր կենալ → Get up! (sg.)	Վե՛ր կաց	imperative	25	imperative,irregular
+g0522	be careful (sg.)	Զգո՛ւյշ եղիր	imperative	25	imperative,phrase
+g0523	take care of yourself	Քեզ լավ նայիր	imperative	25	imperative,phrase
+g0524	I can't stay.	Չեմ կարող մնալ։	can	26	modal,negation
+g0525	Anything can happen.	Ամեն ինչ կարող է պատահել։	can	26	modal
+g0526	to return something (give back)	վերադարձնել	causative	26	causative
+g0527	Աննա → to Anna	Աննային	dative	26	dative
+g0528	him / her — give ___ the money	նրան	dative	26	dative,pronoun
+g0529	լինել → everything will be fine	ամեն ինչ լավ կլինի	future-k	26	future,irregular
+g0530	վերադառնալ → you will come back	կվերադառնաս	future-k	26	future
+g0531	I have to go to the meeting.	Ես պետք է գնամ հանդիպման։	future-piti	26	modal
+g0532	հանգստանալ → Calm down! (sg.)	հանգստացի՛ր	imperative	26	imperative,derivative
+g0533	բարկանալ → Don't be angry! (pl.)	մի՛ բարկացեք	imperative	26	imperative,derivative,prohibitive
+g0534	խոստանալ → Promise! (sg.)	խոստացի՛ր	imperative	26	imperative,derivative
+g0535	հիվանդանոց → in the hospital	հիվանդանոցում	locative	26	locative,city
+g0536	հետևել → I have followed	հետևել եմ	perfect	26	perfect
+g0537	ներել → I have forgiven	ներել եմ	perfect	26	perfect
+g0538	next week	հաջորդ շաբաթ	dates	28	calendar
+g0539	ուտել → I will eat	կուտեմ	future-k	28	future
+g0540	ուտել → you (sg.) will eat	կուտես	future-k	28	future
+g0541	ուտել → he/she will eat	կուտի	future-k	28	future
+g0542	ուտել → we will eat	կուտենք	future-k	28	future
+g0543	ուտել → you (pl.) will eat	կուտեք	future-k	28	future
+g0544	ուտել → they will eat	կուտեն	future-k	28	future
+g0545	ուտել → I won't eat	չեմ ուտի	future-k	28	future,negation
+g0546	ուտել → he/she won't eat	չի ուտի	future-k	28	future,negation
+g0547	գնալ → I will go	կգնամ	future-k	28	future
+g0548	գնալ → you (sg.) will go	կգնաս	future-k	28	future
+g0549	գնալ → he/she will go	կգնա	future-k	28	future
+g0550	գնալ → we will go	կգնանք	future-k	28	future
+g0551	գնալ → they will go	կգնան	future-k	28	future
+g0552	գնալ → I won't go	չեմ գնա	future-k	28	future,negation
+g0553	գնալ → they won't go	չեն գնա	future-k	28	future,negation
+g0554	երգել → I will sing	կերգեմ	future-k	28	future
+g0555	սիրել → he/she will love	կսիրի	future-k	28	future
+g0556	սիրել → we won't love	չենք սիրի	future-k	28	future,negation
+g0557	կարդալ → I am going to read	Ես կարդալու եմ	future-u	28	future
+g0558	կարդալ → you (sg.) are going to read	Դու կարդալու ես	future-u	28	future
+g0559	կարդալ → he/she is going to read	Նա կարդալու է	future-u	28	future
+g0560	կարդալ → we are going to read	Մենք կարդալու ենք	future-u	28	future
+g0561	կարդալ → they are going to read	Նրանք կարդալու են	future-u	28	future
+g0562	կարդալ → I am not going to read	Ես չեմ կարդալու	future-u	28	future,negation
+g0563	կարդալ → he/she is not going to read	Նա չի կարդալու	future-u	28	future,negation
+g0564	soon	շուտով	future-u	28	time
+g0565	the day after tomorrow	վաղը չէ մյուս օրը	future-u	28	time
+g0566	next week	հաջորդ շաբաթ	future-u	28	time
+g0567	I won't eat	չեմ ուտի	negation	28	negation,future
+g0568	I am not going to read	չեմ կարդալու	negation	28	negation,future
+g0569	us — drink with ___	մեզ	dative	29	dative,pronoun
+g0570	տալ → I will give (you the book tomorrow)	կտամ	future-k	29	future,irregular
+g0571	գալ → I will come	կգամ	future-k	29	future,irregular
+g0572	խմել → They won't drink with us.	Նրանք չեն խմի մեզ հետ։	future-k	29	future,negation
+g0573	with us	մեզ հետ	postpositions	29	postposition,pronoun
+g0574	to get bored	ձանձրանալ	verbs-anal	30	verb,anal
+g0575	to promise	խոստանալ	verbs-anal	30	verb,anal
+g0576	to be angry	բարկանալ	verbs-anal	30	verb,anal
+g0577	to get sick	հիվանդանալ	verbs-anal	30	verb,anal
+g0578	to get well, to recover	առողջանալ	verbs-anal	30	verb,anal
+g0579	to steal	գողանալ	verbs-anal	30	verb,anal
+g0580	to rise, to climb, to get on	բարձրանալ	verbs-anal	30	verb,anal
+g0581	to be glad	ուրախանալ	verbs-anal	30	verb,anal
+g0582	to be late	ուշանալ	verbs-anal	30	verb,anal
+g0583	to be surprised	զարմանալ	verbs-anal	30	verb,anal
+g0584	to have a rest, to calm down	հանգստանալ	verbs-anal	30	verb,anal
+g0585	to come closer, to approach	մոտենալ	verbs-anal	30	verb,enal
+g0586	հիշել → to remind	հիշեցնել	causative	33	causative
+g0587	գնալ → I have to go	Ես պիտի գնամ	future-piti	33	modal
+g0588	գնալ → you (sg.) have to go	Դու պիտի գնաս	future-piti	33	modal
+g0589	գնալ → he/she has to go	Նա պիտի գնա	future-piti	33	modal
+g0590	գնալ → we have to go	Մենք պիտի գնանք	future-piti	33	modal
+g0591	գնալ → you (pl.) have to go	Դուք պետք է գնաք	future-piti	33	modal
+g0592	գնալ → they have to go	Նրանք պետք է գնան	future-piti	33	modal
+g0593	գնալ → I don't have to go (two ways)	Ես չպիտի գնամ / Ես պիտի չգնամ	future-piti	33	modal,negation
+g0594	ուտել → I have to eat	Ես պիտի ուտեմ	future-piti	33	modal
+g0595	ուտել → he/she has to eat	Նա պիտի ուտի	future-piti	33	modal
+g0596	ուտել → we have to eat	Մենք պիտի ուտենք	future-piti	33	modal
+g0597	ուտել → they have to eat	Նրանք պիտի ուտեն	future-piti	33	modal
+g0598	ուտել → he/she doesn't have to eat	Նա չպիտի ուտի	future-piti	33	modal,negation
+g0599	խմել → You should not drink much.	Դու չպետք է շատ խմես։	future-piti	33	modal,negation
+g0600	մնալ → Your parents have to stay at home.	Քո ծնողները պետք է մնան տանը։	future-piti	33	modal
+g0601	Everything is going to be fine.	Ամեն ինչ լավ է լինելու։	future-u	33	future
+g0602	Իսպանիա → in Spain	Իսպանիայում	locative	33	locative,countries
+g0603	Կորեա → in Korea	Կորեայում	locative	33	locative,countries
+g0604	Ճապոնիա → in Japan	Ճապոնիայում	locative	33	locative,countries
+g0605	I don't have to go	չպիտի գնամ / պիտի չգնամ	negation	33	negation
+g0606	there was	կար	there-is	33	there-is,past
+g0607	there were	կային	there-is	33	there-is,past
+g0608	համերգ → to a concert (գնալ)	համերգի	dative	34	dative
+g0609	A good friend should…	Լավ ընկերը պետք է…	future-piti	34	modal
+g0610	գործընկերներ → (call) my colleagues	գործընկերներին	dative	35	dative,plural
+g0611	աշխատել → I have to work (spoken)	Ես պետք ա աշխատեմ	future-piti	35	modal,spoken
+g0612	զանգել → I have to call my colleagues	Պետք ա զանգեմ իմ գործընկերներին։	future-piti	35	modal,spoken
+g0613	I have never been to Syunik.	Ես երբեք չեմ եղել Սյունիքում։	perfect	35	perfect,negation
+g0614	No idea.	Գաղափար չունեմ։	to-have-and-to-know	35	have,phrase
+g0615	հեշտ → antonym	դժվար	adjectives-comparison	36	adjective,antonym
+g0616	գարուն → genitive	գարնան	genitive	36	genitive,an
+g0617	ամառ → genitive	ամռան	genitive	36	genitive,an
+g0618	աշուն → genitive	աշնան	genitive	36	genitive,an
+g0619	ձմեռ → genitive	ձմռան	genitive	36	genitive,an
+g0620	հանդիպում → genitive	հանդիպման	genitive	36	genitive,an
+g0621	հաջողություն → genitive	հաջողության	genitive	36	genitive,an
+g0622	առողջություն → genitive	առողջության	genitive	36	genitive,an
+g0623	դուռ → genitive	դռան	genitive	36	genitive,an
+g0624	մուկ → genitive	մկան	genitive	36	genitive,an
+g0625	շաբաթ → genitive (of the week)	շաբաթվա	genitive	36	genitive,va
+g0626	տարի → genitive	տարվա	genitive	36	genitive,va
+g0627	երեկ → genitive (yesterday's)	երեկվա	genitive	36	genitive,va
+g0628	այսօր → genitive (today's)	այսօրվա	genitive	36	genitive,va
+g0629	during the week	շաբաթվա ընթացքում	postpositions	36	postposition,time
+g0630	սեպտեմբեր → in September	սեպտեմբերին	dative	37	dative,time
+g0631	What are you going to do after our class?	Ի՞նչ ես անելու մեր դասից հետո։	future-u	37	future,question
+g0632	two of my friends	իմ ընկերներից երկուսը	ablative	38	ablative
+g0633	too, also / (any) more (particle)	էլ	conjunctions	38	particle
+g0634	անել → I will do	կանեմ	future-k	38	future
+g0635	անել → I won't do	չեմ անի	future-k	38	future,negation
+g0636	անել → they will do	կանեն	future-k	38	future
+g0637	ընկեր → genitive	ընկերոջ	genitive	38	genitive,oj
+g0638	քույր → genitive	քրոջ	genitive	38	genitive,oj
+g0639	կին → genitive	կնոջ	genitive	38	genitive,oj
+g0640	մայր → genitive	մոր	genitive	38	genitive,o
+g0641	հայր → genitive	հոր	genitive	38	genitive,o
+g0642	եղբայր → genitive	եղբոր	genitive	38	genitive,o
+g0643	մարդ → genitive	մարդու	genitive	38	genitive,u
+g0644	որդի → genitive	որդու	genitive	38	genitive,u
+g0645	գրել → genitive (of writing)	գրելու	genitive	38	genitive,u,infinitive
+g0646	in a word (короче)	մի խոսքով	instrumental	38	instrumental,phrase
+g0647	and (also written form; 'etc.' = ___ այլն)	և	conjunctions	39	conjunction
+g0648	Ռուսաստան → nationality	ռուս	nationality-suffixes	39	countries
+g0649	Վրաստան → nationality	վրացի	nationality-suffixes	39	countries
+g0650	Վրաստան → language	վրացերեն	nationality-suffixes	39	languages
+g0651	Ֆրանսիա → nationality	ֆրանսիացի	nationality-suffixes	39	countries
+g0652	Ֆրանսիա → language	ֆրանսերեն	nationality-suffixes	39	languages
+g0653	Ֆրանսիա → adjective	ֆրանսիական	nationality-suffixes	39	countries
+g0654	Չինաստան → nationality	չինացի	nationality-suffixes	39	countries
+g0655	Չինաստան → language	չինարեն	nationality-suffixes	39	languages
+g0656	Ամերիկա (ԱՄՍ) → nationality	ամերիկացի	nationality-suffixes	39	countries
+g0657	Ամերիկա (ԱՄՍ) → language	անգլերեն	nationality-suffixes	39	languages
+g0658	Ամերիկա (ԱՄՍ) → adjective	ամերիկյան	nationality-suffixes	39	countries
+g0659	Անգլիա → nationality	անգլիացի	nationality-suffixes	39	countries
+g0660	Ճապոնիա → nationality	ճապոնացի	nationality-suffixes	39	countries
+g0661	Ճապոնիա → language	ճապոներեն	nationality-suffixes	39	languages
+g0662	Հնդկաստան → nationality	հնդիկ	nationality-suffixes	39	countries
+g0663	Թուրքիա → nationality	թուրք	nationality-suffixes	39	countries
+g0664	Իրան / Պարսկաստան → nationality	իրանցի / պարսիկ	nationality-suffixes	39	countries
+g0665	Սիրիա → language	արաբերեն	nationality-suffixes	39	languages
+g0666	Բրազիլիա → language	պորտուգալերեն	nationality-suffixes	39	languages
+g0667	սպասել → to make someone wait	սպասեցնել	causative	40	causative
+g0668	խոսել → to make someone talk	խոսեցնել	causative	40	causative
+g0669	խմել → to make someone drink	խմեցնել	causative	40	causative
+g0670	պատկեր → to imagine	պատկերացնել	causative	40	causative
+g0671	աղջիկ → genitive	աղջկա	genitive	40	genitive,irregular
+g0672	սեր → genitive	սիրո	genitive	40	genitive,irregular
+g0673	մարդիկ → genitive	մարդկանց	genitive	40	genitive,irregular
+g0674	կատու → genitive	կատվի	genitive	40	genitive,irregular
+g0675	լեզու → genitive	լեզվի	genitive	40	genitive,irregular
+g0676	Աննա → genitive	Աննայի	genitive	41	genitive,i
+g0677	nowhere	ոչ մի տեղ	negation	41	negation
+g0678	nobody	ոչ ոք	negation	41	negation
+g0679	քայլել → She walked	Նա քայլեց	past-simple	41	aorist
+g0680	հավաքվել → we have gathered	հավաքվել ենք	perfect	41	perfect
+g0681	for (postposition)	համար	postpositions	41	postposition
+g0682	about (postposition)	մասին	postpositions	41	postposition
+g0683	with (postposition)	հետ	postpositions	41	postposition
+g0684	on (postposition)	վրա	postpositions	41	postposition
+g0685	under (postposition)	տակ	postpositions	41	postposition
+g0686	near, at (postposition)	մոտ	postpositions	41	postposition
+g0687	in, among (postposition)	մեջ	postpositions	41	postposition
+g0688	around (postposition)	շուրջը	postpositions	41	postposition
+g0689	between (postposition)	միջև	postpositions	41	postposition
+g0690	above, upstairs	վերևում	postpositions	41	postposition
+g0691	below, downstairs	ներքևում	postpositions	41	postposition
+g0692	next to, beside	կողքին	postpositions	41	postposition
+g0693	across from	դիմաց	postpositions	41	postposition
+g0694	through	միջով	postpositions	41	postposition
+g0695	for Anna	Աննայի համար	postpositions	41	postposition,genitive
+g0696	on the table	սեղանի վրա	postpositions	41	postposition,genitive
+g0697	through the park	այգու միջով	postpositions	41	postposition,genitive
+g0698	There is nothing under the bed.	Մահճակալի տակ ոչինչ չկա։	there-is	41	there-is,negation
+g0699	There are many people near the house.	Տան մոտ շատ մարդիկ կան։	there-is	41	there-is

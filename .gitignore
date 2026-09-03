@@ -1,5 +1,7 @@
+node_modules/
+dist/
+.astro/
 .venv/
-site/
 __pycache__/
-.cache/
 .DS_Store
+*.log

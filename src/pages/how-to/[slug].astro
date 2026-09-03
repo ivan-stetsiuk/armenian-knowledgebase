@@ -1,0 +1,35 @@
+---
+import Doc from "../../layouts/Doc.astro";
+import { getCollection, render } from "astro:content";
+import { rankHowto } from "../../lib/howto";
+
+export async function getStaticPaths() {
+  const all = (await getCollection("howto")).filter((e) => e.id !== "index");
+  const sorted = all.sort((a, b) => rankHowto(a.id) - rankHowto(b.id));
+  return sorted.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: sorted[i - 1] ?? null, next: sorted[i + 1] ?? null },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content, headings } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Doc
+  title={entry.data.title}
+  number="How-to"
+  section="how-to"
+  description={`Armenian phrases: ${entry.data.title}.`}
+  headings={headings}
+  prev={prev ? { href: `${base}/how-to/${prev.id}/`, label: prev.data.title } : null}
+  next={next ? { href: `${base}/how-to/${next.id}/`, label: next.data.title } : null}
+>
+  <Fragment slot="rail">
+    <p class="rail__label">Section</p>
+    <ul><li><a href={`${base}/how-to/`}>All scripts</a></li></ul>
+  </Fragment>
+
+  <Content />
+</Doc>

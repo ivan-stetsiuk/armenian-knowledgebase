@@ -1,0 +1,55 @@
+---
+import Doc from "../../layouts/Doc.astro";
+import WordTable from "../../components/WordTable.astro";
+import { words, TOPICS, byArmenian } from "../../lib/vocab";
+
+export function getStaticPaths() {
+  const all = words();
+  const counts = new Map<string, number>();
+  for (const w of all) for (const t of w.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+
+  const present = TOPICS.filter(([tag]) => counts.get(tag));
+
+  return present.map(([tag, title, blurb], i) => ({
+    params: { topic: tag },
+    props: {
+      tag,
+      title,
+      blurb,
+      prev: present[i - 1] ?? null,
+      next: present[i + 1] ?? null,
+      rows: all.filter((w) => w.tags.includes(tag)).sort((a, b) => byArmenian(a.hy, b.hy)),
+    },
+  }));
+}
+
+const { tag, title, blurb, rows, prev, next } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const lessons = [...new Set(rows.map((w) => w.lesson))].sort((a, b) => a - b);
+---
+
+<Doc
+  title={title}
+  number="Words"
+  meta={[`${rows.length} entries`]}
+  section="vocabulary"
+  description={`Armenian vocabulary: ${title}. ${blurb}`}
+  headings={[]}
+  prev={prev ? { href: `${base}/vocabulary/${prev[0]}/`, label: prev[1] } : null}
+  next={next ? { href: `${base}/vocabulary/${next[0]}/`, label: next[1] } : null}
+>
+  <Fragment slot="rail">
+    <dl>
+      <dt>Tag</dt><dd><code>{tag}</code></dd>
+      <dt>Entries</dt><dd>{rows.length}</dd>
+      <dt>Lessons</dt>
+      <dd>{lessons.length > 4 ? `${lessons[0]}–${lessons[lessons.length - 1]}` : lessons.join(", ")}</dd>
+    </dl>
+    <p class="rail__label">Section</p>
+    <ul><li><a href={`${base}/vocabulary/`}>All words and topics</a></li></ul>
+  </Fragment>
+
+  <p>{blurb} Lesson numbers show where a word was introduced.</p>
+  <WordTable words={rows} showLesson={true} />
+</Doc>

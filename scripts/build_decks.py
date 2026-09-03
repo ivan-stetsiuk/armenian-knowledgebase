@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Build Anki decks and Quizlet import files from data/*.tsv.
 
-  dist/armenian.apkg          one package, decks hy::vocab::LNN and hy::grammar::<rule>
-  dist/quizlet/LNN.tsv        term<TAB>definition per lesson, paste into Quizlet import
-  dist/quizlet/grammar-<rule>.tsv
+  decks/armenian.apkg         one package, decks hy::vocab::LNN and hy::grammar::<rule>
+  decks/quizlet/LNN.tsv       term<TAB>definition per lesson, paste into Quizlet import
+  decks/quizlet/grammar-<rule>.tsv
+
+The output is committed on purpose: the point is to open Anki and import, not to
+install Python first.
 
 Vocab: two cards per word (recognition հայ→en, production en→հայ); the phrase is on the back only.
 Grammar: one card, prompt → answer, back links to the grammar page.
@@ -20,7 +23,7 @@ from pathlib import Path
 import genanki
 
 ROOT = Path(__file__).resolve().parents[1]
-DIST = ROOT / "dist"
+DIST = ROOT / "decks"
 SITE = "https://ivan-stetsiuk.github.io/armenian-knowledgebase"
 
 CSS = """

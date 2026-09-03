@@ -277,10 +277,10 @@ v0275	այստեղ	here			6	adverb,letters	spoken ստեղ
 v0276	այսպես	like this, this way			6	adverb,letters	spoken սենց
 v0277	լույս	light			6	noun,letters	
 v0278	Հայաստան	Armenia			6	noun,countries	
-v0279	հայկական	Armenian (adjective)			6	adjective,countries	
+v0279	հայկական	Armenian (adjective)	հայկական կոնյակ	Armenian brandy	6	adjective,countries	
 v0280	հունարեն	Greek (language)			6	noun,languages	
 v0281	Հունաստան	Greece			6	noun,countries	
-v0282	հունական	Greek (adjective)			6	adjective,countries	
+v0282	հունական	Greek (adjective)	հունական պար	Greek dance	6	adjective,countries	
 v0283	ո՞վ	who? (singular)	Ո՞վ է նա։	Who is he/she?	6	question	
 v0284	ովքե՞ր	who? (plural)	Ովքե՞ր են նրանք։	Who are they?	6	question	
 v0285	ի՞նչ	what? (singular)	Ի՞նչ է սա։	What is this?	6	question	
@@ -898,7 +898,7 @@ v0896	գեղեցիկ	beautiful			38	adjective
 v0897	միակ	the only	Իմ միակ պլանը քնելն է	The only plan I have is to sleep	38	adjective	
 v0898	կենտրոնանալ	to focus			38	verb	
 v0899	Իմ ընկերներից երկուսը	two of my friends			38	phrase	
-v0900	ֆրանսիացի	French (person)			38	noun,countries	
+v0900	ֆրանսիացի	French (person)			38	noun,countries,people	
 v0901	տեր	owner			38	noun,people	gen. տիրոջ
 v0902	հորաքույր	paternal aunt			38	noun,family	gen. հորաքրոջ
 v0903	մորաքույր	maternal aunt			38	noun,family	gen. մորաքրոջ
@@ -924,60 +924,101 @@ v0922	գին	price			38	noun,from-exercise
 v0923	անելիք	things to do	Ի՞նչ անելիքներ ունես այսօր։	What do you have to do today?	39	noun	
 v0924	անտառ	forest			39	noun,nature	
 v0925	ճիշտն ասած / անկեղծ ասած	honestly speaking, to tell the truth			39	phrase	
-v0926	գերմանացի	German (person)			39	noun,countries	
-v0927	Հայաստան · հայ · հայերեն · հայկական	Armenia · Armenian · Armenian (language) · Armenian (adj.)	հայկական կոնյակ	Armenian brandy	39	noun,countries,languages	
-v0928	Թուրքիա · թուրք · թուրքերեն · թուրքական	Turkey · Turk · Turkish (language) · Turkish (adj.)	թուրքական թեյ	Turkish tea	39	noun,countries,languages	
-v0929	Հունաստան · հույն · հունարեն · հունական	Greece · Greek · Greek (language) · Greek (adj.)	հունական պար	Greek dance	39	noun,countries,languages	
-v0930	Հնդկաստան · հնդիկ · հնդկերեն · հնդկական	India · Indian · Hindi · Indian (adj.)	հնդկական փիղ	Indian elephant	39	noun,countries,languages	
-v0931	Պարսկաստան / Իրան · պարսիկ / իրանցի · պարսկերեն · պարսկական / իրանական	Persia / Iran · Persian / Iranian · Persian (language) · Persian / Iranian (adj.)	պարսկական / իրանական գորգ	Persian / Iranian rug	39	noun,countries,languages	
-v0932	Չինաստան · չինացի · չինարեն · չինական	China · Chinese · Chinese (language) · Chinese (adj.)	չինական պատ	Chinese wall	39	noun,countries,languages	
-v0933	Վրաստան · վրացի · վրացերեն · վրացական	Georgia · Georgian · Georgian (language) · Georgian (adj.)	վրացական խինկալի	Georgian khinkali	39	noun,countries,languages	
-v0934	Ռուսաստան · ռուս · ռուսերեն · ռուսական	Russia · Russian · Russian (language) · Russian (adj.)	ռուսական օղի	Russian vodka	39	noun,countries,languages	
-v0935	Ամերիկա (ԱՄՆ) · ամերիկացի · անգլերեն · ամերիկյան	America (USA) · American · English · American (adj.)	ամերիկյան դեսպանատուն	American embassy	39	noun,countries,languages	
-v0936	Անգլիա · անգլիացի · անգլերեն · անգլիական	England · English (person) · English (language) · English (adj.)	անգլիական թեյ	English tea	39	noun,countries,languages	
-v0937	Ֆրանսիա · ֆրանսիացի · ֆրանսերեն · ֆրանսիական	France · French (person) · French (language) · French (adj.)	ֆրանսիական խոհանոց	French cuisine	39	noun,countries,languages	
-v0938	Սիրիա · սիրիացի · արաբերեն · սիրիական	Syria · Syrian · Arabic · Syrian (adj.)	սիրիական ուտելիքներ	Syrian food	39	noun,countries,languages	
-v0939	Կանադա · կանադացի · անգլերեն, ֆրանսերեն · կանադական	Canada · Canadian · English, French · Canadian (adj.)	կանադական պատմություն	Canadian history	39	noun,countries,languages	
-v0940	Ճապոնիա · ճապոնացի · ճապոներեն · ճապոնական	Japan · Japanese · Japanese (language) · Japanese (adj.)	ճապոնական խոհանոց	Japanese cuisine	39	noun,countries,languages	
-v0941	Իտալիա · իտալացի · իտալերեն · իտալական	Italy · Italian · Italian (language) · Italian (adj.)	իտալական պաղպաղակ	Italian ice cream	39	noun,countries,languages	
-v0942	Իսպանիա · իսպանացի · իսպաներեն · իսպանական	Spain · Spanish (person) · Spanish (language) · Spanish (adj.)			39	noun,countries,languages	
-v0943	Շվեդիա · շվեդ / շվեդուհի · շվեդերեն · շվեդական	Sweden · Swede (m. / f.) · Swedish (language) · Swedish (adj.)			39	noun,countries,languages	
-v0944	Պորտուգալիա · պորտուգալացի · պորտուգալերեն · պորտուգալական	Portugal · Portuguese (person) · Portuguese (language) · Portuguese (adj.)			39	noun,countries,languages	
-v0945	Բրազիլիա · բրազիլացի · պորտուգալերեն · բրազիլական	Brazil · Brazilian · Portuguese (language) · Brazilian (adj.)			39	noun,countries,languages	
-v0946	Կորեա · կորեացի · կորեերեն · կորեական	Korea · Korean · Korean (language) · Korean (adj.)			39	noun,countries,languages	
-v0947	Ադրբեջան · ադրբեջանցի · ադրբեջաներեն · ադրբեջանական	Azerbaijan · Azerbaijani · Azerbaijani (language) · Azerbaijani (adj.)			39	noun,countries,languages	
-v0948	պատկեր	image			40	noun	
-v0949	պատկերացնել	to imagine			40	verb	
-v0950	սպասել	to wait			40	verb	
-v0951	սպասեցնել	to make someone wait			40	verb	
-v0952	խոսեցնել	to make someone talk			40	verb	
-v0953	խմեցնել	to make someone drink, to give to drink			40	verb	
-v0954	մշակույթ	culture			40	noun,abstract	
-v0955	մշակել	to cultivate			40	verb	
-v0956	երևի	probably			40	adverb	
-v0957	մարդիկ	people			40	noun,people	gen. մարդկանց
-v0958	կանայք	women			40	noun,people	gen. կանանց
-v0959	անկյուն	angle, corner			40	noun	gen. անկյան
-v0960	արյուն	blood			40	noun,body	gen. արյան
-v0961	կատու	cat			40	noun,nature	gen. կատվի
-v0962	մահ	death			40	noun,abstract	gen. մահվան
-v0963	ուժ	power			40	noun,abstract,from-exercise	
-v0964	իրավունք	right (entitlement)			40	noun,abstract,from-exercise	
-v0965	շրջանառություն	circulation			40	noun,from-exercise	
-v0966	իմաստ	meaning			40	noun,abstract,from-exercise	
-v0967	վախ	fear			40	noun,feelings,from-exercise	
-v0968	կառուցվածք	structure			40	noun,abstract,from-exercise	
-v0969	և այլն	etc., and so on			41	phrase	
-v0970	հարմար	convenient, comfortable			41	adjective	
-v0971	վրա	on	Պայուսակը սեղանի վրա է։	The bag is on the table	41	postposition	
-v0972	տակ	under	Մահճակալի տակ ոչինչ չկա։	There is nothing under the bed	41	postposition	
-v0973	մոտ	near, at	Տան մոտ շատ մարդիկ կան։	There are many people near the house	41	postposition	
-v0974	մեջ	in, among	Մատիտը գրքի մեջ է։	The pencil is in the book	41	postposition	
-v0975	շուրջը	around	Մենք հավաքվել ենք տոնածառի շուրջը։	We have gathered around the Christmas tree	41	postposition	
-v0976	միջև	between	Մեր միջև էլ սեր չկա։	There is no more love between us	41	postposition	
-v0977	վերև / վերևում	above, up, upstairs	Վերևում ոչ ոք չի ապրում։	Nobody lives upstairs	41	postposition	
-v0978	ներքև / ներքևում	below, down, downstairs	Ներքևում աղմուկ է։	There is noise downstairs	41	postposition	
-v0979	կողքին	next to, beside	Այշեն միշտ նստում է իմ կողքին։	Ayshe always sits next to me	41	postposition	
-v0980	դիմաց	across, across from, in front of	Դպրոցի դիմաց մեծ այգի կա։	Across from the school there is a big orchard	41	postposition	
-v0981	միջով	through	Նա քայլեց այգու միջով, որ տուն հասնի։	She walked through the park to get home	41	postposition	
-v0982	դիվանագիտական հարաբերություն	diplomatic relationship			41	noun,abstract,from-exercise	
+v0926	Թուրքիա	Turkey			39	noun,countries	
+v0927	թուրք	Turk			39	noun,people,countries	
+v0928	թուրքերեն	Turkish (language)			39	noun,languages	
+v0929	թուրքական	Turkish	թուրքական թեյ	Turkish tea	39	adjective,countries	
+v0930	Հնդկաստան	India			39	noun,countries	
+v0931	հնդկերեն	Hindi			39	noun,languages	
+v0932	հնդկական	Indian	հնդկական փիղ	Indian elephant	39	adjective,countries	
+v0933	Պարսկաստան / Իրան	Persia / Iran			39	noun,countries	
+v0934	պարսիկ / իրանցի	Persian / Iranian (person)			39	noun,people,countries	
+v0935	պարսկերեն	Persian (language)			39	noun,languages	
+v0936	պարսկական / իրանական	Persian / Iranian	պարսկական գորգ	Persian rug	39	adjective,countries	
+v0937	Չինաստան	China			39	noun,countries	
+v0938	չինացի	Chinese (person)			39	noun,people,countries	
+v0939	չինարեն	Chinese (language)			39	noun,languages	
+v0940	չինական	Chinese	չինական պատ	the Great Wall of China	39	adjective,countries	
+v0941	վրացի	Georgian (person)			39	noun,people,countries	
+v0942	վրացերեն	Georgian (language)			39	noun,languages	
+v0943	վրացական	Georgian	վրացական խինկալի	Georgian khinkali	39	adjective,countries	
+v0944	ռուսական	Russian	ռուսական օղի	Russian vodka	39	adjective,countries	
+v0945	Ամերիկա / ԱՄՆ	America / USA			39	noun,countries	
+v0946	ամերիկացի	American (person)			39	noun,people,countries	
+v0947	ամերիկյան	American	ամերիկյան դեսպանատուն	the American embassy	39	adjective,countries	
+v0948	Անգլիա	England			39	noun,countries	
+v0949	անգլիացի	English (person)			39	noun,people,countries	
+v0950	անգլիական	English	անգլիական թեյ	English tea	39	adjective,countries	
+v0951	ֆրանսերեն	French (language)			39	noun,languages	
+v0952	ֆրանսիական	French	ֆրանսիական խոհանոց	French cuisine	39	adjective,countries	
+v0953	Սիրիա	Syria			39	noun,countries	
+v0954	սիրիացի	Syrian (person)			39	noun,people,countries	
+v0955	արաբերեն	Arabic			39	noun,languages	
+v0956	սիրիական	Syrian	սիրիական ուտելիքներ	Syrian food	39	adjective,countries	
+v0957	Կանադա	Canada			39	noun,countries	
+v0958	կանադացի	Canadian (person)			39	noun,people,countries	
+v0959	կանադական	Canadian	կանադական պատմություն	Canadian history	39	adjective,countries	
+v0960	ճապոնացի	Japanese (person)			39	noun,people,countries	
+v0961	ճապոներեն	Japanese (language)			39	noun,languages	
+v0962	ճապոնական	Japanese	ճապոնական խոհանոց	Japanese cuisine	39	adjective,countries	
+v0963	Իտալիա	Italy			39	noun,countries	
+v0964	իտալացի	Italian (person)			39	noun,people,countries	
+v0965	իտալական	Italian	իտալական պաղպաղակ	Italian ice cream	39	adjective,countries	
+v0966	իսպանացի	Spanish (person)			39	noun,people,countries	
+v0967	իսպաներեն	Spanish (language)			39	noun,languages	
+v0968	իսպանական	Spanish			39	adjective,countries	
+v0969	Շվեդիա	Sweden			39	noun,countries	
+v0970	շվեդ / շվեդուհի	Swede (male / female)			39	noun,people,countries	
+v0971	շվեդերեն	Swedish (language)			39	noun,languages	
+v0972	շվեդական	Swedish			39	adjective,countries	
+v0973	Պորտուգալիա	Portugal			39	noun,countries	
+v0974	պորտուգալացի	Portuguese (person)			39	noun,people,countries	
+v0975	պորտուգալերեն	Portuguese (language)			39	noun,languages	
+v0976	պորտուգալական	Portuguese			39	adjective,countries	
+v0977	Բրազիլիա	Brazil			39	noun,countries	
+v0978	բրազիլացի	Brazilian (person)			39	noun,people,countries	
+v0979	բրազիլական	Brazilian			39	adjective,countries	
+v0980	կորեացի	Korean (person)			39	noun,people,countries	
+v0981	կորեերեն	Korean (language)			39	noun,languages	
+v0982	Ադրբեջան	Azerbaijan			39	noun,countries	
+v0983	ադրբեջանցի	Azerbaijani (person)			39	noun,people,countries	
+v0984	ադրբեջաներեն	Azerbaijani (language)			39	noun,languages	
+v0985	ադրբեջանական	Azerbaijani			39	adjective,countries	
+v0986	Գերմանիա	Germany			39	noun,countries	
+v0987	գերմանացի	German (person)			39	noun,people,countries	
+v0988	գերմանական	German			39	adjective,countries	
+v0989	պատկեր	image			40	noun	
+v0990	պատկերացնել	to imagine			40	verb	
+v0991	սպասել	to wait			40	verb	
+v0992	սպասեցնել	to make someone wait			40	verb	
+v0993	խոսեցնել	to make someone talk			40	verb	
+v0994	խմեցնել	to make someone drink, to give to drink			40	verb	
+v0995	մշակույթ	culture			40	noun,abstract	
+v0996	մշակել	to cultivate			40	verb	
+v0997	երևի	probably			40	adverb	
+v0998	մարդիկ	people			40	noun,people	gen. մարդկանց
+v0999	կանայք	women			40	noun,people	gen. կանանց
+v1000	անկյուն	angle, corner			40	noun	gen. անկյան
+v1001	արյուն	blood			40	noun,body	gen. արյան
+v1002	կատու	cat			40	noun,nature	gen. կատվի
+v1003	մահ	death			40	noun,abstract	gen. մահվան
+v1004	ուժ	power			40	noun,abstract,from-exercise	
+v1005	իրավունք	right (entitlement)			40	noun,abstract,from-exercise	
+v1006	շրջանառություն	circulation			40	noun,from-exercise	
+v1007	իմաստ	meaning			40	noun,abstract,from-exercise	
+v1008	վախ	fear			40	noun,feelings,from-exercise	
+v1009	կառուցվածք	structure			40	noun,abstract,from-exercise	
+v1010	և այլն	etc., and so on			41	phrase	
+v1011	հարմար	convenient, comfortable			41	adjective	
+v1012	վրա	on	Պայուսակը սեղանի վրա է։	The bag is on the table	41	postposition	
+v1013	տակ	under	Մահճակալի տակ ոչինչ չկա։	There is nothing under the bed	41	postposition	
+v1014	մոտ	near, at	Տան մոտ շատ մարդիկ կան։	There are many people near the house	41	postposition	
+v1015	մեջ	in, among	Մատիտը գրքի մեջ է։	The pencil is in the book	41	postposition	
+v1016	շուրջը	around	Մենք հավաքվել ենք տոնածառի շուրջը։	We have gathered around the Christmas tree	41	postposition	
+v1017	միջև	between	Մեր միջև էլ սեր չկա։	There is no more love between us	41	postposition	
+v1018	վերև / վերևում	above, up, upstairs	Վերևում ոչ ոք չի ապրում։	Nobody lives upstairs	41	postposition	
+v1019	ներքև / ներքևում	below, down, downstairs	Ներքևում աղմուկ է։	There is noise downstairs	41	postposition	
+v1020	կողքին	next to, beside	Այշեն միշտ նստում է իմ կողքին։	Ayshe always sits next to me	41	postposition	
+v1021	դիմաց	across, across from, in front of	Դպրոցի դիմաց մեծ այգի կա։	Across from the school there is a big orchard	41	postposition	
+v1022	միջով	through	Նա քայլեց այգու միջով, որ տուն հասնի։	She walked through the park to get home	41	postposition	
+v1023	դիվանագիտական հարաբերություն	diplomatic relationship			41	noun,abstract,from-exercise	

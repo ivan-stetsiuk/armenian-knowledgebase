@@ -3,25 +3,89 @@ hy	en	phrase_hy	phrase_en	lesson	tags	note
 անելիք	things to do	Ի՞նչ անելիքներ ունես այսօր։	What do you have to do today?	39	noun	
 անտառ	forest			39	noun,nature	
 ճիշտն ասած / անկեղծ ասած	honestly speaking, to tell the truth			39	phrase	
-գերմանացի	German (person)			39	noun,countries	
-Հայաստան · հայ · հայերեն · հայկական	Armenia · Armenian · Armenian (language) · Armenian (adj.)	հայկական կոնյակ	Armenian brandy	39	noun,countries,languages	
-Թուրքիա · թուրք · թուրքերեն · թուրքական	Turkey · Turk · Turkish (language) · Turkish (adj.)	թուրքական թեյ	Turkish tea	39	noun,countries,languages	
-Հունաստան · հույն · հունարեն · հունական	Greece · Greek · Greek (language) · Greek (adj.)	հունական պար	Greek dance	39	noun,countries,languages	
-Հնդկաստան · հնդիկ · հնդկերեն · հնդկական	India · Indian · Hindi · Indian (adj.)	հնդկական փիղ	Indian elephant	39	noun,countries,languages	
-Պարսկաստան / Իրան · պարսիկ / իրանցի · պարսկերեն · պարսկական / իրանական	Persia / Iran · Persian / Iranian · Persian (language) · Persian / Iranian (adj.)	պարսկական / իրանական գորգ	Persian / Iranian rug	39	noun,countries,languages	
-Չինաստան · չինացի · չինարեն · չինական	China · Chinese · Chinese (language) · Chinese (adj.)	չինական պատ	Chinese wall	39	noun,countries,languages	
-Վրաստան · վրացի · վրացերեն · վրացական	Georgia · Georgian · Georgian (language) · Georgian (adj.)	վրացական խինկալի	Georgian khinkali	39	noun,countries,languages	
-Ռուսաստան · ռուս · ռուսերեն · ռուսական	Russia · Russian · Russian (language) · Russian (adj.)	ռուսական օղի	Russian vodka	39	noun,countries,languages	
-Ամերիկա (ԱՄՆ) · ամերիկացի · անգլերեն · ամերիկյան	America (USA) · American · English · American (adj.)	ամերիկյան դեսպանատուն	American embassy	39	noun,countries,languages	
-Անգլիա · անգլիացի · անգլերեն · անգլիական	England · English (person) · English (language) · English (adj.)	անգլիական թեյ	English tea	39	noun,countries,languages	
-Ֆրանսիա · ֆրանսիացի · ֆրանսերեն · ֆրանսիական	France · French (person) · French (language) · French (adj.)	ֆրանսիական խոհանոց	French cuisine	39	noun,countries,languages	
-Սիրիա · սիրիացի · արաբերեն · սիրիական	Syria · Syrian · Arabic · Syrian (adj.)	սիրիական ուտելիքներ	Syrian food	39	noun,countries,languages	
-Կանադա · կանադացի · անգլերեն, ֆրանսերեն · կանադական	Canada · Canadian · English, French · Canadian (adj.)	կանադական պատմություն	Canadian history	39	noun,countries,languages	
-Ճապոնիա · ճապոնացի · ճապոներեն · ճապոնական	Japan · Japanese · Japanese (language) · Japanese (adj.)	ճապոնական խոհանոց	Japanese cuisine	39	noun,countries,languages	
-Իտալիա · իտալացի · իտալերեն · իտալական	Italy · Italian · Italian (language) · Italian (adj.)	իտալական պաղպաղակ	Italian ice cream	39	noun,countries,languages	
-Իսպանիա · իսպանացի · իսպաներեն · իսպանական	Spain · Spanish (person) · Spanish (language) · Spanish (adj.)			39	noun,countries,languages	
-Շվեդիա · շվեդ / շվեդուհի · շվեդերեն · շվեդական	Sweden · Swede (m. / f.) · Swedish (language) · Swedish (adj.)			39	noun,countries,languages	
-Պորտուգալիա · պորտուգալացի · պորտուգալերեն · պորտուգալական	Portugal · Portuguese (person) · Portuguese (language) · Portuguese (adj.)			39	noun,countries,languages	
-Բրազիլիա · բրազիլացի · պորտուգալերեն · բրազիլական	Brazil · Brazilian · Portuguese (language) · Brazilian (adj.)			39	noun,countries,languages	
-Կորեա · կորեացի · կորեերեն · կորեական	Korea · Korean · Korean (language) · Korean (adj.)			39	noun,countries,languages	
-Ադրբեջան · ադրբեջանցի · ադրբեջաներեն · ադրբեջանական	Azerbaijan · Azerbaijani · Azerbaijani (language) · Azerbaijani (adj.)			39	noun,countries,languages	
+Հայաստան	Armenia			39	noun,countries	
+հայ	Armenian (person)			39	noun,people,countries	
+հայերեն	Armenian (language)			39	noun,languages	
+հայկական	Armenian	հայկական կոնյակ	Armenian brandy	39	adjective,countries	
+Թուրքիա	Turkey			39	noun,countries	
+թուրք	Turk			39	noun,people,countries	
+թուրքերեն	Turkish (language)			39	noun,languages	
+թուրքական	Turkish	թուրքական թեյ	Turkish tea	39	adjective,countries	
+Հունաստան	Greece			39	noun,countries	
+հույն	Greek (person)			39	noun,people,countries	
+հունարեն	Greek (language)			39	noun,languages	
+հունական	Greek	հունական պար	Greek dance	39	adjective,countries	
+Հնդկաստան	India			39	noun,countries	
+հնդիկ	Indian (person)			39	noun,people,countries	
+հնդկերեն	Hindi			39	noun,languages	
+հնդկական	Indian	հնդկական փիղ	Indian elephant	39	adjective,countries	
+Պարսկաստան / Իրան	Persia / Iran			39	noun,countries	
+պարսիկ / իրանցի	Persian / Iranian (person)			39	noun,people,countries	
+պարսկերեն	Persian (language)			39	noun,languages	
+պարսկական / իրանական	Persian / Iranian	պարսկական գորգ	Persian rug	39	adjective,countries	
+Չինաստան	China			39	noun,countries	
+չինացի	Chinese (person)			39	noun,people,countries	
+չինարեն	Chinese (language)			39	noun,languages	
+չինական	Chinese	չինական պատ	the Great Wall of China	39	adjective,countries	
+Վրաստան	Georgia			39	noun,countries	
+վրացի	Georgian (person)			39	noun,people,countries	
+վրացերեն	Georgian (language)			39	noun,languages	
+վրացական	Georgian	վրացական խինկալի	Georgian khinkali	39	adjective,countries	
+Ռուսաստան	Russia			39	noun,countries	
+ռուս	Russian (person)			39	noun,people,countries	
+ռուսերեն	Russian (language)			39	noun,languages	
+ռուսական	Russian	ռուսական օղի	Russian vodka	39	adjective,countries	
+Ամերիկա / ԱՄՆ	America / USA			39	noun,countries	
+ամերիկացի	American (person)			39	noun,people,countries	
+անգլերեն	English (language)			39	noun,languages	
+ամերիկյան	American	ամերիկյան դեսպանատուն	the American embassy	39	adjective,countries	
+Անգլիա	England			39	noun,countries	
+անգլիացի	English (person)			39	noun,people,countries	
+անգլերեն	English (language)			39	noun,languages	
+անգլիական	English	անգլիական թեյ	English tea	39	adjective,countries	
+Ֆրանսիա	France			39	noun,countries	
+ֆրանսիացի	French (person)			39	noun,people,countries	
+ֆրանսերեն	French (language)			39	noun,languages	
+ֆրանսիական	French	ֆրանսիական խոհանոց	French cuisine	39	adjective,countries	
+Սիրիա	Syria			39	noun,countries	
+սիրիացի	Syrian (person)			39	noun,people,countries	
+արաբերեն	Arabic			39	noun,languages	
+սիրիական	Syrian	սիրիական ուտելիքներ	Syrian food	39	adjective,countries	
+Կանադա	Canada			39	noun,countries	
+կանադացի	Canadian (person)			39	noun,people,countries	
+կանադական	Canadian	կանադական պատմություն	Canadian history	39	adjective,countries	
+Ճապոնիա	Japan			39	noun,countries	
+ճապոնացի	Japanese (person)			39	noun,people,countries	
+ճապոներեն	Japanese (language)			39	noun,languages	
+ճապոնական	Japanese	ճապոնական խոհանոց	Japanese cuisine	39	adjective,countries	
+Իտալիա	Italy			39	noun,countries	
+իտալացի	Italian (person)			39	noun,people,countries	
+իտալերեն	Italian (language)			39	noun,languages	
+իտալական	Italian	իտալական պաղպաղակ	Italian ice cream	39	adjective,countries	
+Իսպանիա	Spain			39	noun,countries	
+իսպանացի	Spanish (person)			39	noun,people,countries	
+իսպաներեն	Spanish (language)			39	noun,languages	
+իսպանական	Spanish			39	adjective,countries	
+Շվեդիա	Sweden			39	noun,countries	
+շվեդ / շվեդուհի	Swede (male / female)			39	noun,people,countries	
+շվեդերեն	Swedish (language)			39	noun,languages	
+շվեդական	Swedish			39	adjective,countries	
+Պորտուգալիա	Portugal			39	noun,countries	
+պորտուգալացի	Portuguese (person)			39	noun,people,countries	
+պորտուգալերեն	Portuguese (language)			39	noun,languages	
+պորտուգալական	Portuguese			39	adjective,countries	
+Բրազիլիա	Brazil			39	noun,countries	
+բրազիլացի	Brazilian (person)			39	noun,people,countries	
+բրազիլական	Brazilian			39	adjective,countries	
+Կորեա	Korea			39	noun,countries	
+կորեացի	Korean (person)			39	noun,people,countries	
+կորեերեն	Korean (language)			39	noun,languages	
+կորեական	Korean			39	adjective,countries	
+Ադրբեջան	Azerbaijan			39	noun,countries	
+ադրբեջանցի	Azerbaijani (person)			39	noun,people,countries	
+ադրբեջաներեն	Azerbaijani (language)			39	noun,languages	
+ադրբեջանական	Azerbaijani			39	adjective,countries	
+Գերմանիա	Germany			39	noun,countries	
+գերմանացի	German (person)			39	noun,people,countries	
+գերմաներեն	German (language)			39	noun,languages	
+գերմանական	German			39	adjective,countries	

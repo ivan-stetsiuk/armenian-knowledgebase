@@ -1,0 +1,111 @@
+# Decap CMS — edit the knowledge base from the site itself.
+#
+# The CMS writes plain Markdown with YAML front matter straight into this
+# repository, which is why the content was migrated to `:::rule{…}` directives
+# rather than to components: the editor has to be able to round-trip the file.
+#
+# Authentication needs a small OAuth helper, because GitHub Pages cannot hold a
+# client secret. Deploy sveltia-cms-auth (a free Cloudflare Worker — see the
+# README) and put its address in `base_url` below. Everything else is ready.
+
+backend:
+  name: github
+  repo: ivan-stetsiuk/armenian-knowledgebase
+  branch: main
+  base_url: https://REPLACE-ME.workers.dev # ← the OAuth helper
+  auth_endpoint: auth
+  commit_messages:
+    create: "content: add {{collection}} “{{slug}}”"
+    update: "content: update {{collection}} “{{slug}}”"
+    delete: "content: remove {{collection}} “{{slug}}”"
+    uploadMedia: "assets: add {{path}}"
+    deleteMedia: "assets: remove {{path}}"
+
+# Edits land on a branch and open a pull request, so a half-written lesson never
+# goes live and CI checks it before it does.
+publish_mode: editorial_workflow
+
+site_url: https://ivan-stetsiuk.github.io/armenian-knowledgebase/
+display_url: https://ivan-stetsiuk.github.io/armenian-knowledgebase/
+logo_url: https://ivan-stetsiuk.github.io/armenian-knowledgebase/favicon.svg
+
+media_folder: public/assets
+public_folder: /assets
+
+# Markdown only: no rich-text buttons that would rewrite the directive blocks
+# into something the build cannot parse.
+editor:
+  preview: false
+
+collections:
+  - name: lessons
+    label: Lessons
+    label_singular: Lesson
+    folder: src/content/lessons
+    create: true
+    slug: "l{{fields.lesson}}"
+    identifier_field: title
+    sortable_fields: [lesson, date]
+    summary: "{{lesson}} · {{title}} · {{date}}"
+    fields:
+      - { name: title, label: Title, widget: string, default: "Lesson " }
+      - { name: lesson, label: Lesson number (site), widget: number, value_type: int, min: 1 }
+      - { name: date, label: Date, widget: datetime, date_format: YYYY-MM-DD, time_format: false, picker_utc: true }
+      - name: source_lesson
+        label: Tutor's lesson number
+        widget: number
+        value_type: int
+        required: false
+        hint: Only differs from the site number because sessions without notes were dropped.
+      - name: topics
+        label: Topics
+        widget: string
+        required: false
+        hint: One line, items separated by · — shown under the title and in the index.
+      - name: grammar
+        label: Grammar topics covered
+        widget: list
+        required: false
+        hint: Slugs from the grammar section, e.g. genitive, future-k.
+      - name: body
+        label: Body
+        widget: markdown
+        hint: >-
+          Blocks are :::vocab{title="…"} … ::: and :::rule{title="…"} … ::: —
+          an outer block needs MORE colons than anything inside it.
+
+  - name: grammar
+    label: Grammar
+    label_singular: Grammar topic
+    folder: src/content/grammar
+    create: true
+    identifier_field: title
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - name: body
+        label: Body
+        widget: markdown
+        hint: >-
+          Must open with a line “> **One line.** …”. Paradigms go in
+          ::::tabs / :::tab{name="Affirmative"} blocks.
+
+  - name: howto
+    label: How-to
+    label_singular: How-to script
+    folder: src/content/howto
+    create: true
+    identifier_field: title
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: pages
+    label: Pages
+    folder: src/content/pages
+    create: false
+    identifier_field: title
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }

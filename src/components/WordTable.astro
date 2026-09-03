@@ -1,0 +1,98 @@
+---
+import type { Word } from "../lib/vocab";
+import { FLAGS } from "../lib/vocab";
+
+interface Props {
+  words: Word[];
+  showLesson?: boolean;
+}
+
+const { words, showLesson = true } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+/* `data-k` is the haystack the filter on the index page searches: Armenian,
+ * English, the phrase and the lesson number, lowercased once at build time so
+ * typing stays instant across a thousand rows. */
+const key = (w: Word) =>
+  [w.hy, w.en, w.phrase_hy, w.phrase_en, w.note, `l${w.lesson}`, String(w.lesson), ...w.tags]
+    .join(" ")
+    .toLowerCase();
+---
+
+<div class="table-wrap">
+  <table class="words">
+    <thead>
+      <tr>
+        <th>Armenian</th>
+        <th>English</th>
+        <th>In a phrase</th>
+        {showLesson && <th>L</th>}
+      </tr>
+    </thead>
+    <tbody>
+      {words.map((w) => (
+        <tr data-k={key(w)}>
+          <td class="hy">{w.hy}</td>
+          <td>
+            {FLAGS[w.hy] && <span class="flag">{FLAGS[w.hy]}</span>}
+            {w.en}
+            {w.note && <em class="note"> {w.note}</em>}
+          </td>
+          <td>
+            {w.phrase_hy && (
+              <>
+                <span class="hy">{w.phrase_hy}</span>
+                {w.phrase_en && <span class="gloss"> — {w.phrase_en}</span>}
+              </>
+            )}
+          </td>
+          {showLesson && (
+            <td class="num"><a href={`${base}/lessons/l${String(w.lesson).padStart(2, "0")}/`}>{w.lesson}</a></td>
+          )}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .words { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+
+  .words thead th {
+    text-align: left;
+    padding: 0.5rem 0.9rem 0.5rem 0;
+    background: var(--c-paper);
+    border-bottom: 1px solid var(--c-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: var(--track);
+    text-transform: uppercase;
+    color: var(--c-ink-3);
+  }
+
+  .words td {
+    padding: 0.42rem 0.9rem 0.42rem 0;
+    border-bottom: 1px solid var(--c-line-2);
+    vertical-align: top;
+  }
+
+  .words tbody tr:hover td { background: color-mix(in srgb, var(--c-accent) 4%, transparent); }
+  .words td:last-child, .words th:last-child { padding-right: 0; }
+
+  .words .hy { font-family: var(--font-hy); font-size: 1.02em; }
+  .words .gloss { color: var(--c-ink-3); }
+  .words .note { color: var(--c-ink-3); font-size: 0.9em; }
+  .words .flag { margin-right: 0.3rem; }
+
+  .words .num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--c-ink-3);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .words .num a { text-decoration: none; color: inherit; }
+  .words .num a:hover { color: var(--c-accent); }
+</style>

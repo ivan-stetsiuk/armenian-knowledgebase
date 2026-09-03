@@ -1,0 +1,52 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { HOWTO_ORDER } from "../../lib/howto";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const all = await getCollection("howto");
+const byId = new Map(all.map((e) => [e.id, e]));
+const items = [...HOWTO_ORDER.filter((id) => byId.has(id)), ...all.map((e) => e.id).filter((id) => !HOWTO_ORDER.includes(id))]
+  .map((id) => byId.get(id)!)
+  .filter((e) => e.id !== "index");
+
+/* The first exchange of each script, shown as a preview. */
+const opener = (body: string) => {
+  const m = body.match(/^\*\*You:\*\*\s*(.+)$/m) || body.match(/^\*\*Them:\*\*\s*(.+)$/m);
+  return m ? m[1].replace(/\*/g, "").trim() : "";
+};
+---
+
+<Base title="How-to" section="how-to" description="Ready Armenian dialogue scripts for everyday situations.">
+  <div class="shell doc" style="grid-template-columns: minmax(0, 60rem);">
+    <div class="doc__body" style="grid-column:1" data-pagefind-body>
+      <header class="title">
+        <span class="title__no">04 — Scripts</span>
+        <h1>How-to</h1>
+        <div class="title__meta"><span>{items.length} situations</span></div>
+      </header>
+
+      <div class="prose" style="margin-bottom:1rem">
+        <p>
+          What to say, and what comes back. Every line here was said in a lesson. No grammar is
+          explained on these pages, only linked, because a script you are about to use is the
+          wrong place to learn a paradigm.
+        </p>
+      </div>
+
+      <div class="index">
+        {items.map((e, i) => (
+          <a class="index__row" href={`${base}/how-to/${e.id}/`}>
+            <span class="index__no">{String(i + 1).padStart(2, "0")}</span>
+            <span class="index__name">
+              {e.data.title}
+              {opener(e.body ?? "") && <span class="index__sub hy">{opener(e.body ?? "")}</span>}
+            </span>
+            <span class="index__meta"></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Base>

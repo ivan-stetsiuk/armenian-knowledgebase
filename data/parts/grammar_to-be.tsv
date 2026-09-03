@@ -1,0 +1,24 @@
+prompt	answer	rule	lesson	tags
+I am (ես ___)	եմ	to-be	1	to-be
+you are (դու ___)	ես	to-be	1	to-be
+he/she is (նա ___)	է	to-be	1	to-be
+we are (մենք ___)	ենք	to-be	1	to-be
+you (pl.) are (դուք ___)	եք	to-be	1	to-be
+they are (նրանք ___)	են	to-be	1	to-be
+I am not (ես ___)	չեմ	to-be	1	to-be,negation
+you are not (դու ___)	չես	to-be	1	to-be,negation
+he/she is not (նա ___)	չէ / չի	to-be	1	to-be,negation
+we are not (մենք ___)	չենք	to-be	1	to-be,negation
+you (pl.) are not (դուք ___)	չեք	to-be	1	to-be,negation
+they are not (նրանք ___)	չեն	to-be	1	to-be,negation
+I am glad	Ես ուրախ եմ	to-be	1	to-be
+We are not glad	Մենք ուրախ չենք	to-be	1	to-be,negation
+I am hungry	Սոված եմ	to-be	1	to-be
+I am full	Կուշտ եմ	to-be	1	to-be
+I am tired	Հոգնած եմ	to-be	1	to-be
+yes (formal / informal)	այո / հա	to-be	1	to-be
+no (formal / informal)	ոչ / չէ	to-be	1	to-be,negation
+Are you Armenian? — No, I am Indian.	Դու հա՞յ ես։ — Չէ, ես հնդիկ եմ։	to-be	3	to-be,question
+I am at home	Ես տանն եմ	to-be	6	to-be
+he/she (emphatic pronoun, also spoken)	ինքը	to-be	16	to-be,pronoun
+they (spoken)	իրանք	to-be	16	to-be,pronoun,spoken

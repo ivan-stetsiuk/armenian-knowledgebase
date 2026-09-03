@@ -1,0 +1,57 @@
+---
+import Base from "./Base.astro";
+import Toc from "../components/Toc.astro";
+
+interface Link { href: string; label: string }
+interface Props {
+  title: string;
+  number?: string;
+  meta?: string[];
+  section?: string;
+  description?: string;
+  headings: { depth: number; slug: string; text: string }[];
+  prev?: Link | null;
+  next?: Link | null;
+}
+
+const { title, number, meta = [], section, description, headings, prev, next } = Astro.props;
+---
+
+<Base title={title} section={section} description={description}>
+  <div class="shell doc">
+    <div class="doc__rail">
+      <div class="rail"><slot name="rail" /></div>
+    </div>
+
+    <article class="doc__body" data-pagefind-body>
+      <header class="title">
+        {number && <span class="title__no">{number}</span>}
+        <h1>{title}</h1>
+        {meta.length > 0 && (
+          <div class="title__meta">{meta.map((m) => <span>{m}</span>)}</div>
+        )}
+      </header>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      {(prev || next) && (
+        <nav class="pager" aria-label="Pagination">
+          {prev ? (
+            <a href={prev.href}><span>Previous</span><strong>{prev.label}</strong></a>
+          ) : (
+            <span />
+          )}
+          {next && <a href={next.href}><span>Next</span><strong>{next.label}</strong></a>}
+        </nav>
+      )}
+    </article>
+
+    <div class="doc__aside">
+      <div>
+        <Toc headings={headings} />
+      </div>
+    </div>
+  </div>
+</Base>

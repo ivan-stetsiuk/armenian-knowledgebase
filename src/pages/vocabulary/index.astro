@@ -1,0 +1,146 @@
+---
+import Base from "../../layouts/Base.astro";
+import WordTable from "../../components/WordTable.astro";
+import { words, TOPICS, byArmenian } from "../../lib/vocab";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const all = words().sort((a, b) => byArmenian(a.hy, b.hy));
+
+const counts = new Map<string, number>();
+for (const w of all) for (const t of w.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+
+const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb]) => ({
+  tag, title, blurb, n: counts.get(tag)!,
+}));
+
+const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
+---
+
+<Base title="Words" section="vocabulary" description="1023 Armenian words and expressions from the lessons, by topic.">
+  <div class="shell doc" style="grid-template-columns: minmax(0, 64rem);">
+    <div class="doc__body" style="grid-column:1" data-pagefind-body>
+      <header class="title">
+        <span class="title__no">03 — Glossary</span>
+        <h1>Words</h1>
+        <div class="title__meta">
+          <span>{all.length} entries</span>
+          <span>{topics.length} topics</span>
+          <span>Armenian alphabetical order</span>
+        </div>
+      </header>
+
+      <div class="prose" style="margin-bottom:1.5rem">
+        <p>
+          Every word introduced in a lesson, with the phrase it came in. This page and the Anki
+          deck are built from the same file, so a card and its entry cannot disagree. Filter below,
+          or use a topic.
+        </p>
+      </div>
+
+      <p class="index__group">Topics</p>
+      <div class="topics">
+        {topics.map((t) => (
+          <a class="chip" href={`${base}/vocabulary/${t.tag}/`} title={t.blurb}>
+            {t.title} <span>{t.n}</span>
+          </a>
+        ))}
+      </div>
+
+      <p class="index__group">All words</p>
+
+      <div class="filter">
+        <input
+          type="search"
+          id="wfilter"
+          placeholder="Filter — Armenian, English or a lesson number"
+          aria-label="Filter words"
+          autocomplete="off"
+        />
+        <span class="filter__count mono" id="wcount">{all.length}</span>
+      </div>
+
+      <WordTable words={all} showLesson={true} />
+
+      <p class="mono" id="wempty" hidden style="color:var(--c-ink-3);padding:2rem 0">
+        Nothing matches. Try the Armenian spelling, or a lesson number.
+      </p>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ total: all.length }}>
+    const input = document.getElementById("wfilter");
+    const count = document.getElementById("wcount");
+    const empty = document.getElementById("wempty");
+    const rows = [...document.querySelectorAll("tbody tr[data-k]")];
+
+    let timer;
+    input?.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const q = input.value.trim().toLowerCase();
+        let shown = 0;
+        for (const r of rows) {
+          const hit = !q || r.dataset.k.includes(q);
+          r.hidden = !hit;
+          if (hit) shown++;
+        }
+        count.textContent = shown === total ? String(total) : `${shown} / ${total}`;
+        empty.hidden = shown !== 0;
+      }, 90);
+    });
+
+    /* A lesson page links here with ?lesson=7. */
+    const wanted = new URLSearchParams(location.search).get("lesson");
+    if (wanted && input) {
+      input.value = wanted;
+      input.dispatchEvent(new Event("input"));
+    }
+  </script>
+
+  <style>
+    .topics { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; }
+
+    .chip {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--c-line);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: var(--c-ink-2);
+      transition: border-color 0.14s ease, color 0.14s ease, background 0.14s ease;
+    }
+
+    .chip:hover {
+      color: var(--c-ink);
+      border-color: var(--c-accent);
+      background: color-mix(in srgb, var(--c-accent) 7%, transparent);
+    }
+
+    .chip span {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      color: var(--c-ink-3);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .filter { display: flex; align-items: center; gap: 0.9rem; margin: 1rem 0 0.4rem; }
+
+    .filter input {
+      flex: 1;
+      padding: 0.55rem 0.2rem;
+      border: 0;
+      border-bottom: 1px solid var(--c-line);
+      background: none;
+      color: var(--c-ink);
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .filter input:focus { outline: none; border-bottom-color: var(--c-accent); }
+    .filter input::placeholder { color: var(--c-ink-3); }
+    .filter__count { color: var(--c-ink-3); font-variant-numeric: tabular-nums; }
+  </style>
+</Base>

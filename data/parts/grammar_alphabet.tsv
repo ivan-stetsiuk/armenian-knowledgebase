@@ -1,0 +1,29 @@
+prompt	answer	rule	lesson	tags
+Ձ ձ → sound	dz	alphabet	1	alphabet,letters
+Ճ ճ → sound	ch (plosive)	alphabet	1	alphabet,letters
+Զ զ → sound	z	alphabet	1	alphabet,letters
+Ղ ղ → sound	gh (like the French r)	alphabet	1	alphabet,letters
+Ո ո → sound	vo	alphabet	1	alphabet,letters
+Եվ և → reads as	yev	alphabet	1	alphabet,letters
+Գ գ → sound	g	alphabet	2	alphabet,letters
+Ծ ծ → sound	ts (plosive)	alphabet	2	alphabet,letters
+Ֆ ֆ → sound	f	alphabet	2	alphabet,letters
+Ե ե → sound	ye	alphabet	3	alphabet,letters
+Խ խ → sound	kh	alphabet	3	alphabet,letters
+Հ հ → sound	h	alphabet	3	alphabet,letters
+Դ դ → sound	d	alphabet	4	alphabet,letters
+Բ բ → sound	b	alphabet	4	alphabet,letters
+Ն ն → sound	n	alphabet	5	alphabet,letters
+Մ մ → sound	m	alphabet	5	alphabet,letters
+Յ յ → sound	y	alphabet	6	alphabet,letters
+բարձր → pronunciation	բարցր	alphabet	1	alphabet,pronunciation
+զուգարան → pronunciation	զուքարան	alphabet	1	alphabet,pronunciation
+սրճարան → hidden ը	սըր-ճարան	alphabet	1	alphabet,pronunciation
+հոգնած → pronunciation	հոքնած	alphabet	2	alphabet,pronunciation
+եղբայր → pronunciation	եղպայր	alphabet	3	alphabet,pronunciation
+գլխարկ → hidden ը	գըլ-խարկ	alphabet	3	alphabet,pronunciation
+մարդ → pronunciation	մարթ	alphabet	4	alphabet,pronunciation
+կարդալ → pronunciation	կարթալ	alphabet	4	alphabet,pronunciation
+երբեք → pronunciation	երփեք	alphabet	5	alphabet,pronunciation
+օգնել → pronunciation	օքնել	alphabet	9	alphabet,pronunciation
+անգամ → pronunciation	անքամ	alphabet	10	alphabet,pronunciation

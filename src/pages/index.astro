@@ -1,0 +1,89 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { words } from "../lib/vocab";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lessons = await getCollection("lessons");
+const grammar = await getCollection("grammar");
+const howto = await getCollection("howto");
+const vocab = words();
+
+const sections = [
+  {
+    n: "01",
+    title: "Lessons",
+    href: `${base}/lessons/`,
+    text: `Every session in order: the words introduced, the rule in one line, the exercises as they were set. ${lessons.length} lessons so far.`,
+  },
+  {
+    n: "02",
+    title: "Grammar",
+    href: `${base}/grammar/`,
+    text: `${grammar.length} topics, each opening with the rule in a single line and its paradigm underneath. The page you actually want at 2am.`,
+  },
+  {
+    n: "03",
+    title: "Words",
+    href: `${base}/vocabulary/`,
+    text: `${vocab.length} words and expressions, by topic and in Armenian alphabetical order. The same file that builds the flashcards.`,
+  },
+  {
+    n: "04",
+    title: "How-to",
+    href: `${base}/how-to/`,
+    text: `${howto.length} ready scripts: tell the time, order coffee, ask the way. What to say, and what comes back.`,
+  },
+];
+---
+
+<Base title="Armenian Knowledge Base">
+  <div class="shell">
+    <section class="hero">
+      <p class="kicker">Eastern Armenian · personal reference</p>
+      <h1>Everything I have been taught, kept findable.</h1>
+      <p class="hero__lede">
+        Not a course. A reference built from lessons with a tutor, written so that a rule
+        learned in December can be found in ten seconds in September. English throughout,
+        Russian only where it translates an Armenian word more exactly than English can.
+      </p>
+
+      <p class="hero__abc" aria-hidden="true">
+        Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն Շ Ո Չ Պ Ջ Ռ Ս Վ Տ Ր Ց Ւ Փ Ք Օ Ֆ
+      </p>
+
+      <dl class="stats">
+        <div><dt>Lessons</dt><dd>{lessons.length}</dd></div>
+        <div><dt>Words</dt><dd>{vocab.length}</dd></div>
+        <div><dt>Grammar topics</dt><dd>{grammar.length}</dd></div>
+        <div><dt>How-to scripts</dt><dd>{howto.length}</dd></div>
+      </dl>
+    </section>
+
+    <nav class="sections" aria-label="Sections">
+      {sections.map((s) => (
+        <a class="section-row" href={s.href}>
+          <span class="index__no">{s.n}</span>
+          <span>
+            <h2>{s.title}</h2>
+            <p>{s.text}</p>
+          </span>
+          <span class="section-row__go">→</span>
+        </a>
+      ))}
+    </nav>
+
+    <section style="margin-top:4.5rem">
+      <p class="kicker">Conventions</p>
+      <div class="prose" style="margin-top:1rem">
+        <ul>
+          <li>Armenian is written in Armenian script only. There is no transliteration anywhere.</li>
+          <li><code>pron. հոքնած</code> marks a word whose spelling and pronunciation differ.</li>
+          <li><em>(spoken)</em> marks colloquial forms the tutor introduced as such, like <span class="hy">ա</span> for <span class="hy">է</span>.</li>
+          <li>Exercises show the prompts only. They are done on paper, not on this site.</li>
+          <li>Words and grammar cards build an Anki deck from the same files this site reads.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,21 @@
+prompt	answer	rule	lesson	tags
+What time is it?	Ժամը քանի՞սն է։	telling-time	22	time,question
+It is one o'clock.	Ժամը մեկն է։	telling-time	22	time
+It is two o'clock.	Ժամը երկուսն է։	telling-time	22	time
+It is half past one.	Ժամը մեկ անց կես է։	telling-time	22	time
+It is half past eight.	Ութն անց կես է։	telling-time	22	time
+It is a quarter past one.	Մեկն անց քառորդ է։	telling-time	22	time
+It is 1:05.	Մեկն անց հինգ է։	telling-time	22	time
+It is five to one (12:55).	Մեկից հինգ է պակաս։	telling-time	22	time
+At what time?	Ժամը քանիսի՞ն։	telling-time	22	time,question
+at one	ժամը մեկին	telling-time	22	time,dative
+at two	ժամը երկուսին	telling-time	22	time,dative
+at half past one	ժամը մեկ անց կեսին	telling-time	22	time,dative
+at a quarter past one	մեկն անց քառորդին	telling-time	22	time,dative
+at 1:05	մեկն անց հինգին	telling-time	22	time,dative
+at five to one	մեկից հինգ պակաս	telling-time	22	time
+at ten	ժամը տասին	telling-time	14	time,dative
+half an hour	կես ժամ	telling-time	22	time
+exactly thirty minutes	ուղիղ երեսուն րոպե	telling-time	22	time
+an hour and a half	մի ժամ ու կես	telling-time	15	time
+in an hour	մի ժամից	telling-time	23	time,ablative

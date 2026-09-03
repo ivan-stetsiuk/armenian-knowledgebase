@@ -1,0 +1,51 @@
+---
+import Doc from "../../layouts/Doc.astro";
+import { getCollection, render } from "astro:content";
+import { ORDERED, groupOf } from "../../lib/grammar";
+import { grammarCards } from "../../lib/vocab";
+
+export async function getStaticPaths() {
+  const all = await getCollection("grammar");
+  const rank = (id: string) => {
+    const i = ORDERED.indexOf(id);
+    return i === -1 ? 999 : i;
+  };
+  const sorted = all.sort((a, b) => rank(a.id) - rank(b.id));
+  return sorted.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: sorted[i - 1] ?? null, next: sorted[i + 1] ?? null },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content, headings } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const cards = grammarCards().filter((c) => c.rule === entry.id);
+const lessons = [...new Set(cards.map((c) => Number(c.lesson)).filter(Boolean))].sort((a, b) => a - b);
+---
+
+<Doc
+  title={entry.data.title}
+  number={groupOf(entry.id)}
+  section="grammar"
+  description={`Armenian grammar: ${entry.data.title}.`}
+  headings={headings}
+  prev={prev ? { href: `${base}/grammar/${prev.id}/`, label: prev.data.title } : null}
+  next={next ? { href: `${base}/grammar/${next.id}/`, label: next.data.title } : null}
+>
+  <Fragment slot="rail">
+    <dl>
+      <dt>Flashcards</dt>
+      <dd><code>hy::grammar::{entry.id}</code></dd>
+      {cards.length > 0 && <><dt>Cards</dt><dd>{cards.length}</dd></>}
+      {lessons.length > 0 && (
+        <><dt>Introduced</dt><dd>Lesson {lessons[0]}{lessons.length > 1 ? `, then ${lessons.slice(1).join(", ")}` : ""}</dd></>
+      )}
+    </dl>
+    <p class="rail__label">Section</p>
+    <ul><li><a href={`${base}/grammar/`}>All grammar topics</a></li></ul>
+  </Fragment>
+
+  <Content />
+</Doc>
