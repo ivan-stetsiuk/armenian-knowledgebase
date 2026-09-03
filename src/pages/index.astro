@@ -124,8 +124,20 @@ const sections = [
       return () => ((x = (x * 9301 + 49297) % 233280) / 233280);
     };
 
-    function clear() {
-      layer.replaceChildren();
+    let closing = null;
+
+    /* Closing is the opening run backwards, not a teardown. The words fade out
+       on their own transition — outermost first, which is the reverse of the
+       order they arrived in — and only once they are gone do they leave the DOM
+       and the alphabet come back down through the glass.
+       `immediate` is for the one case where nothing should be animated: a new
+       cloud is about to be built in place of this one. */
+    function clear(immediate) {
+      clearTimeout(closing);
+
+      const kids = [...layer.children];
+      kids.forEach((el, i) => (el.style.transitionDelay = (kids.length - 1 - i) * 16 + "ms"));
+
       layer.classList.remove("is-on");
       home.classList.remove("is-focused");
       document.documentElement.classList.remove("is-glass");
@@ -134,12 +146,19 @@ const sections = [
         b.setAttribute("aria-pressed", "false");
       }
       active = null;
+
+      const settle = () => {
+        layer.replaceChildren();
+        home.classList.remove("is-lifted");
+      };
+      if (immediate) settle();
+      else closing = setTimeout(settle, 700);
     }
 
     function show(btn) {
       const letter = btn.dataset.l;
       const list = cloud[letter] || [];
-      clear();
+      clear(true);
       active = letter;
 
       const aura = FLAG[turn++ % FLAG.length];
@@ -147,6 +166,7 @@ const sections = [
 
       btn.classList.add("is-on");
       btn.setAttribute("aria-pressed", "true");
+      home.classList.add("is-lifted");
       home.classList.add("is-focused");
       document.documentElement.classList.add("is-glass");
 

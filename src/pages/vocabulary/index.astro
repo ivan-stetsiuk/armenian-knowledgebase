@@ -58,21 +58,50 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
     const count = document.getElementById("wcount");
     const empty = document.getElementById("wempty");
     const rows = [...document.querySelectorAll("tbody tr[data-k]")];
+    const tbody = rows[0]?.parentNode;
+    const original = rows.slice();
+
+    /* A substring match is not the same as the word you asked for. Coming here
+       from the alphabet on the home page, the word clicked has to be the first
+       row, not the fourteenth — so matches are ordered by how exactly they
+       answer the query before anything else. */
+    const rank = (row, q) => {
+      const hy = row.dataset.hy || "";
+      if (hy === q) return 0;
+      if (hy.startsWith(q)) return 1;
+      if (hy.includes(q)) return 2;
+      return 3;
+    };
 
     let timer;
+    function apply() {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      for (const r of rows) {
+        const hit = !q || r.dataset.k.includes(q);
+        r.hidden = !hit;
+        r.classList.remove("is-hit");
+        if (hit) shown++;
+      }
+
+      const frag = document.createDocumentFragment();
+      if (q) {
+        const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q) - rank(b, q));
+        for (const r of matched) frag.append(r);
+        tbody.prepend(frag);
+        if (matched.length && rank(matched[0], q) < 2) matched[0].classList.add("is-hit");
+      } else {
+        for (const r of original) frag.append(r);
+        tbody.append(frag);
+      }
+
+      count.textContent = shown === original.length ? String(original.length) : shown + " / " + original.length;
+      empty.hidden = shown !== 0;
+    }
+
     input?.addEventListener("input", () => {
       clearTimeout(timer);
-      timer = setTimeout(() => {
-        const q = input.value.trim().toLowerCase();
-        let shown = 0;
-        for (const r of rows) {
-          const hit = !q || r.dataset.k.includes(q);
-          r.hidden = !hit;
-          if (hit) shown++;
-        }
-        count.textContent = shown === total ? String(total) : `${shown} / ${total}`;
-        empty.hidden = shown !== 0;
-      }, 90);
+      timer = setTimeout(apply, 90);
     });
 
     /* A lesson page links here with ?lesson=7, the alphabet on the home page
@@ -81,8 +110,10 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
     const wanted = params.get("q") ?? params.get("lesson");
     if (wanted && input) {
       input.value = wanted;
-      input.dispatchEvent(new Event("input"));
-      input.focus();
+      apply();
+      const hit = document.querySelector("tbody tr.is-hit") || document.querySelector("tbody tr[data-k]:not([hidden])");
+      hit?.scrollIntoView({ block: "center", behavior: "instant" });
+      input.focus({ preventScroll: true });
     }
   </script>
 

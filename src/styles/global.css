@@ -293,9 +293,19 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 
 html.is-glass .glass { opacity: 1; }
 
-/* Above the glass: the letter that was pressed, and the words it produced. */
-.home.is-focused .abc { z-index: 70; pointer-events: none; }
-.home.is-focused .cloud { z-index: 80; }
+/* Above the glass: the letter that was pressed, and the words it produced.
+ *
+ * The lift is a separate class from the focus because it has to outlast it. If
+ * the z-index came off at the same moment as the blur, the alphabet would drop
+ * behind the glass halfway through the fade and the whole thing would jump. It
+ * is removed once the words have finished leaving. */
+.home.is-lifted .abc { z-index: 70; }
+.home.is-lifted .cloud { z-index: 80; }
+
+.home.is-focused .abc { pointer-events: none; }
+
+/* A word on its way out must not still be a link. */
+.cloud:not(.is-on) .cloud__w { pointer-events: none; }
 
 /* The letters that were not pressed stay under their own blur so they match the
  * sheet they are sitting on; the open one is the only sharp thing on the page. */
@@ -324,7 +334,7 @@ html.is-glass .glass { opacity: 1; }
   white-space: nowrap;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.94);
-  transition: opacity .38s ease, transform .38s cubic-bezier(.2, .7, .3, 1), color .15s ease;
+  transition: opacity .34s ease, transform .34s cubic-bezier(.2, .7, .3, 1), color .15s ease;
 }
 
 .cloud.is-on .cloud__w { opacity: 1; transform: translate(-50%, -50%) scale(1); }
