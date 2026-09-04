@@ -106,19 +106,19 @@ const cols = showLesson ? 4 : 3;
 </div>
 
 <style>
-  .words { width: 100%; border-collapse: collapse; font-size: 0.875rem;
-    font-variant-numeric: tabular-nums; }
+  .words { width: 100%; border-collapse: collapse; font-size: var(--t-14);
+    line-height: var(--lh-14); font-variant-numeric: tabular-nums; }
 
   /* The filter marks a row by filling it with grey, and flush against the text
      that fill looked like a printing error. The wrapper is pulled out by the
      same amount the cells are padded, so the highlight gains air on both sides
      and every column stays exactly where it was. */
   .table-wrap { margin-inline: calc(-1 * var(--pad)); }
-  .words { --pad: 0.55rem; }
+  .words { --pad: var(--s-8); }
 
   .words thead th {
     text-align: left;
-    padding: 0 1.1rem 0.45rem var(--pad);
+    padding: 0 var(--s-16) var(--s-8) var(--pad);
     border-bottom: 1px solid var(--c-line);
     font-size: var(--label);
     font-weight: 400;
@@ -127,7 +127,7 @@ const cols = showLesson ? 4 : 3;
   }
 
   .words td {
-    padding: 0.42rem 1.1rem 0.42rem var(--pad);
+    padding: var(--s-8) var(--s-16) var(--s-8) var(--pad);
     border-bottom: 1px solid var(--c-line);
     vertical-align: top;
   }
@@ -143,7 +143,7 @@ const cols = showLesson ? 4 : 3;
   .words tbody tr.is-kin td { color: var(--c-ink-2); }
   .words tbody tr.is-kin .hy::after {
     content: "·";
-    margin-left: 0.45rem;
+    margin-left: var(--s-8);
     color: var(--c-grey);
   }
 
@@ -155,25 +155,26 @@ const cols = showLesson ? 4 : 3;
      into thirty-nine short lists. */
   .words__letter th {
     text-align: left;
-    padding: 1.5rem var(--pad) 0.35rem;
+    padding: var(--s-24) var(--pad) var(--s-4);
     border-bottom: 1px solid var(--c-line);
     font-weight: 400;
   }
 
-  .words__letter:first-child th { padding-top: 0.2rem; }
+  .words__letter:first-child th { padding-top: var(--s-4); }
 
   .words__letter .hy {
     font-family: var(--font-hy);
-    font-size: 1.25rem;
+    font-size: var(--t-21);
+    line-height: var(--lh-21);
     color: var(--c-ink);
   }
 
   /* Colour and the parentheses come from the global .count. */
-  .words__letter .count { margin-left: 0.35rem; font-size: 0.72rem; }
+  .words__letter .count { margin-left: var(--s-4); font-size: var(--t-12); }
 
   .words .hy { font-family: var(--font-hy); }
   .words .gloss { color: var(--c-grey); }
-  .words .note { color: var(--c-grey); font-size: 0.92em; }
+  .words .note { color: var(--c-grey); font-size: var(--t-12); }
 
   /* Every column in this table is ranged left, including this one: a lesson
      number is a label, not a quantity, and nothing is ever added up. */
@@ -184,6 +185,14 @@ const cols = showLesson ? 4 : 3;
     white-space: nowrap;
   }
 
-  .words .num a { text-decoration: none; color: inherit; }
+  /* 24×24 of hit area around a two-digit number: WCAG 2.5.8 measures the
+     target, not the glyph. */
+  .words .num a {
+    display: inline-block;
+    min-width: var(--s-24);
+    padding-block: var(--s-4);
+    text-decoration: none;
+    color: inherit;
+  }
   .words .num a:hover { color: var(--c-ink); }
 </style>

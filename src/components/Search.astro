@@ -39,6 +39,12 @@
       aria-label="Search"
       aria-controls="search-out"
     />
+    {/* Shown only with something to clear. A search field on a phone has no
+        keyboard escape, and clearing it by holding backspace is not clearing
+        it. */}
+    <button type="button" class="search__clear" id="search-clear" aria-label="Clear search" hidden>
+      ×
+    </button>
   </form>
 
   <div class="search__out" id="search-out" role="listbox" aria-label="Results"></div>
@@ -59,6 +65,7 @@
   const dlg = document.getElementById("search") as HTMLDialogElement;
   const input = document.getElementById("search-input") as HTMLInputElement;
   const out = document.getElementById("search-out") as HTMLElement;
+  const clear = document.getElementById("search-clear") as HTMLButtonElement;
 
   let entries: Entry[] | null = null;   /* the index of things, fetched once */
   let pf: any = null;                   /* Pagefind, loaded once */
@@ -174,6 +181,7 @@
   async function query() {
     const q = input.value;
     const mine = ++run;
+    clear.hidden = q === "";
 
     if (!q.trim()) {
       out.replaceChildren(note("A word, a rule, or a lesson number."));
@@ -234,8 +242,15 @@
   });
 
   input.addEventListener("input", () => {
+    clear.hidden = input.value === "";
     clearTimeout(timer);
     timer = setTimeout(query, 80);
+  });
+
+  clear.addEventListener("click", () => {
+    input.value = "";
+    input.focus();
+    query();
   });
 
   input.addEventListener("keydown", (e) => {

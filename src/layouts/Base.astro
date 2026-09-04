@@ -108,9 +108,13 @@ const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
         }
       }
 
-      /* Wide tables scroll inside their own box rather than widening the page. */
+      /* Wide tables scroll inside their own box rather than widening the page.
+         Every table in the prose, not only the ones written at the top level:
+         a paradigm inside a rule block or a tab set is exactly the kind that
+         overflows a 320px screen. */
       function wrapWideTables() {
-        for (const table of document.querySelectorAll(".prose > table")) {
+        for (const table of document.querySelectorAll(".prose table")) {
+          if (table.parentElement?.classList.contains("table-wrap")) continue;
           const wrap = document.createElement("div");
           wrap.className = "table-wrap";
           table.replaceWith(wrap);

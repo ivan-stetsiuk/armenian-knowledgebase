@@ -73,8 +73,41 @@
      √(4² + 6.4² + 9.6²) ≈ 12px where all three overlap. */
   --head-blur: 4px;
 
-  --label: 0.8125rem;   /* [Sections], (41), metadata */
-  --measure: 34rem;
+  /* ------------------------------------------------------------- the scale */
+
+  /* Type: seven steps and nothing between them, each with the line height it is
+   * set on. Every one of those products is a multiple of 4px, so a page that
+   * mixes steps still sits on one rhythm. 17 is the reading size — the step the
+   * body, the prose and every input are set in.
+   *
+   * Line heights are px rather than ratios on purpose: a ratio times a step
+   * lands on fractions, and fractional leading is what puts two columns of the
+   * same table a pixel out of step with each other. */
+  --t-12: 0.75rem;    --lh-12: 16px;
+  --t-14: 0.875rem;   --lh-14: 20px;
+  --t-17: 1.0625rem;  --lh-17: 28px;
+  --t-21: 1.3125rem;  --lh-21: 28px;
+  --t-26: 1.625rem;   --lh-26: 32px;
+  --t-33: 2.0625rem;  --lh-33: 40px;
+  --t-41: 2.5625rem;  --lh-41: 44px;
+
+  /* Space: nine steps for every margin, padding and gap on the site. */
+  --s-4: 0.25rem;
+  --s-8: 0.5rem;
+  --s-12: 0.75rem;
+  --s-16: 1rem;
+  --s-24: 1.5rem;
+  --s-32: 2rem;
+  --s-48: 3rem;
+  --s-64: 4rem;
+  --s-96: 6rem;
+
+  /* The page gutter, one definition. max() with the safe-area inset keeps text
+   * clear of a notch or a rounded corner in landscape. */
+  --gutter: clamp(var(--s-24), 6vw, var(--s-96));
+
+  --label: var(--t-14);   /* [Sections], (41), metadata */
+  --measure: 34rem;       /* ≈ 64 characters at the reading size */
   --head-h: 4.5rem;
 }
 
@@ -92,8 +125,8 @@
 
   /* The same three, lifted off the dark page. Flag blue at #0033a0 is very
      nearly the background here, and flag red is only three to one against it. */
-  --c-rule: color-mix(in srgb, var(--flag-red) 74%, #ffffff);
-  --c-vocab: color-mix(in srgb, var(--flag-blue) 42%, #ffffff);
+  --c-rule: color-mix(in srgb, var(--flag-red) 68%, #ffffff);   /* 4.9:1 */
+  --c-vocab: color-mix(in srgb, var(--flag-blue) 42%, #ffffff); /* 7.7:1 */
   --c-pitfall: var(--flag-orange);
   --c-pitfall-ink: var(--flag-orange);
 }
@@ -105,7 +138,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--head-h) + 1.5rem);
+  scroll-padding-top: calc(var(--head-h) + var(--s-24));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -118,34 +151,40 @@ body {
   background: var(--c-paper);
   color: var(--c-ink);
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: var(--t-17);
+  line-height: var(--lh-17);
   letter-spacing: -0.006em;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection { background: var(--c-ink); color: var(--c-paper); }
 
-:focus-visible { outline: 1px solid var(--c-ink); outline-offset: 3px; }
+:focus-visible { outline: 1px solid var(--c-ink); outline-offset: 0.25rem; }
 
 a { color: inherit; }
 img { max-width: 100%; height: auto; }
-hr { border: 0; border-top: 1px solid var(--c-line); margin: 3rem 0; }
+hr { border: 0; border-top: 1px solid var(--c-line); margin: var(--s-48) 0; }
 
-.hy, [lang="hy"] { font-family: var(--font-hy); }
+/* Armenian runs a little smaller than Latin at the same size and its letters
+ * need their own air: the page's slight negative tracking is a correction for
+ * Helvetica, and applied to Armenian it closes the script up. This is the one
+ * place a font-size is relative rather than a step — it has to follow whatever
+ * Latin context it is quoted inside. */
+.hy, [lang="hy"] { font-family: var(--font-hy); font-size: 1.06em; letter-spacing: 0; }
 
 /* Available to a screen reader, absent from the page. Used where the design has
  * no room for something the document still needs — the home page has no visible
  * title, but a page without an h1 gives assistive software nothing to land on. */
 .sr-only {
   position: absolute;
+  font-size: inherit;
   width: 1px; height: 1px;
   margin: -1px; padding: 0;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
 }
-code, kbd, samp { font-family: inherit; font-size: 0.95em; }
+code, kbd, samp { font-family: inherit; font-size: 1em; }
 
 /* The two typographic devices of the reference. */
 .label {
@@ -154,17 +193,21 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   color: var(--c-grey);
   font-weight: 400;
   letter-spacing: 0;
-  margin-bottom: 1.6rem;
+  margin-bottom: var(--s-24);
 }
 .label::before { content: "["; }
 .label::after { content: "]"; }
 
 .count {
   color: var(--c-grey);
-  font-size: 0.62em;
+  font-size: var(--t-14);
   letter-spacing: 0;
   vertical-align: baseline;
 }
+
+/* Beside display type a 14px count reads as a footnote rather than as part of
+ * the line, so it takes the step below its heading instead. */
+.title h1 .count, .stack a .count { font-size: var(--t-21); }
 .count::before { content: "("; }
 .count::after { content: ")"; }
 
@@ -174,7 +217,8 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   width: 100%;
   max-width: 96rem;
   margin: 0 auto;
-  padding: 0 clamp(1.5rem, 6vw, 6.5rem);
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
 }
 
 /* ================================================================== header */
@@ -205,8 +249,8 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   position: sticky;
   top: 0;
   z-index: 50;
-  padding-top: 1.1rem;
-  padding-bottom: 0.9rem;
+  padding-top: var(--s-16);
+  padding-bottom: var(--s-16);
   /* The tint holds to the same three quarters the blur does, then goes. */
   background: linear-gradient(
     to bottom,
@@ -255,36 +299,33 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 }
 
 /* The rim. A CSS backdrop cannot be displaced, so refraction is played by the
- * two things it does to the light that survive at this size: a thin band where
- * the backdrop is lifted and pulled towards white, and a highlight along the
- * very edge. Two pixels of it is the whole effect — any more and the band grows
- * a border, which is the thing being avoided. */
+ * one thing it does to the light that survives at this size: a narrow band
+ * where the backdrop is lifted and its colour comes back a little stronger.
+ *
+ * It carries no tint of its own, and it fades out at both of its edges. It used
+ * to add a wash of paper that peaked exactly where the band's own tint had
+ * already faded to nothing — which put a pale stripe across whatever was
+ * passing underneath. On a phone, where the header is twice as tall and there
+ * is always something under it, that stripe read as a divider line. */
 .head::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 0.85rem;
+  height: var(--s-12);
   z-index: 0;
   pointer-events: none;
-  backdrop-filter: brightness(1.05) saturate(1.12);
-  -webkit-backdrop-filter: brightness(1.05) saturate(1.12);
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    color-mix(in srgb, var(--c-paper) 14%, transparent) 55%,
-    color-mix(in srgb, var(--c-paper) 30%, transparent) 100%
-  );
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 70%, #000 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 70%, #000 100%);
+  backdrop-filter: brightness(1.04) saturate(1.1);
+  -webkit-backdrop-filter: brightness(1.04) saturate(1.1);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, transparent 100%);
 }
 
 :root[data-theme="dark"] .head::after {
-  /* Dark glass catches the rim light the other way round: the edge darkens and
-     only a trace of it lights up. */
-  backdrop-filter: brightness(1.14) saturate(1.12);
-  -webkit-backdrop-filter: brightness(1.14) saturate(1.12);
+  /* Dark glass lifts further before the eye reads it as light at all. */
+  backdrop-filter: brightness(1.1) saturate(1.1);
+  -webkit-backdrop-filter: brightness(1.1) saturate(1.1);
 }
 
 /* While the alphabet is open the page already has a sheet of glass over it;
@@ -299,21 +340,20 @@ html.is-glass .head::after {
   -webkit-backdrop-filter: none;
 }
 
-.head__in { display: flex; align-items: flex-start; gap: 2rem; }
+.head__in { display: flex; align-items: flex-start; gap: var(--s-32); }
 
 /* The wordmark is the language's own name, set large. It is the only piece of
  * branding on the site, so it does the whole job on its own. */
 .head__mark {
   font-family: var(--font-hy);
-  font-size: 1.85rem;
-  line-height: 1;
+  font-size: var(--t-33);
+  line-height: var(--lh-33);
   font-weight: 500;
-  letter-spacing: -0.01em;
   text-decoration: none;
   color: var(--c-ink);
 }
 
-.head__nav { display: flex; gap: 1.4rem; margin-left: auto; align-items: baseline; }
+.head__nav { display: flex; gap: var(--s-24); margin-left: auto; align-items: baseline; }
 
 .head__nav a {
   font-size: var(--label);
@@ -326,7 +366,7 @@ html.is-glass .head::after {
 .head__nav a:hover { color: var(--c-ink); }
 .head__nav a[aria-current] { color: var(--c-ink); }
 
-.head__tools { display: flex; align-items: baseline; gap: 1.4rem; }
+.head__tools { display: flex; align-items: baseline; gap: var(--s-24); }
 
 .linkbtn {
   appearance: none;
@@ -347,10 +387,13 @@ html.is-glass .head::after {
   /* The header wraps to two rows here, so it is made shorter to compensate:
      it is sticky, and every pixel of it is a pixel of alphabet a thumb cannot
      reach once the page has scrolled at all. */
-  .head { padding-top: 0.9rem; padding-bottom: 0.7rem; }
-  .head__mark { font-size: 1.5rem; }
-  .head__in { flex-wrap: wrap; gap: 0.7rem 1.1rem; }
-  .head__nav { margin-left: 0; width: 100%; gap: 1rem; flex-wrap: wrap; }
+  /* Two rows of header on a phone, and every anchor on the page scrolls to
+     clear it. */
+  :root { --head-h: 8.5rem; }
+  .head { padding-top: var(--s-12); padding-bottom: var(--s-12); }
+  .head__mark { font-size: var(--t-26); line-height: var(--lh-26); }
+  .head__in { flex-wrap: wrap; gap: var(--s-12) var(--s-16); }
+  .head__nav { margin-left: 0; width: 100%; gap: var(--s-16); flex-wrap: wrap; }
   .head__tools { margin-left: auto; }
 }
 
@@ -364,8 +407,8 @@ html.is-glass .head::after {
   display: grid;
   align-content: start;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 0.7fr);
-  gap: 0 clamp(2rem, 6vw, 7rem);
-  padding-block: clamp(3rem, 9vh, 7rem) 6rem;
+  gap: 0 clamp(var(--s-32), 6vw, var(--s-96));
+  padding-block: clamp(var(--s-48), 9vh, var(--s-96)) var(--s-96);
 }
 
 /* The alphabet is the subject of the first six lessons, so it is content rather
@@ -376,7 +419,7 @@ html.is-glass .head::after {
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.1rem 0.45rem;
+  gap: var(--s-4) var(--s-8);
   margin: 0;
   max-width: 26rem;
 }
@@ -386,15 +429,20 @@ html.is-glass .head::after {
   appearance: none;
   border: 0;
   background: none;
-  padding: 0.05em 0.12em;
+  padding: var(--s-4);
   font-family: var(--font-hy);
-  font-size: clamp(1.7rem, 3vw, 2.6rem);
-  line-height: 1.4;
+  /* Stepped rather than fluid: a vw-based size is only on the scale at the two
+     ends of its range, and the alphabet is the largest type on the site. */
+  font-size: var(--t-26);
+  line-height: var(--lh-41);
   color: var(--c-ink);
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   transition: color .5s ease, text-shadow .7s ease, transform .5s ease;
 }
+
+@media (min-width: 52rem) { .abc__l { font-size: var(--t-33); } }
+@media (min-width: 78rem) { .abc__l { font-size: var(--t-41); } }
 
 /* The halo. A radial gradient rather than a shadow, so it can grow: it scales
  * up over the same three-quarters of a second the words take to arrive, which
@@ -529,11 +577,11 @@ html.is-glass .glass {
 .home.is-focused .label { opacity: .28; transition: opacity .45s ease; }
 .home.is-focused > div:first-child .label { opacity: 1; }
 
-.stack { display: flex; flex-direction: column; gap: 0.1rem; }
+.stack { display: flex; flex-direction: column; gap: var(--s-4); }
 
 .stack a {
-  font-size: clamp(1.6rem, 2.9vw, 2.35rem);
-  line-height: 1.32;
+  font-size: var(--t-26);
+  line-height: var(--lh-33);
   font-weight: 400;
   letter-spacing: -0.02em;
   text-decoration: none;
@@ -541,22 +589,28 @@ html.is-glass .glass {
   transition: color .15s ease;
 }
 
-.stack a:hover { color: var(--c-grey); }
-.stack a .count { margin-left: 0.35rem; }
+@media (min-width: 52rem) { .stack a { font-size: var(--t-33); } }
 
-.links { display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; }
+.stack a:hover { color: var(--c-grey); }
+.stack a .count { margin-left: var(--s-4); }
+
+.links { display: flex; flex-direction: column; gap: var(--s-4); align-items: flex-start; }
 
 .links a {
-  font-size: 0.95rem;
+  /* 20px of line in a 24px box: WCAG 2.5.8 measures the target, not the text. */
+  display: block;
+  padding-block: var(--s-4);
+  font-size: var(--t-14);
+  line-height: var(--lh-14);
   color: var(--c-ink);
   text-decoration: none;
   transition: color .15s ease;
 }
 .links a:hover { color: var(--c-grey); }
-.links .sep { height: 1rem; }
+.links .sep { height: var(--s-16); }
 
 @media (max-width: 60rem) {
-  .home { grid-template-columns: 1fr; gap: 1.9rem; padding-block-start: 2.2rem; min-height: 0; }
+  .home { grid-template-columns: 1fr; gap: var(--s-32); padding-block-start: var(--s-32); min-height: 0; }
 
   /* A 240px halo on a 390px screen reaches into the sticky header and paints
      over the wordmark. Scaled to the screen it stays clear of it and still
@@ -566,8 +620,8 @@ html.is-glass .glass {
   /* Tighter labels here: on a phone every 25px decides whether the next block
      is on screen at all, and a reader who cannot see that there is navigation
      below the alphabet will not go looking for it. */
-  .home .label { margin-bottom: 0.9rem; }
-  .stack a { font-size: 1.85rem; line-height: 1.25; }
+  .home .label { margin-bottom: var(--s-16); }
+  .stack a { font-size: var(--t-33); line-height: var(--lh-33); }
 
   /* On a narrow screen there is no empty half of the page to scatter into, so
      the cloud stops being an overlay and takes a place of its own between the
@@ -591,22 +645,22 @@ main { min-height: 62vh; }
 .doc {
   display: grid;
   grid-template-columns: 13rem minmax(0, var(--measure)) 13rem;
-  gap: 0 clamp(2rem, 5vw, 5rem);
+  gap: 0 clamp(var(--s-32), 5vw, var(--s-96));
   justify-content: center;
-  padding-block: 2.5rem 6rem;
+  padding-block: var(--s-48) var(--s-96);
 }
 
 .doc__rail { grid-column: 1; }
 .doc__body { grid-column: 2; }
 .doc__aside { grid-column: 3; }
 
-.doc__rail > div, .doc__aside > div { position: sticky; top: calc(var(--head-h) + 1.5rem); }
+.doc__rail > div, .doc__aside > div { position: sticky; top: calc(var(--head-h) + var(--s-24)); }
 
 @media (max-width: 78rem) {
   .doc { grid-template-columns: minmax(0, var(--measure)); }
   .doc__rail, .doc__body, .doc__aside { grid-column: 1; }
-  .doc__aside { order: -1; margin-bottom: 2rem; }
-  .doc__rail { margin-bottom: 2rem; }
+  .doc__aside { order: -1; margin-bottom: var(--s-32); }
+  .doc__rail { margin-bottom: var(--s-32); }
   .doc__rail > div, .doc__aside > div { position: static; }
 }
 
@@ -616,43 +670,48 @@ main { min-height: 62vh; }
 
 /* ============================================================== page title */
 
-.title { margin: 0 0 3rem; }
+.title { margin: 0 0 var(--s-48); }
 
 .title h1 {
-  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  font-size: var(--t-26);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--lh-41);
   letter-spacing: -0.025em;
   margin: 0;
 }
 
+@media (min-width: 52rem) { .title h1 { font-size: var(--t-33); } }
+@media (min-width: 78rem) { .title h1 { font-size: var(--t-41); } }
+
 .title__meta {
-  margin-top: 0.75rem;
+  margin-top: var(--s-12);
   font-size: var(--label);
+  line-height: var(--lh-14);
   color: var(--c-grey);
-  max-width: 46rem;
+  max-width: var(--measure);
 }
 
 /* ================================================================== prose */
 
-.prose { font-size: 0.95rem; line-height: 1.62; }
-.prose > * { margin-block: 0 1.05em; }
+.prose { font-size: var(--t-17); line-height: var(--lh-17); }
+.prose > * { margin-block: 0 var(--s-16); }
 
 .prose h2 {
-  font-size: 1.32rem;
+  font-size: var(--t-21);
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-top: 3rem;
+  line-height: var(--lh-21);
+  margin-top: var(--s-32);
 }
 
-.prose h3 { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; margin-top: 2rem; }
+.prose h3 { font-size: var(--t-17); font-weight: 600; letter-spacing: -0.01em; margin-top: var(--s-32); }
 
 .prose h4 {
   font-size: var(--label);
+  line-height: var(--lh-14);
   font-weight: 400;
   color: var(--c-grey);
-  margin-top: 1.7rem;
+  margin-top: var(--s-32);
 }
 
 .prose p, .prose li { max-width: var(--measure); }
@@ -662,28 +721,29 @@ main { min-height: 62vh; }
 .prose a:hover { text-decoration-color: var(--c-ink); }
 
 .prose strong { font-weight: 600; }
-.prose ul, .prose ol { padding-left: 1.1rem; }
-.prose li { margin-bottom: 0.3em; }
+.prose ul, .prose ol { padding-left: var(--s-16); }
+.prose li { margin-bottom: var(--s-4); }
 .prose li::marker { color: var(--c-grey); }
 
-.prose code { font-family: var(--font-sans); font-size: 0.95em; color: var(--c-ink-2); }
+.prose code { font-family: var(--font-sans); color: var(--c-ink-2); }
 
 .prose pre {
-  padding: 1rem 0;
+  padding: var(--s-16) 0;
   border-top: 1px solid var(--c-line);
   border-bottom: 1px solid var(--c-line);
   overflow-x: auto;
-  font-size: 0.82rem;
+  font-size: var(--t-14);
+  line-height: var(--lh-14);
 }
 .prose pre code { color: var(--c-ink); }
 
 /* The "One line" summary at the top of every grammar page. */
 .prose blockquote {
-  margin: 0 0 2rem;
+  margin: 0 0 var(--s-32);
   padding: 0;
   border: 0;
-  font-size: 1.22rem;
-  line-height: 1.4;
+  font-size: var(--t-21);
+  line-height: var(--lh-21);
   letter-spacing: -0.015em;
   font-weight: 400;
   max-width: 42rem;
@@ -693,12 +753,12 @@ main { min-height: 62vh; }
 
 /* ================================================================= tables */
 
-.prose table { width: 100%; border-collapse: collapse; margin: 1.4rem 0;
-  font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.prose table { width: 100%; border-collapse: collapse; margin: var(--s-24) 0;
+  font-size: var(--t-14); line-height: var(--lh-14); font-variant-numeric: tabular-nums; }
 
 .prose thead th {
   text-align: left;
-  padding: 0 1.1rem 0.45rem 0;
+  padding: 0 var(--s-16) var(--s-8) 0;
   border-bottom: 1px solid var(--c-line);
   font-size: var(--label);
   font-weight: 400;
@@ -706,23 +766,23 @@ main { min-height: 62vh; }
   white-space: nowrap;
 }
 
-.prose tbody td { padding: 0.42rem 1.1rem 0.42rem 0; border-bottom: 1px solid var(--c-line);
+.prose tbody td { padding: var(--s-8) var(--s-16) var(--s-8) 0; border-bottom: 1px solid var(--c-line);
   vertical-align: top; }
 .prose td:last-child, .prose th:last-child { padding-right: 0; }
 
-.table-wrap { overflow-x: auto; margin: 1.4rem 0; }
+.table-wrap { overflow-x: auto; margin: var(--s-24) 0; }
 .table-wrap table { margin: 0; }
 
 /* ============================================== blocks: rule / vocab / pitfall */
 
-.block { margin: 2.2rem 0; padding-left: 1.1rem; border-left: 1px solid var(--c-line); }
+.block { margin: var(--s-32) 0; padding-left: var(--s-16); border-left: 1px solid var(--c-line); }
 .block > :last-child { margin-bottom: 0; }
 
-.block__kind { font-size: var(--label); font-weight: 400; margin: 0 0 0.1rem; }
+.block__kind { font-size: var(--label); line-height: var(--lh-14); font-weight: 400; margin: 0; }
 .block__kind::before { content: "["; }
 .block__kind::after { content: "]"; }
 
-.block__title { font-weight: 600; font-size: 0.98rem; margin: 0 0 0.7rem; letter-spacing: -0.01em; }
+.block__title { font-weight: 600; font-size: var(--t-17); margin: 0 0 var(--s-12); letter-spacing: -0.01em; }
 
 .block--rule    { border-left-color: var(--c-rule); }
 .block--rule    .block__kind { color: var(--c-rule); }
@@ -731,7 +791,7 @@ main { min-height: 62vh; }
 .block--pitfall { border-left-color: var(--c-pitfall); }
 .block--pitfall .block__kind { color: var(--c-pitfall-ink); }
 
-.example { margin: 0.8rem 0; padding-left: 1rem; border-left: 1px solid var(--c-line);
+.example { margin: var(--s-12) 0; padding-left: var(--s-16); border-left: 1px solid var(--c-line);
   color: var(--c-ink); }
 .example > :last-child { margin-bottom: 0; }
 
@@ -740,16 +800,17 @@ main { min-height: 62vh; }
 
 /* ============================================================= disclosure */
 
-.disclosure { margin: 1.6rem 0; }
+.disclosure { margin: var(--s-24) 0; }
 
 .disclosure > summary {
-  cursor: pointer; list-style: none; display: flex; gap: 0.5rem; align-items: baseline;
-  font-size: var(--label); color: var(--c-grey); transition: color .15s ease;
+  cursor: pointer; list-style: none; display: flex; gap: var(--s-8); align-items: baseline;
+  padding-block: var(--s-4);
+  font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); transition: color .15s ease;
 }
 .disclosure > summary::-webkit-details-marker { display: none; }
 .disclosure > summary::before { content: "+"; }
 .disclosure > summary:hover { color: var(--c-ink); }
-.disclosure[open] > summary { color: var(--c-ink); margin-bottom: 0.7rem; }
+.disclosure[open] > summary { color: var(--c-ink); margin-bottom: var(--s-12); }
 .disclosure[open] > summary::before { content: "\2212"; }
 .disclosure > :last-child { margin-bottom: 0; }
 
@@ -771,24 +832,25 @@ main { min-height: 62vh; }
 
 .fold > summary h2::after {
   content: "+";
-  margin-left: 0.55rem;
-  font-size: 0.75em;
+  margin-left: var(--s-8);
+  font-size: var(--t-14);
   color: var(--c-grey);
   transition: color .15s ease;
 }
 .fold[open] > summary h2::after { content: "\2212"; }
 .fold > summary:hover h2::after { color: var(--c-ink); }
 
-.fold > summary + * { margin-top: 1.4rem; }
+.fold > summary + * { margin-top: var(--s-24); }
 
 /* ==================================================================== tabs */
 
-.tabs { margin: 1.6rem 0; }
-.tabs__bar { display: flex; flex-wrap: wrap; gap: 1.1rem; margin-bottom: 1rem; }
+.tabs { margin: var(--s-24) 0; }
+.tabs__bar { display: flex; flex-wrap: wrap; gap: var(--s-16); margin-bottom: var(--s-16); }
 
 .tabs__btn {
   appearance: none; border: 0; background: none; padding: 0;
-  font: inherit; font-size: var(--label); color: var(--c-grey); cursor: pointer;
+  font: inherit; font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); cursor: pointer;
+  padding-block: var(--s-4);
   transition: color .15s ease;
 }
 .tabs__btn::before { content: "["; }
@@ -804,9 +866,9 @@ main { min-height: 62vh; }
 .index__row {
   display: grid;
   grid-template-columns: 3.2rem minmax(0, 1fr) auto;
-  gap: 0 1.4rem;
+  gap: 0 var(--s-24);
   align-items: baseline;
-  padding: 0.62rem 0;
+  padding: var(--s-8) 0;
   border-bottom: 1px solid var(--c-line);
   text-decoration: none;
   color: inherit;
@@ -816,17 +878,18 @@ main { min-height: 62vh; }
 .index__row:first-child { border-top: 1px solid var(--c-line); }
 .index__row:hover { background: color-mix(in srgb, var(--c-ink) 4%, transparent); }
 
-.index__no { font-size: var(--label); color: var(--c-grey); font-variant-numeric: tabular-nums;
+.index__no { font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); font-variant-numeric: tabular-nums;
   transition: color .14s ease; }
 .index__row:hover .index__no { color: var(--c-ink); }
 
-.index__name { font-size: 1.06rem; letter-spacing: -0.015em; }
-.index__sub { display: block; font-size: var(--label); color: var(--c-grey); margin-top: 0.1rem; }
-.index__meta { font-size: var(--label); color: var(--c-grey); white-space: nowrap; }
+.index__name { font-size: var(--t-17); line-height: var(--lh-17); letter-spacing: -0.015em; }
+.index__sub { display: block; max-width: var(--measure); font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); margin-top: 0; }
+.index__meta { font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); white-space: nowrap; }
 
 .index__group {
-  margin: 2.8rem 0 0.9rem;
+  margin: var(--s-48) 0 var(--s-16);
   font-size: var(--label);
+  line-height: var(--lh-14);
   color: var(--c-grey);
 }
 .index__group::before { content: "["; }
@@ -840,41 +903,42 @@ main { min-height: 62vh; }
 
 /* ============================================================ rail + toc */
 
-.rail__label { font-size: var(--label); color: var(--c-grey); margin: 0 0 0.7rem; }
+.rail__label { font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); margin: 0 0 var(--s-12); }
 .rail__label::before { content: "["; }
 .rail__label::after { content: "]"; }
 
-.rail dl { margin: 0 0 1.6rem; font-size: var(--label); }
-.rail dt { color: var(--c-grey); margin-top: 0.7rem; }
-.rail dd { margin: 0.05rem 0 0; }
-.rail ul { list-style: none; margin: 0 0 1.6rem; padding: 0; font-size: var(--label); }
-.rail li { margin-bottom: 0.3rem; }
+.rail dl { margin: 0 0 var(--s-24); font-size: var(--label); line-height: var(--lh-14); }
+.rail dt { color: var(--c-grey); margin-top: var(--s-12); }
+.rail dd { margin: 0; }
+.rail ul { list-style: none; margin: 0 0 var(--s-24); padding: 0; font-size: var(--label); line-height: var(--lh-14); }
+.rail li { margin-bottom: var(--s-4); }
+.rail li a { display: inline-block; padding-block: var(--s-4); }
 .rail a { color: var(--c-ink); text-decoration: none; }
 .rail a:hover { color: var(--c-grey); }
 
 /* Stands in for a rail list that has nothing in it. */
-.rail__note { font-size: var(--label); color: var(--c-grey); margin: 0; }
+.rail__note { font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); margin: 0; }
 
 .toc ul { list-style: none; margin: 0; padding: 0; }
 .toc a {
-  display: block; padding: 0.2rem 0;
-  font-size: var(--label); color: var(--c-grey); text-decoration: none;
+  display: block; padding: var(--s-4) 0;
+  font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); text-decoration: none;
   transition: color .14s ease;
 }
 .toc a:hover, .toc a.is-active { color: var(--c-ink); }
-.toc .lvl-3 a { padding-left: 0.9rem; }
+.toc .lvl-3 a { padding-left: var(--s-16); }
 
 /* ============================================================== prev/next */
 
 .pager {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-  margin-top: 4rem; padding-top: 1.1rem; border-top: 1px solid var(--c-line);
-  font-size: var(--label);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-32);
+  margin-top: var(--s-64); padding-top: var(--s-16); border-top: 1px solid var(--c-line);
+  font-size: var(--label); line-height: var(--lh-14);
 }
 .pager a { text-decoration: none; color: var(--c-ink); }
 .pager a:last-child { text-align: right; }
 .pager a:hover { color: var(--c-grey); }
-.pager span { display: block; color: var(--c-grey); margin-bottom: 0.15rem; }
+.pager span { display: block; color: var(--c-grey); margin-bottom: var(--s-4); }
 
 /* ================================================================= search */
 /* Spotlight, in this site's own materials: one panel of glass over a dimmed
@@ -891,7 +955,7 @@ dialog.search {
   margin: 12vh auto auto;
   padding: 0;
   border: 0;
-  border-radius: 14px;
+  border-radius: 0.875rem;
   background: color-mix(in srgb, var(--c-paper) var(--glass-tint-panel), transparent);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -920,19 +984,47 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 }
 @keyframes spotlight-bg { from { opacity: 0; } to { opacity: 1; } }
 
-.search__form { border-bottom: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent); }
+.search__form {
+  position: relative;
+  border-bottom: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent);
+}
 
 .search__input {
   width: 100%;
-  padding: 1.1rem 1.4rem;
+  /* Room on the right for the clear button. */
+  padding: var(--s-16) var(--s-64) var(--s-16) var(--s-24);
   border: 0;
   border-radius: 0;
   background: none;
   color: var(--c-ink);
   font: inherit;
-  font-size: 1.25rem;
+  font-size: var(--t-21);
+  line-height: var(--lh-21);
   letter-spacing: -0.01em;
 }
+
+/* 44×44, which is the recommended target size, not the 14px glyph inside it. */
+.search__clear {
+  position: absolute;
+  right: var(--s-8);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  font: inherit;
+  font-size: var(--t-21);
+  line-height: var(--lh-21);
+  color: var(--c-grey);
+  cursor: pointer;
+  transition: color .15s ease;
+}
+.search__clear:hover { color: var(--c-ink); }
 
 .search__input::placeholder { color: var(--c-grey); opacity: 1; }
 .search__input:focus { outline: none; }
@@ -940,7 +1032,7 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 .search__input::-webkit-search-decoration,
 .search__input::-webkit-search-cancel-button { -webkit-appearance: none; }
 
-.search__out { overflow-y: auto; padding: 0.35rem 0; }
+.search__out { overflow-y: auto; padding: var(--s-4) 0; }
 
 /* A result is a name, a line of context under it, and the kind of thing it is
    ranged right — the same three-part shape as an entry in the contents. */
@@ -948,16 +1040,16 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
-  column-gap: 1rem;
-  padding: 0.5rem 1.4rem;
+  column-gap: var(--s-16);
+  padding: var(--s-8) var(--s-24);
   text-decoration: none;
   color: var(--c-ink);
 }
 
-.res__n { min-width: 0; font-size: 1rem; font-weight: 550; letter-spacing: -0.01em; }
+.res__n { min-width: 0; font-size: var(--t-17); line-height: var(--lh-17); font-weight: 550; letter-spacing: -0.01em; }
 .res__n.is-hy { font-family: var(--font-hy); font-weight: 500; }
 
-.res__kind { grid-column: 2; grid-row: 1; font-size: var(--label); color: var(--c-grey); white-space: nowrap; }
+.res__kind { grid-column: 2; grid-row: 1; font-size: var(--label); line-height: var(--lh-14); color: var(--c-grey); white-space: nowrap; }
 .res__kind::before { content: "["; }
 .res__kind::after { content: "]"; }
 
@@ -965,9 +1057,9 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
    marked. Two lines of context and the list stops being scannable. */
 .res__s {
   grid-column: 1 / -1;
-  margin-top: 0.1rem;
-  font-size: 0.85rem;
-  line-height: 1.45;
+  margin-top: 0;
+  font-size: var(--t-14);
+  line-height: var(--lh-14);
   color: var(--c-ink-2);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -982,39 +1074,47 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 .res mark { background: none; color: var(--c-ink); font-weight: 650; }
 
 .res__group {
-  margin: 0.6rem 0 0.15rem;
-  padding: 0.5rem 1.4rem 0;
+  margin: var(--s-8) 0 var(--s-4);
+  padding: var(--s-8) var(--s-24) 0;
   border-top: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent);
   font-size: var(--label);
+  line-height: var(--lh-14);
   color: var(--c-grey);
 }
 
-.res__none { margin: 0; padding: 0.9rem 1.4rem 1.1rem; font-size: var(--label); color: var(--c-grey); }
+.res__none {
+  margin: 0;
+  padding: var(--s-16) var(--s-24);
+  font-size: var(--label);
+  line-height: var(--lh-14);
+  color: var(--c-grey);
+}
 
 .search__foot {
   display: flex;
-  gap: 1.2rem;
+  gap: var(--s-16);
   margin: 0;
-  padding: 0.6rem 1.4rem;
+  padding: var(--s-8) var(--s-24);
   border-top: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent);
   font-size: var(--label);
+  line-height: var(--lh-14);
   color: var(--c-grey);
 }
 
-.search__foot kbd { margin-right: 0.25rem; color: var(--c-ink-2); }
+.search__foot kbd { margin-right: var(--s-4); color: var(--c-ink-2); }
 
 @media (max-width: 40rem) {
   dialog.search { margin-top: 6vh; width: 94vw; max-height: 80vh; }
-  .search__input { font-size: 1.1rem; padding: 0.95rem 1.1rem; }
-  .res, .res__group, .res__none, .search__foot { padding-left: 1.1rem; padding-right: 1.1rem; }
+  .search__input { font-size: var(--t-17); line-height: var(--lh-17); padding: var(--s-16); }
+  .res, .res__group, .res__none, .search__foot { padding-left: var(--s-16); padding-right: var(--s-16); }
   /* Three hints and a phone keyboard leave no room for the results. */
   .search__foot { display: none; }
 }
 
 /* ================================================================= images */
 
-.prose img.letter { display: block; width: 100%; max-width: 30rem; height: auto; margin: 0.5rem 0 1.2rem; }
-.prose img.diagram { display: block; width: 100%; max-width: 24rem; height: auto; margin: 1rem 0; background: #fff; }
+.prose img.letter { display: block; width: 100%; max-width: 30rem; height: auto; margin: var(--s-8) 0 var(--s-16); }
+.prose img.diagram { display: block; width: 100%; max-width: 24rem; height: auto; margin: var(--s-16) 0; background: #fff; }
 
 /* ==================================================================== print */
 
