@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import WordTable from "../../components/WordTable.astro";
-import { words, TOPICS, byArmenian, SUFFIXES } from "../../lib/vocab";
+import { words, TOPICS, byArmenian, SUFFIXES, LATIN_FOLD } from "../../lib/vocab";
 import { base } from "../../lib/site";
 
 const all = words().sort((a, b) => byArmenian(a.hy, b.hy));
@@ -81,7 +81,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
     </div>
   </div>
 
-  <script is:inline define:vars={{ SUFFIXES }}>
+  <script is:inline define:vars={{ SUFFIXES, LATIN_FOLD }}>
     const input = document.getElementById("wfilter");
     const wclear = document.getElementById("wclear");
     const count = document.getElementById("wcount");
@@ -100,8 +100,9 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       else if (groups.length) groups[groups.length - 1].rows.push(el);
     }
 
-    /* Same rule as the build uses to stem the rows. The suffix list itself is
-       injected, so the two cannot drift apart. */
+    /* Same rules the build uses, from the same tables: the suffix list and the
+       Latin folding are injected as data, so the page and the rows it filters
+       cannot drift apart. */
     const stemOf = (w) => {
       const s = w.toLowerCase().trim();
       for (const suf of SUFFIXES) {
@@ -110,14 +111,30 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       return s;
     };
 
+    /* Every row carries its word in Latin letters as well (see roman() in
+       src/lib/hy.ts), so a query typed in Latin has to be folded the same way
+       before it is compared: x and kh are one letter, so are q and k, ou and u. */
+    const FOLD_KEYS = Object.keys(LATIN_FOLD).sort((a, b) => b.length - a.length);
+    const FOLD_RE = new RegExp(FOLD_KEYS.join("|"), "g");
+    const foldLatin = (q) =>
+      q.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f'\u2019`]/g, "")
+        .replace(FOLD_RE, (m) => LATIN_FOLD[m])
+        .replace(/(.)\1+/g, "$1");
+
+    const LATIN = /^[a-z'\u2019 -]+$/i;
+
     /* A substring match is not the same as the word you asked for. Coming here
        from the alphabet on the home page, the word clicked has to be the first
        row, not the fourteenth, so matches are ordered by how exactly they
        answer the query, and words that merely share its root come last. */
-    const rank = (row, q) => {
+    const rank = (row, q, latin) => {
       const hy = row.dataset.hy || "";
       if (hy === q) return 0;
+      /* A word spelled out in Latin is the word itself, not a mention of it. */
+      const keys = (row.dataset.r || "").split(" ");
+      if (latin && keys.includes(latin)) return 0;
       if (hy.startsWith(q)) return 1;
+      if (latin && keys.some((k) => k.startsWith(latin))) return 1;
       if (hy.includes(q) || (row.dataset.k || "").includes(q)) return 2;
       return 3;
     };
@@ -137,6 +154,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       /* Root matching only kicks in for a real word. On two or three letters
          every stem in the language is a prefix of something and the filter
          stops filtering. */
+      const latin = !lesson && q.length >= 2 && LATIN.test(q) ? foldLatin(q) : "";
       const qs = !lesson && q.length >= 4 ? stemOf(q) : "";
       const kin = qs.length >= 2;
 
@@ -147,7 +165,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
         if (lesson) {
           direct = r.dataset.lesson === String(Number(lesson[1]));
         } else {
-          direct = !q || r.dataset.k.includes(q);
+          direct = !q || r.dataset.k.includes(q) || (latin && r.dataset.k.includes(latin));
           root = !direct && kin && (r.dataset.stem || "").startsWith(qs);
         }
         r.hidden = !(direct || root);
@@ -167,10 +185,16 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
 
       const frag = document.createDocumentFragment();
       if (ranked) {
-        const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q) - rank(b, q));
+        const matched = rows
+          .filter((r) => !r.hidden)
+          /* Ties go to the shorter word: it is the more exact answer to the
+             same query, ոչ before ոչ ալկոհոլային խմիչքներ. */
+          .sort((a, b) =>
+            rank(a, q, latin) - rank(b, q, latin) ||
+            (a.dataset.hy || "").length - (b.dataset.hy || "").length);
         for (const r of matched) frag.append(r);
         tbody.prepend(frag);
-        if (matched.length && rank(matched[0], q) < 2) matched[0].classList.add("is-hit");
+        if (matched.length && rank(matched[0], q, latin) < 2) matched[0].classList.add("is-hit");
       } else {
         for (const r of original) frag.append(r);
         tbody.append(frag);
@@ -241,7 +265,8 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       flex: 1;
       padding: var(--s-8) 0;
       border: 0;
-      border-bottom: 1px solid var(--c-line);
+      /* A field's underline is a control boundary, not a separator: 3:1. */
+      border-bottom: 1px solid var(--c-line-strong);
       background: none;
       color: var(--c-ink);
       font: inherit;

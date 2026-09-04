@@ -2,6 +2,7 @@ import { getCollection } from "astro:content";
 import { base } from "./site";
 import { oneLine, groupOf } from "./grammar";
 import { words, TOPICS } from "./vocab";
+import { roman } from "./hy";
 
 /* The index the search dialog ranks against.
  *
@@ -21,6 +22,7 @@ import { words, TOPICS } from "./vocab";
  *   t  kind        u  url          n  name
  *   s  subtitle    k  keywords (searched, never shown)
  *   l  lesson number, where a thing belongs to one
+ *   r  the word in Latin letters, so that erku finds երկու
  */
 export interface Entry {
   t: "lesson" | "grammar" | "howto" | "topic" | "word" | "page";
@@ -29,6 +31,7 @@ export interface Entry {
   s?: string;
   k?: string;
   l?: number;
+  r?: string;
 }
 
 /* Summaries are one line in the dialog and are cut to one line here too: the
@@ -99,6 +102,10 @@ export async function searchEntries(): Promise<Entry[]> {
       s: w.en,
       k: w.tags.join(" "),
       l: w.lesson,
+      /* Never shown, only matched. Three weeks in, a reader still switches
+       * keyboard layouts slowly, and a dictionary that can only be searched in
+       * Armenian is a dictionary that gets opened less. */
+      r: roman(w.hy),
     });
   }
 

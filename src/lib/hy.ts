@@ -55,6 +55,71 @@ export function initialLetter(word: string): string {
   return w[0] ?? "";
 }
 
+/* Latin for search, and for nothing else.
+ *
+ * The site never shows transliteration: it teaches the script, and a crutch
+ * printed beside every word is how a reader never stops needing one. Typing is
+ * a different matter. Someone three weeks in still switches keyboard layouts
+ * slowly, and a dictionary that can only be searched in Armenian is a
+ * dictionary that gets opened less. So every word carries a hidden Latin key
+ * and `erku` finds երկու.
+ *
+ * The mapping is the common romanisation of Eastern Armenian, not a standard
+ * one: the point is what a learner would type. Two letters are pronounced
+ * differently at the start of a word than inside it, so those words carry both
+ * keys (երկու is filed under `erku` and `yerku`, ոչ under `och` and `voch`).
+ */
+const ROMAN: Record<string, string> = {
+  ա: "a", բ: "b", գ: "g", դ: "d", ե: "e", զ: "z", է: "e", ը: "e", թ: "t",
+  ժ: "zh", ի: "i", լ: "l", խ: "kh", ծ: "ts", կ: "k", հ: "h", ձ: "dz",
+  ղ: "gh", ճ: "ch", մ: "m", յ: "y", ն: "n", շ: "sh", ո: "o", չ: "ch",
+  պ: "p", ջ: "j", ռ: "r", ս: "s", վ: "v", տ: "t", ր: "r", ց: "ts",
+  ւ: "v", փ: "p", ք: "k", և: "ev", օ: "o", ֆ: "f",
+};
+
+/* Spellings a learner reaches for that are not the ones above. Applied to the
+ * key and to the query alike, so the two meet in the middle: x and kh are the
+ * same letter, and so are q and k, ou and u, and any letter typed twice.
+ *
+ * Injected into the word filter on /vocabulary/ as data, so the page and the
+ * search dialog fold a query the same way without sharing code. */
+export const LATIN_FOLD: Record<string, string> = {
+  /* Digraphs first and mapped to themselves, so that a pass cannot reach inside
+   * one: without this the c of ch would be rewritten and չ would file as tsh. */
+  ch: "ch", sh: "sh", zh: "zh", kh: "kh", gh: "gh", ts: "ts", dz: "dz",
+  ou: "u", ph: "p", th: "t",
+  x: "kh", q: "k", w: "v", c: "ts",
+};
+
+export function foldLatin(s: string): string {
+  const keys = Object.keys(LATIN_FOLD).sort((a, b) => b.length - a.length);
+  const re = new RegExp(keys.join("|"), "g");
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f'\u2019`]/g, "")
+    .replace(re, (m) => LATIN_FOLD[m])
+    .replace(/(.)\1+/g, "$1");
+}
+
+export function roman(word: string): string {
+  const w = word.toLowerCase().trim();
+  let out = "";
+  for (let i = 0; i < w.length; i++) {
+    /* ու is one letter and one sound. */
+    if (w[i] === "ո" && w[i + 1] === "ւ") { out += "u"; i++; continue; }
+    out += ROMAN[w[i]] ?? (/[a-z0-9]/.test(w[i]) ? w[i] : " ");
+  }
+  const keys = new Set([foldLatin(out)]);
+
+  /* Word-initial ե is "ye" and ո is "vo", which is how they are heard and so
+   * how they are typed. */
+  for (const [letter, sound] of [["ե", "y"], ["ո", "v"]] as const) {
+    if (w.startsWith(letter)) keys.add(foldLatin(sound + out));
+  }
+  return [...keys].join(" ");
+}
+
 /* Armenian alphabetical order. JavaScript's default sort would put every word
  * beginning with a capital letter first, which is not how a dictionary reads. */
 const ARM = "աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտրցուփքևօֆ";

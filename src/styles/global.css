@@ -28,7 +28,13 @@
      stay in the background. */
   --c-grey: #6c675f;
   --c-paper: #ffffff;
-  --c-line: #e6e6e6;
+  /* Separators. #e6e6e6 was 1.25:1 against the page: visible as a rhythm,
+     invisible as a line. This is 2.7:1, which is as dark as a hairline can go
+     before the tables start to look ruled rather than spaced. Anything that is
+     a control boundary rather than a separator takes --c-line-strong, which
+     clears the 3:1 of WCAG 1.4.11. */
+  --c-line: #c8c8c8;
+  --c-line-strong: #949494;
   /* The halo cycles through the flag, top stripe first. Official values. */
   --flag-red: #d90012;
   --flag-blue: #0033a0;
@@ -46,7 +52,7 @@
    * The label darkens it; the rule itself keeps the flag. */
   --c-rule: var(--flag-red);
   --c-vocab: var(--flag-blue);
-  --c-pitfall: var(--flag-orange);
+  --c-pitfall: #9a6614;       /* 4.9:1; the flag orange is 2.02:1 on paper */
   --c-pitfall-ink: #9a6614;
 
   --font-sans: "Helvetica Neue", Helvetica, Inter, Arial, system-ui, sans-serif;
@@ -107,7 +113,7 @@
   --gutter: clamp(var(--s-24), 6vw, var(--s-96));
 
   --label: var(--t-14);   /* [Sections], (41), metadata */
-  --measure: 34rem;       /* ≈ 64 characters at the reading size */
+  --measure: 38rem;       /* ≈ 66 characters at the reading size */
   --head-h: 4.5rem;
 }
 
@@ -121,7 +127,8 @@
   --c-ink-2: #a9a59d;
   --c-grey: #8e8a82;
   --c-paper: #17161a;
-  --c-line: #2b2a30;
+  --c-line: #46454d;
+  --c-line-strong: #6f6d78;
 
   /* The same three, lifted off the dark page. Flag blue at #0033a0 is very
      nearly the background here, and flag red is only three to one against it. */
@@ -429,6 +436,13 @@ html.is-glass .head::after {
   appearance: none;
   border: 0;
   background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Tall enough already; this is the width. A 26px glyph plus 4px of padding
+     came to about 22px, under the 24 of WCAG 2.5.8, with 8px between it and
+     the next letter. */
+  min-width: var(--s-32);
   padding: var(--s-4);
   font-family: var(--font-hy);
   /* Stepped rather than fluid: a vw-based size is only on the scale at the two
@@ -701,17 +715,23 @@ main { min-height: 62vh; }
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: var(--lh-21);
-  margin-top: var(--s-32);
+  margin-top: var(--s-48);
+  margin-bottom: var(--s-24);
 }
 
-.prose h3 { font-size: var(--t-17); font-weight: 600; letter-spacing: -0.01em; margin-top: var(--s-32); }
+/* Space says the level too, not only size and weight: 48/24, 32/16, 24/12,
+   each of them twice its own bottom margin. h3 is the reading size, so without
+   the step down in space it would be a bold paragraph. */
+.prose h3 { font-size: var(--t-17); font-weight: 600; letter-spacing: -0.01em;
+  margin-top: var(--s-32); margin-bottom: var(--s-16); }
 
 .prose h4 {
   font-size: var(--label);
   line-height: var(--lh-14);
   font-weight: 400;
   color: var(--c-grey);
-  margin-top: var(--s-32);
+  margin-top: var(--s-24);
+  margin-bottom: var(--s-12);
 }
 
 .prose p, .prose li { max-width: var(--measure); }

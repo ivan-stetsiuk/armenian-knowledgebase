@@ -108,6 +108,7 @@
 
     const n = document.createElement("span");
     n.className = hy ? "res__n is-hy" : "res__n";
+    if (hy) n.lang = "hy";
     n.append(mark(name, tokens));
     a.append(n);
 

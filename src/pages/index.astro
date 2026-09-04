@@ -58,12 +58,13 @@ const sections = [
             <button
               type="button"
               class="abc__l"
+              lang="hy"
               data-l={l}
               aria-pressed="false"
               aria-label={`${l}, ${cloud[l].length} words`}
             >{l}</button>
           ) : (
-            <span class="abc__l is-empty">{l}</span>
+            <span class="abc__l is-empty" lang="hy">{l}</span>
           )
         )}
       </p>
@@ -190,11 +191,15 @@ const sections = [
         .map((w, i) => {
           const a = document.createElement("a");
           a.className = "cloud__w hy";
+          a.lang = "hy";
           a.href = base + "/vocabulary/?q=" + encodeURIComponent(w.hy);
           a.textContent = w.hy;
           a.title = w.en;
-          a.style.fontSize =
-            (box.width < 560 ? 0.88 : 0.95) + Math.random() * (box.width < 560 ? 0.26 : 0.45) + "rem";
+          /* A cloud wants words of different sizes, but different means one of
+             the scale's steps and not a random number of pixels. Two steps on a
+             phone, three on a wide screen. */
+          const steps = box.width < 560 ? ["--t-14", "--t-17"] : ["--t-14", "--t-17", "--t-21"];
+          a.style.fontSize = `var(${steps[Math.floor(Math.random() * steps.length)]})`;
           a.style.transitionDelay = i * 26 + "ms";
           layer.append(a);
           return { el: a };

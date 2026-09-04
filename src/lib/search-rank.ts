@@ -1,4 +1,4 @@
-import { stem } from "./hy";
+import { stem, foldLatin } from "./hy";
 import type { Entry } from "./search";
 
 /* The ranking. Kept apart from the dialog that draws it so it can be read, and
@@ -40,11 +40,19 @@ const PRIOR: Record<Entry["t"], number> = {
   grammar: 1.06, lesson: 1, howto: 1, word: 1, topic: 0.96, page: 0.88,
 };
 
+/* A query typed in Latin letters, folded so that it and the key meet in the
+ * middle: x and kh are the same letter, so are q and k, ou and u. */
+const LATIN = /^[a-z'\u2019-]+$/i;
+
 function score(entry: Entry, tokens: string[]): number {
   let total = 0;
   for (const token of tokens) {
     let best = 0;
     for (const [f, weight] of FIELDS) best = Math.max(best, weight * inField(entry[f] as string, token));
+
+    /* Transliteration is nearly as good an answer as the spelling itself, and
+     * ranks just under it. */
+    if (entry.r && LATIN.test(token)) best = Math.max(best, 9 * inField(entry.r, foldLatin(token)));
 
     /* Armenian piles suffixes on a root, so the word typed and the word wanted
      * are often not the same string: հիշել and հիշեցնել share հիշ. A shared root

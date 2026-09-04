@@ -62,7 +62,8 @@ flowchart LR
     rd --> rb["src/plugins/remark-blocks.mjs<br/>directives → aside/details/tabs"]
     rb --> rm["src/plugins/rehype-media.mjs<br/>img class + width/height from<br/>the PNG header"]
     rm --> rfold["src/plugins/rehype-fold.mjs<br/>folds a whole section<br/>behind its own heading"]
-    rfold --> rbase["src/plugins/rehype-base.mjs<br/>prefixes root-relative links<br/>with the base path"]
+    rfold --> rlang["src/plugins/rehype-lang.mjs<br/>marks every run of Armenian<br/>with lang=hy"]
+    rlang --> rbase["src/plugins/rehype-base.mjs<br/>prefixes root-relative links<br/>with the base path"]
     rbase --> page["src/pages<br/>index and slug routes"]
     page --> doc["src/layouts/Doc.astro<br/>title, rails, pager"]
     doc --> base["src/layouts/Base.astro<br/>head, Header, Search, client scripts"]
@@ -72,6 +73,14 @@ flowchart LR
 Order matters in two places. `remark-directive` has to run before
 `remark-blocks`, because one parses the syntax and the other rewrites it. And
 `rehype-base` runs last, so it sees every `href` the earlier plugins produced.
+
+`rehype-lang` is what makes the Armenian rule in the stylesheet match anything.
+A lesson is markdown, and markdown produces a plain `<td>`: without it the
+Armenian on a lesson page fell through the font stack to whatever the reader's
+system uses for the block, and a screen reader pronounced it as English
+(WCAG 3.1.2). It wraps each run of Armenian in `<span lang="hy">` and stops at
+the first character that is not Armenian, so the English half of a gloss is left
+alone.
 
 `rehype-fold` reads a `FOLD` set of heading names, `exercises` today. The
 markdown says nothing about it: a lesson writes `## Exercises` and gets a
@@ -92,7 +101,7 @@ touches the filesystem; the rest are plain data plus a helper.
 | `grammar.ts` | `GROUPS`: which group a topic is in, and the reference order that drives the index and the pager | `/grammar/` index, `/grammar/[slug]` |
 | `howto.ts` | `HOWTO_ORDER`: the running order, by when you need a script | `/how-to/` index, `/how-to/[slug]` |
 | `vocab.ts` | The words themselves, plus `TOPICS` and `NON_TOPIC_TAGS` | `/vocabulary/*`, `WordTable`, home page |
-| `hy.ts` | The language rules: `SUFFIXES` + `stem()`, `ALPHABET`, `initialLetter()`, `byArmenian` | `vocab.ts`, `search-rank.ts`, word filter |
+| `hy.ts` | The language rules: `SUFFIXES` + `stem()`, `ALPHABET`, `initialLetter()`, `byArmenian`, `roman()` + `foldLatin()` | `vocab.ts`, `search-rank.ts`, word filter |
 | `search.ts` | Every lesson, rule, how-to, topic and word as a named thing | `pages/search-index.json.ts` |
 | `search-rank.ts` | Which of those things a query names, in order | `Search.astro` |
 
@@ -134,6 +143,15 @@ summary and its number) and `search-rank.ts` scores a query against that list by
 how well it *names* an entry: exact title, then title prefix, then a word inside
 it, then a mention. Lesson numbers are parsed rather than matched, so `L2`,
 `l02`, `lesson 2` and `урок 2` all mean one page.
+
+Every word also carries a Latin key, `roman()` in `hy.ts`, so that `erku` finds
+երկու and `dzerq` finds ձեռք. It is matched and never shown: the site teaches the
+script, and a transliteration printed beside every word is how a reader never
+stops needing one. Typing is the exception, because a reader three weeks in
+still changes keyboard layout slowly. Query and key are folded the same way
+(`x` and `kh` are one letter, so are `q` and `k`, `ou` and `u`), which is why
+`LATIN_FOLD` is a table rather than code: the word filter on `/vocabulary/` is
+an inline script and takes it as data.
 
 Two things follow for the pages themselves. The pager carries
 `data-pagefind-ignore`, or every lesson would contain the titles of its two

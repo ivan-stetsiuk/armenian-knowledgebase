@@ -93,11 +93,19 @@ because whether a line comes out blurred then depends on where it falls.
 
 ## Armenian
 
-Armenian runs smaller than Latin at the same size, so `.hy` is 1.06em of
+Every run of Armenian carries `lang="hy"`, which `src/plugins/rehype-lang.mjs`
+adds to the rendered markdown and the components set by hand. Without it the
+rules below match nothing, the script falls through the font stack to whatever
+the reader's system has, and a screen reader reads Armenian as English.
+
+Armenian runs smaller than Latin at the same size, so `[lang="hy"]` is 1.06em of
 whatever it is quoted inside. It never takes negative letter spacing (the page's
 slight negative tracking is a correction for Helvetica, and it closes Armenian
 up) and it is never set in `text-transform: uppercase`, which is not how the
 script marks emphasis.
+
+Transliteration is for searching, never for reading. `roman()` gives every word
+a Latin key so that `erku` finds երկու; nothing on the page ever shows it.
 
 ## Prose
 

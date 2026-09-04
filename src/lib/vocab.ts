@@ -101,4 +101,4 @@ export const TOPICS: [string, string, string][] = [
 /* The language rules themselves live in hy.ts, which has no build-time
  * dependencies and can therefore be bundled into the page. Re-exported here so
  * that "the words and how they behave" stays one import for the pages. */
-export { SUFFIXES, stem, ALPHABET, initialLetter, byArmenian } from "./hy";
+export { SUFFIXES, stem, ALPHABET, initialLetter, byArmenian, roman, foldLatin, LATIN_FOLD } from "./hy";

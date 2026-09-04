@@ -1,6 +1,6 @@
 ---
 import type { Word } from "../lib/vocab";
-import { stem, initialLetter } from "../lib/vocab";
+import { stem, initialLetter, roman } from "../lib/vocab";
 import { base } from "../lib/site";
 
 interface Props {
@@ -23,7 +23,9 @@ const { words, showLesson = true, byLetter = false } = Astro.props;
  * five. The number lives in `data-lesson`, which the filter matches exactly on
  * an "L5" query. */
 const key = (w: Word) =>
-  [w.hy, w.en, w.phrase_hy, w.phrase_en, w.note, ...w.tags].join(" ").toLowerCase();
+  [w.hy, w.en, w.phrase_hy, w.phrase_en, w.note, ...w.tags, roman(w.hy)]
+    .join(" ")
+    .toLowerCase();
 
 /* One flat list of rows to render: the words, with a divider slipped in wherever
  * the initial letter changes. Flat rather than a table section per letter,
@@ -70,17 +72,18 @@ const cols = showLesson ? 4 : 3;
         "letter" in row ? (
           <tr class="words__letter" data-letter={row.letter}>
             <th colspan={cols} scope="rowgroup">
-              <span class="hy">{row.letter}</span> <span class="count">{row.n}</span>
+              <span class="hy" lang="hy">{row.letter}</span> <span class="count">{row.n}</span>
             </th>
           </tr>
         ) : (
           <tr
             data-k={key(row.word)}
             data-hy={row.word.hy.toLowerCase()}
+            data-r={roman(row.word.hy)}
             data-stem={stem(row.word.hy)}
             data-lesson={row.word.lesson}
           >
-            <td class="hy">{row.word.hy}</td>
+            <td class="hy" lang="hy">{row.word.hy}</td>
             <td>
               {row.word.en}
               {row.word.note && <em class="note"> {row.word.note}</em>}
@@ -88,7 +91,7 @@ const cols = showLesson ? 4 : 3;
             <td>
               {row.word.phrase_hy && (
                 <>
-                  <span class="hy">{row.word.phrase_hy}</span>
+                  <span class="hy" lang="hy">{row.word.phrase_hy}</span>
                   {row.word.phrase_en && <span class="gloss"> — {row.word.phrase_en}</span>}
                 </>
               )}
