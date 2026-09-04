@@ -22,7 +22,11 @@
 
   --c-ink: #000000;
   --c-ink-2: #555555;
-  --c-grey: #a6a6a6;   /* [labels], (counts), everything secondary */
+  /* The quiet layer: [labels], (counts), glosses, the contents. Quiet, but it
+     is still text — at #a6a6a6 it measured 2.4:1 against the page, well under
+     the 4.5:1 a reader is entitled to. Dark enough to read, light enough to
+     stay in the background. */
+  --c-grey: #6c675f;
   --c-paper: #ffffff;
   --c-line: #e6e6e6;
   /* The halo cycles through the flag, top stripe first. Official values. */
@@ -43,6 +47,19 @@
   /* Glass is one material, so both surfaces that use it — the header and the
      sheet the alphabet raises — read from the same three values. They looked
      almost but not quite alike while each carried its own numbers. */
+  /* The halo is two layers: a bloom whose hue drifts outwards, and a fine grain
+     over it. Named here so the reduced-motion rule can drop the grain alone. */
+  --aura-grain: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="120" height="120" filter="url(%23n)" opacity="0.5"/></svg>');
+  --aura-bloom: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--c-aura) 46%, transparent) 0%,
+    color-mix(in oklab, var(--c-aura) 34%, transparent) 18%,
+    color-mix(in oklab, color-mix(in oklab, var(--c-aura) 82%, #d90012) 21%, transparent) 34%,
+    color-mix(in oklab, color-mix(in oklab, var(--c-aura) 62%, #d90012) 10%, transparent) 52%,
+    color-mix(in oklab, color-mix(in oklab, var(--c-aura) 45%, #d90012) 4%, transparent) 68%,
+    transparent 78%
+  );
+
   --glass-blur: 15px;
   --glass-saturate: 1.32;
   --glass-tint: 68%;
@@ -53,11 +70,16 @@
 }
 
 :root[data-theme="dark"] {
-  --c-ink: #ffffff;
-  --c-ink-2: #b0b0b0;
-  --c-grey: #6e6e6e;
-  --c-paper: #000000;
-  --c-line: #242424;
+  /* Not pure black and not pure white. #000 against #fff is the highest
+     contrast a screen can produce, and on a page that is mostly text it reads
+     as glare rather than as ink — the letters buzz at their edges. A near-black
+     with a trace of warmth in it sits still, and the text is dropped a little
+     off white for the same reason. */
+  --c-ink: #ece9e3;
+  --c-ink-2: #a9a59d;
+  --c-grey: #8e8a82;
+  --c-paper: #17161a;
+  --c-line: #2b2a30;
 
   --c-rule: #7aa9d8;
   --c-vocab: #6cb489;
@@ -267,9 +289,20 @@ html.is-glass .head {
   transition: color .5s ease, text-shadow .7s ease, transform .5s ease;
 }
 
-/* The halo. A radial gradient rather than a shadow, so it can grow: it scales
- * up over the same three-quarters of a second the words take to arrive, which
- * is what makes the two read as one event instead of two. */
+/* The halo.
+ *
+ * Three things happen here that a plain radial gradient does not do.
+ *
+ * 1. It grows. A gradient can be scaled, so it swells over the same
+ *    three-quarters of a second the words take to arrive and the two read as
+ *    one event rather than two.
+ * 2. The hue drifts outwards. A single colour fading to nothing is a flashlight;
+ *    a real bloom shifts as it spreads, so the core keeps the flag colour and
+ *    the outer field falls towards red. The stops are uneven for the same
+ *    reason — an evenly stepped ramp looks like a gradient, not like light.
+ * 3. It is grained. A clean gradient on a wide field bands into visible rings
+ *    on an 8-bit display; a fine noise laid over it breaks those up, and takes
+ *    the halo from "CSS effect" to something closer to film. */
 .abc__l::after {
   content: "";
   position: absolute;
@@ -279,17 +312,19 @@ html.is-glass .head {
   width: 15rem;
   height: 15rem;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--c-aura) 42%, transparent) 0%,
-    color-mix(in srgb, var(--c-aura) 20%, transparent) 32%,
-    color-mix(in srgb, var(--c-aura) 7%, transparent) 55%,
-    transparent 72%
-  );
+  background-image: var(--aura-grain), var(--aura-bloom);
+  background-blend-mode: overlay;
+  background-size: 120px 120px, 100% 100%;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.28);
   pointer-events: none;
   transition: opacity .6s ease .12s, transform .85s cubic-bezier(.16, .84, .28, 1) .12s;
+}
+
+/* The grain is a texture, not information: a reader who has asked for less
+ * motion and less noise gets the plain bloom. */
+@media (prefers-reduced-motion: reduce) {
+  .abc__l::after { background-image: var(--aura-bloom); }
 }
 
 .abc__l.is-empty { color: var(--c-grey); cursor: default; opacity: 0.45; }
