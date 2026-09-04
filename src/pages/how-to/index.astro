@@ -2,25 +2,25 @@
 import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { HOWTO_ORDER } from "../../lib/howto";
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-
-const all = await getCollection("howto");
-const byId = new Map(all.map((e) => [e.id, e]));
-const items = [...HOWTO_ORDER.filter((id) => byId.has(id)), ...all.map((e) => e.id).filter((id) => !HOWTO_ORDER.includes(id))]
-  .map((id) => byId.get(id)!)
-  .filter((e) => e.id !== "index");
+import { base } from "../../lib/site";
 
 /* The first exchange of each script, shown as a preview. */
 const opener = (body: string) => {
   const m = body.match(/^\*\*You:\*\*\s*(.+)$/m) || body.match(/^\*\*Them:\*\*\s*(.+)$/m);
   return m ? m[1].replace(/\*/g, "").trim() : "";
 };
+
+const byId = new Map((await getCollection("howto")).map((e) => [e.id, e]));
+const items = HOWTO_ORDER.map((id) => byId.get(id)!).map((e) => ({
+  id: e.id,
+  title: e.data.title,
+  opener: opener(e.body ?? ""),
+}));
 ---
 
 <Base title="How-to" section="how-to" description="Ready Armenian dialogue scripts for everyday situations.">
   <div class="shell doc wide">
-    <div class="doc__body" style="grid-column:1" data-pagefind-body>
+    <div class="doc__body" data-pagefind-body>
       <header class="title">
         <h1>How-to <span class="count">{items.length}</span></h1>
       </header>
@@ -30,10 +30,9 @@ const opener = (body: string) => {
           <a class="index__row" href={`${base}/how-to/${e.id}/`}>
             <span class="index__no">{String(i + 1).padStart(2, "0")}</span>
             <span class="index__name">
-              {e.data.title}
-              {opener(e.body ?? "") && <span class="index__sub hy">{opener(e.body ?? "")}</span>}
+              {e.title}
+              {e.opener && <span class="index__sub hy">{e.opener}</span>}
             </span>
-            <span class="index__meta"></span>
           </a>
         ))}
       </div>

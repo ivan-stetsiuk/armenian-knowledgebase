@@ -1,16 +1,16 @@
 ---
+import { base } from "../lib/site";
 /* Pagefind indexes the built HTML after `astro build`, so search covers every
  * word of every lesson without a separate index to keep in sync. The UI is only
  * loaded when the dialog is first opened — it is a few hundred KB that a reader
  * who never searches should not pay for. */
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <dialog class="search" id="search">
   <div class="search__ui" id="search-ui"></div>
 </dialog>
 
-<script define:vars={{ base }}>
+<script is:inline define:vars={{ base }}>
   const dlg = document.getElementById("search");
   let loaded = false;
 
@@ -34,8 +34,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           bundlePath: `${base}/pagefind/`,
           showImages: false,
           showSubResults: true,
+          pageSize: 8,
           resetStyles: false,
-          translations: { placeholder: "Search words, rules, lessons" },
+          translations: { placeholder: "Search", clear_search: "Clear", zero_results: "Nothing for [SEARCH_TERM]" },
         });
       }
     }
@@ -54,7 +55,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   });
 
   /* Clicking the backdrop closes the dialog. */
-  dlg?.addEventListener("click", (e) => {
+  dlg.addEventListener("click", (e) => {
     if (e.target === dlg) dlg.close();
   });
 </script>

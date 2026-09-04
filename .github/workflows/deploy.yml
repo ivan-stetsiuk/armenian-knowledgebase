@@ -23,14 +23,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
       - name: Check repository invariants
         run: python scripts/check.py
+
+      # decks/ is generated from data/*.tsv and committed, so it can go stale
+      # without anything noticing — the CMS edits the TSV and never runs the
+      # build. The Quizlet files are deterministic; the .apkg is a zip and
+      # carries timestamps, so only the text output can be compared.
+      - name: Check the committed flashcards match the data
+        run: |
+          python scripts/build_decks.py
+          git diff --exit-code --stat -- decks/quizlet || {
+            echo "::error::decks/ is stale — run python3 scripts/build_decks.py and commit the result"
+            exit 1
+          }
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Type-check
+        run: npm run check
       # astro build renders the pages; pagefind indexes the built HTML afterwards,
       # so search covers every word without a second index to keep in sync.
       - run: npm run build

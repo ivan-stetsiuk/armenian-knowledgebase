@@ -49,9 +49,15 @@ export function grammarCards() {
   return readTsv("grammar.tsv");
 }
 
-export const PARTS_OF_SPEECH = [
-  "noun", "verb", "adjective", "adverb", "pronoun", "numeral",
-  "postposition", "conjunction", "question", "phrase", "other",
+/* Tags carried into the Anki notes that deliberately get no page of their own.
+ * A part of speech is worth filtering a deck by, but "all 426 nouns" is not a
+ * topic anybody browses — the ones that are (verbs, adjectives, phrases,
+ * question words, postpositions) appear in TOPICS below.
+ *
+ * scripts/check.py fails the build on any tag in data/vocab.tsv that is in
+ * neither list, so a typo cannot silently drop a word out of every topic. */
+export const NON_TOPIC_TAGS = [
+  "noun", "adverb", "pronoun", "numeral", "conjunction", "other", "vulgar",
 ] as const;
 
 /* tag → [slug, title, one-line description]. Order is the order on the index. */

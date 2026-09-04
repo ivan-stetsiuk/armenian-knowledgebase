@@ -40,6 +40,13 @@
   --font-sans: "Helvetica Neue", Helvetica, Inter, Arial, system-ui, sans-serif;
   --font-hy: "Noto Sans Armenian", var(--font-sans);
 
+  /* Glass is one material, so both surfaces that use it — the header and the
+     sheet the alphabet raises — read from the same three values. They looked
+     almost but not quite alike while each carried its own numbers. */
+  --glass-blur: 15px;
+  --glass-saturate: 1.32;
+  --glass-tint: 68%;
+
   --label: 0.8125rem;   /* [Sections], (41), metadata */
   --measure: 34rem;
   --head-h: 4.5rem;
@@ -150,9 +157,9 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   z-index: 50;
   padding-top: 1.1rem;
   padding-bottom: 0.9rem;
-  background: color-mix(in srgb, var(--c-paper) 72%, transparent);
-  backdrop-filter: blur(14px) saturate(1.3);
-  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  background: color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
 }
 
 /* While the alphabet is open the page already has a sheet of glass over it;
@@ -318,8 +325,8 @@ html.is-glass .head {
   opacity: 0;
   pointer-events: none;
   background: color-mix(in srgb, var(--c-paper) 46%, transparent);
-  backdrop-filter: blur(16px) saturate(1.35);
-  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   /* Closing: held back a moment so the words are already leaving before the
      blur starts to lift. The two are one gesture, and the thing that arrived
      last should be the first to go. */
@@ -684,6 +691,9 @@ main { min-height: 62vh; }
 .rail a { color: var(--c-ink); text-decoration: none; }
 .rail a:hover { color: var(--c-grey); }
 
+/* Stands in for a rail list that has nothing in it. */
+.rail__note { font-size: var(--label); color: var(--c-grey); margin: 0; }
+
 .toc ul { list-style: none; margin: 0; padding: 0; }
 .toc a {
   display: block; padding: 0.2rem 0;
@@ -706,29 +716,145 @@ main { min-height: 62vh; }
 .pager span { display: block; color: var(--c-grey); margin-bottom: 0.15rem; }
 
 /* ================================================================= search */
+/* Spotlight, in this site's own materials: one panel of glass floating over a
+ * dimmed page, a single oversized field, and results as a plain list. It is the
+ * only element on the site with a radius and a shadow, which is what separates
+ * "a layer above the page" from "a box on it". */
 
 dialog.search {
-  width: min(40rem, 92vw); max-height: 80vh; margin: 10vh auto auto;
-  padding: 0; border: 1px solid var(--c-line); border-radius: 0;
-  background: var(--c-paper); color: var(--c-ink); overflow: hidden;
+  width: min(38rem, 92vw);
+  max-height: 70vh;
+  margin: 12vh auto auto;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--c-paper) 82%, transparent);
+  backdrop-filter: blur(28px) saturate(1.6);
+  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-ink) 8%, transparent),
+    0 24px 70px -20px color-mix(in srgb, var(--c-ink) 40%, transparent);
+  color: var(--c-ink);
+  overflow: hidden;
 }
-dialog.search::backdrop { background: rgba(0, 0, 0, .3); }
+
+dialog.search::backdrop {
+  background: color-mix(in srgb, var(--c-ink) 22%, transparent);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Opens the way a panel arrives: from slightly behind the page, quickly. */
+dialog.search[open] { animation: spotlight .18s cubic-bezier(.2, .8, .3, 1); }
+dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
+
+@keyframes spotlight {
+  from { opacity: 0; transform: scale(.97) translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes spotlight-bg { from { opacity: 0; } to { opacity: 1; } }
 
 .search__ui {
-  --pagefind-ui-scale: .8;
+  --pagefind-ui-scale: 1;
   --pagefind-ui-primary: var(--c-ink);
   --pagefind-ui-text: var(--c-ink);
-  --pagefind-ui-background: var(--c-paper);
-  --pagefind-ui-border: var(--c-line);
-  --pagefind-ui-tag: var(--c-paper);
-  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-background: transparent;
+  --pagefind-ui-border: transparent;
+  --pagefind-ui-tag: transparent;
+  --pagefind-ui-border-width: 0;
   --pagefind-ui-border-radius: 0;
   --pagefind-ui-font: var(--font-sans);
-  padding: 1rem 1.1rem 1.4rem; overflow-y: auto; max-height: 80vh;
+  --pagefind-ui-image-box-ratio: 0;
 }
-.pagefind-ui__result-link { color: var(--c-ink) !important; }
-.pagefind-ui__result-excerpt { color: var(--c-ink-2) !important; font-size: .85rem !important; }
-mark { background: color-mix(in srgb, var(--c-ink) 11%, transparent); color: inherit; }
+
+/* The field: no box, no rule — its size is what says it is the input. The
+ * magnifier is drawn as a background so nothing has to be added to the markup
+ * Pagefind produces. */
+.search__ui .pagefind-ui__search-input {
+  width: 100%;
+  padding: 1.15rem 3.1rem 1.15rem 3.4rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent
+    no-repeat 1.25rem center /
+    1.15rem 1.15rem
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23a6a6a6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>');
+  font: inherit;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  color: var(--c-ink);
+}
+
+.search__ui .pagefind-ui__search-input::placeholder { color: var(--c-grey); }
+.search__ui .pagefind-ui__search-input:focus { outline: none; }
+
+.search__ui .pagefind-ui__search-clear {
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  height: 3.9rem;
+  padding: 0 0.9rem;
+  background: transparent;
+  border: 0;
+  color: var(--c-grey);
+  font-size: var(--label);
+  cursor: pointer;
+}
+.search__ui .pagefind-ui__search-clear:hover { color: var(--c-ink); }
+
+.search__ui .pagefind-ui__form { position: relative; }
+
+/* Results start below a hairline, the one line the panel needs. */
+.search__ui .pagefind-ui__drawer {
+  max-height: calc(70vh - 4rem);
+  overflow-y: auto;
+  padding: 0;
+}
+
+.search__ui .pagefind-ui__results-area { padding: 0; }
+
+.search__ui .pagefind-ui__message {
+  margin: 0;
+  padding: 0.75rem 1.4rem;
+  border-top: 1px solid color-mix(in srgb, var(--c-ink) 8%, transparent);
+  font-size: var(--label);
+  font-weight: 400;
+  color: var(--c-grey);
+}
+
+.search__ui .pagefind-ui__results { padding: 0.35rem 0 0.6rem; }
+
+.search__ui .pagefind-ui__result {
+  padding: 0.6rem 1.4rem;
+  border: 0;
+  transition: background .12s ease;
+}
+
+.search__ui .pagefind-ui__result:hover,
+.search__ui .pagefind-ui__result:focus-within {
+  background: color-mix(in srgb, var(--c-ink) 5%, transparent);
+}
+
+.search__ui .pagefind-ui__result-title { margin: 0; font-size: 1rem; font-weight: 550; }
+.search__ui .pagefind-ui__result-link { color: var(--c-ink); text-decoration: none; }
+.search__ui .pagefind-ui__result-inner { margin: 0; gap: 0.15rem; }
+
+.search__ui .pagefind-ui__result-excerpt {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--c-ink-2);
+}
+
+.search__ui .pagefind-ui__result-nested { padding: 0.3rem 0 0 0.9rem; }
+.search__ui .pagefind-ui__result-nested .pagefind-ui__result-link { font-size: 0.85rem; color: var(--c-ink-2); }
+
+mark { background: none; color: var(--c-ink); font-weight: 650; }
+
+@media (max-width: 40rem) {
+  dialog.search { margin-top: 6vh; width: 94vw; max-height: 80vh; }
+  .search__ui .pagefind-ui__search-input { font-size: 1.15rem; padding: 1rem 2.8rem 1rem 3rem; }
+}
 
 /* ================================================================= images */
 

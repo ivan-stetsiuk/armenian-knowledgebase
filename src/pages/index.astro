@@ -187,6 +187,16 @@ const sections = [
       if (cy < 24 || cy > box.height - 24) cy = Math.min(box.height * 0.42, 190);
       cx = Math.max(70, Math.min(box.width - 70, cx));
 
+      /* The rings are hung off a point pulled back towards the middle of the
+         column rather than off the letter itself. A letter on the left of the
+         alphabet has almost no room on its left, and centring the rings on it
+         put most of the cloud into that sliver — the words ended up huddled
+         against the margin with the whole right of the page empty. The letter
+         is still the thing they came out of; it just is not the centre of the
+         circle. */
+      const anchorX = box.width < 560 ? cx + (box.width / 2 - cx) * 0.7 : box.width * 0.46;
+      const anchorY = cy + (box.height * 0.46 - cy) * 0.3;
+
       const next = rnd(letter.codePointAt(0));
 
       /* How many words the layer can actually hold. A phone gets a third of what
@@ -205,14 +215,18 @@ const sections = [
          edge of a phone, where clamping stacked them against the margin — they
          were not clipped, but a column of words pinned to the left edge is not a
          cloud either. */
+      /* No ring may start inside the letter. Scaling alone put the first ring at
+         44px on a phone while the letter itself is about 42px tall, so the
+         nearest words landed on top of the thing they belong to. */
+      const guard = Math.hypot(b.width, b.height) / 2 + 34;
       const scale = Math.min(1, box.width / 980);
-      const spread = box.width < 560 ? 1.15 : 1.7;
+      const spread = box.width < 560 ? 1.15 : 1.95;
       const perRing = box.width < 560 ? 5 : 6;
       const items = shown.map((w, i) => {
         const ring = Math.floor(i / perRing);
         const angle =
           ((i % perRing) / perRing) * Math.PI * 2 + ring * 0.8 + (next() - 0.5) * 0.5;
-        const radius = (104 + ring * 86 + next() * 44) * Math.max(0.42, scale);
+        const radius = Math.max(guard, (104 + ring * 86 + next() * 44) * Math.max(0.42, scale));
 
         const a = document.createElement("a");
         a.className = "cloud__w hy";
@@ -235,41 +249,79 @@ const sections = [
         m.h = m.el.offsetHeight;
       }
 
+      /* The letter's own box, in layer coordinates, with a little air round it.
+         Words are pushed out of it the same way they are pushed off each other. */
+      const keepOut = {
+        left: b.left - box.left - 12,
+        top: b.top - box.top - 8,
+        right: b.right - box.left + 12,
+        bottom: b.bottom - box.top + 8,
+      };
+
+      const onLetter = (m) =>
+        m.x + m.w / 2 > keepOut.left && m.x - m.w / 2 < keepOut.right &&
+        m.y + m.h / 2 > keepOut.top && m.y - m.h / 2 < keepOut.bottom;
+
+      const clearLetter = (m) => {
+        if (!onLetter(m)) return false;
+        const l = m.x - m.w / 2, r = m.x + m.w / 2;
+        const t = m.y - m.h / 2, bt = m.y + m.h / 2;
+        // Out along whichever edge is nearest.
+        const up = keepOut.top - bt, down = keepOut.bottom - t;
+        const west = keepOut.left - r, east = keepOut.right - l;
+        const best = Math.min(Math.abs(up), Math.abs(down), Math.abs(west), Math.abs(east));
+        if (best === Math.abs(up)) m.y += up;
+        else if (best === Math.abs(down)) m.y += down;
+        else if (best === Math.abs(west)) m.x += west;
+        else m.x += east;
+        return true;
+      };
+
       const clamp = (m) => {
         m.x = Math.max(m.w / 2 + PAD, Math.min(box.width - m.w / 2 - PAD, m.x));
         m.y = Math.max(m.h / 2 + PAD, Math.min(box.height - m.h / 2 - PAD, m.y));
       };
       items.forEach(clamp);
 
-      /* Push overlapping pairs apart along whichever axis they overlap least,
-         then re-clamp. Sixty passes is far more than this ever needs and still
-         costs nothing: it is arithmetic on at most 18 boxes. */
-      for (let pass = 0; pass < 60; pass++) {
+      /* One relaxation loop, two forces, the same rule for both: a word is
+         pushed out of anything it overlaps along whichever axis it overlaps
+         least, then clamped back inside the column. The letter is simply an
+         immovable body among the words — it is resolved last in each pass, so
+         it always wins the tie.
+
+         Eighty passes is far more than this needs and still costs nothing: it
+         is arithmetic on at most eighteen boxes. */
+      const gap = box.width < 560 ? 8 : 16;
+
+      const push = (a, c) => {
+        const dx = c.x - a.x, dy = c.y - a.y;
+        const ox = (a.w + c.w) / 2 + gap - Math.abs(dx);
+        const oy = (a.h + c.h) / 2 + 5 - Math.abs(dy);
+        if (ox <= 0 || oy <= 0) return false;
+        if (oy < ox) { const s = ((dy >= 0 ? 1 : -1) * oy) / 2; a.y -= s; c.y += s; }
+        else { const s = ((dx >= 0 ? 1 : -1) * ox) / 2; a.x -= s; c.x += s; }
+        clamp(a); clamp(c);
+        return true;
+      };
+
+      for (let pass = 0; pass < 80; pass++) {
         let moved = false;
-        for (let i = 0; i < items.length; i++) {
-          for (let j = i + 1; j < items.length; j++) {
-            const a = items[i];
-            const c = items[j];
-            const dx = c.x - a.x;
-            const dy = c.y - a.y;
-            const gap = box.width < 560 ? 8 : 16;
-            const ox = (a.w + c.w) / 2 + gap - Math.abs(dx);
-            const oy = (a.h + c.h) / 2 + 5 - Math.abs(dy);
-            if (ox <= 0 || oy <= 0) continue;
-            moved = true;
-            if (oy < ox) {
-              const s = ((dy >= 0 ? 1 : -1) * oy) / 2;
-              a.y -= s;
-              c.y += s;
-            } else {
-              const s = ((dx >= 0 ? 1 : -1) * ox) / 2;
-              a.x -= s;
-              c.x += s;
-            }
-          }
-        }
+        for (let i = 0; i < items.length; i++)
+          for (let j = i + 1; j < items.length; j++)
+            if (push(items[i], items[j])) moved = true;
+        for (const m of items) if (clearLetter(m)) { clamp(m); moved = true; }
         if (!moved) break;
-        items.forEach(clamp);
+      }
+
+      /* If a word still sits on the letter, the letter is boxed into a corner
+         and no push can clear it. Put the word below the letter outright. */
+      for (const m of items) {
+        if (onLetter(m)) {
+          m.y = keepOut.bottom + m.h / 2 + 6;
+          clamp(m);
+          if (onLetter(m)) m.y = keepOut.top - m.h / 2 - 6;
+          clamp(m);
+        }
       }
 
       for (const m of items) {

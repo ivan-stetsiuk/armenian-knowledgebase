@@ -1,7 +1,7 @@
 ---
+import { base } from "../lib/site";
 interface Props { section?: string }
 const { section } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const nav = [
   { id: "lessons", label: "Lessons", href: `${base}/lessons/` },

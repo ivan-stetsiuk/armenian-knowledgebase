@@ -2,8 +2,8 @@
 import Base from "../../layouts/Base.astro";
 import WordTable from "../../components/WordTable.astro";
 import { words, TOPICS, byArmenian, SUFFIXES } from "../../lib/vocab";
+import { base } from "../../lib/site";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const all = words().sort((a, b) => byArmenian(a.hy, b.hy));
 
 const counts = new Map<string, number>();
@@ -13,12 +13,11 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
   tag, title, blurb, n: counts.get(tag)!,
 }));
 
-const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
 ---
 
-<Base title="Words" section="vocabulary" description="1023 Armenian words and expressions from the lessons, by topic.">
+<Base title="Words" section="vocabulary" description={`${all.length} Armenian words and expressions from the lessons, by topic.`}>
   <div class="shell doc wide">
-    <div class="doc__body" style="grid-column:1" data-pagefind-body>
+    <div class="doc__body" data-pagefind-body>
       <header class="title">
         <h1>Words <span class="count">{all.length}</span></h1>
       </header>
@@ -54,13 +53,13 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
 
       <WordTable words={all} showLesson={true} />
 
-      <p id="wempty" hidden style="color:var(--c-grey);padding:2rem 0;font-size:var(--label)">
+      <p class="filter__empty" id="wempty" hidden>
         Nothing matches. Try the Armenian spelling, or a lesson number.
       </p>
     </div>
   </div>
 
-  <script is:inline define:vars={{ total: all.length, SUFFIXES }}>
+  <script is:inline define:vars={{ SUFFIXES }}>
     const input = document.getElementById("wfilter");
     const count = document.getElementById("wcount");
     const empty = document.getElementById("wempty");
@@ -82,7 +81,7 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
        from the alphabet on the home page, the word clicked has to be the first
        row, not the fourteenth — so matches are ordered by how exactly they
        answer the query, and words that merely share its root come last. */
-    const rank = (row, q, qs) => {
+    const rank = (row, q) => {
       const hy = row.dataset.hy || "";
       if (hy === q) return 0;
       if (hy.startsWith(q)) return 1;
@@ -126,10 +125,10 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
 
       const frag = document.createDocumentFragment();
       if (q && !lesson) {
-        const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q, qs) - rank(b, q, qs));
+        const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q) - rank(b, q));
         for (const r of matched) frag.append(r);
         tbody.prepend(frag);
-        if (matched.length && rank(matched[0], q, qs) < 2) matched[0].classList.add("is-hit");
+        if (matched.length && rank(matched[0], q) < 2) matched[0].classList.add("is-hit");
       } else {
         for (const r of original) frag.append(r);
         tbody.append(frag);
@@ -150,10 +149,8 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
     });
 
     /* A lesson page links here with ?q=L7, the alphabet on the home page with
-       ?q=<word>. ?lesson=7 is the older form and still understood. */
-    const params = new URLSearchParams(location.search);
-    const byLesson = params.get("lesson");
-    const wanted = params.get("q") ?? (byLesson ? "L" + byLesson : null);
+       ?q=<word>. */
+    const wanted = new URLSearchParams(location.search).get("q");
     if (wanted && input) {
       input.value = wanted;
       apply();
@@ -191,5 +188,7 @@ const lessons = [...new Set(all.map((w) => w.lesson))].sort((a, b) => a - b);
     .filter input:focus { outline: none; border-bottom-color: var(--c-ink); }
     .filter input::placeholder { color: var(--c-grey); }
     .filter__count { color: var(--c-grey); font-size: var(--label); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+    .filter__empty { color: var(--c-grey); padding: 2rem 0; font-size: var(--label); }
   </style>
 </Base>

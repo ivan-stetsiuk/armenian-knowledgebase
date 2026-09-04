@@ -1,6 +1,7 @@
 ---
 import Doc from "../../layouts/Doc.astro";
 import { getCollection, render } from "astro:content";
+import { base } from "../../lib/site";
 
 export async function getStaticPaths() {
   const lessons = (await getCollection("lessons")).sort((a, b) => a.data.lesson - b.data.lesson);
@@ -12,7 +13,6 @@ export async function getStaticPaths() {
 
 const { entry, prev, next } = Astro.props;
 const { Content, headings } = await render(entry);
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const grammar = await getCollection("grammar");
 const titleOf = (slug: string) => grammar.find((g) => g.id === slug)?.data.title ?? slug;
@@ -39,7 +39,7 @@ const meta: string[] = entry.data.topics ? [entry.data.topics] : [];
         ))}
       </ul>
     ) : (
-      <p style="font-size:.8rem;color:var(--c-ink-3);margin:0">No new grammar.</p>
+      <p class="rail__note">No new grammar.</p>
     )}
 
     <dl>

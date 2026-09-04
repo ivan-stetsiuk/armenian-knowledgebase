@@ -2,6 +2,7 @@
 import Doc from "../../layouts/Doc.astro";
 import WordTable from "../../components/WordTable.astro";
 import { words, TOPICS, byArmenian } from "../../lib/vocab";
+import { base } from "../../lib/site";
 
 export function getStaticPaths() {
   const all = words();
@@ -24,7 +25,6 @@ export function getStaticPaths() {
 }
 
 const { tag, title, blurb, rows, prev, next } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const lessons = [...new Set(rows.map((w) => w.lesson))].sort((a, b) => a - b);
 ---

@@ -5,14 +5,21 @@ A personal Eastern Armenian reference built from lessons with a tutor. Astro, de
 
 ```
 src/content/lessons/   one page per lesson: new words, rules in one line, exercise prompts
-src/content/grammar/   34 reference pages, each opening with the rule in one line
+src/content/grammar/   reference pages, each opening with the rule in one line
 src/content/howto/     ready dialogue scripts
-src/content/pages/     the project guidelines
+src/lib/               the ordering registries: which grammar group, which running order
+src/plugins/           remark/rehype: directives → HTML, base paths, image sizing
+src/layouts/           Base (head, header, client scripts) and Doc (rails, pager)
+src/pages/             one route per section, index + [slug]
 data/vocab.tsv         single source of truth for words — the site and Anki both read it
 data/grammar.tsv       transformation cards
+decks/                 generated flashcards, committed on purpose
 public/admin/          Decap CMS, the browser editor at /admin/
 scripts/               invariant checks and the flashcard build
 ```
+
+[ARCHITECTURE.md](ARCHITECTURE.md) has the diagrams: what feeds what, and where each
+invariant is enforced.
 
 ## Local
 
@@ -20,11 +27,17 @@ scripts/               invariant checks and the flashcard build
 npm install
 npm run dev                                  # http://localhost:4321/armenian-knowledgebase/
 npm run build                                # astro build + pagefind search index
+npm run check                                # astro check — types across .astro and src/lib
 python3 scripts/check.py                     # repository invariants
-python3 scripts/build_decks.py               # data/*.tsv → dist Anki package
+python3 scripts/build_decks.py               # data/*.tsv → decks/
 ```
 
-`scripts/check.py` and `npm run build` both run in CI on every push to `main`, along with a check that every directive in the content reached the page as the markup it means.
+The flashcard build needs `pip install -r requirements.txt`; nothing else does.
+
+CI runs all four on every push to `main`, plus two checks that only exist there:
+that every directive in the content reached the page as the markup it means, and
+that `decks/` still matches `data/*.tsv` — it is generated output under version
+control, so an edit through the CMS can leave it behind.
 
 **Editing a remark or rehype plugin?** Delete `node_modules/.astro` first. Astro's content layer caches rendered markdown between builds and does not invalidate it when a plugin changes, so a local build will keep serving the old HTML and a fix will look like it did nothing.
 
@@ -78,4 +91,4 @@ One-time: repository Settings → Pages → Build and deployment → Source: **G
 
 ## Anki
 
-`python3 scripts/build_decks.py` writes `dist/armenian.apkg` (decks `hy::vocab::LNN` and `hy::grammar::<topic>`) and Quizlet import files. Re-importing updates existing cards rather than duplicating them, because note GUIDs come from the TSV ids. Recommended settings are in the [guidelines](https://ivan-stetsiuk.github.io/armenian-knowledgebase/guidelines/).
+`python3 scripts/build_decks.py` writes `decks/armenian.apkg` (decks `hy::vocab::LNN` and `hy::grammar::<topic>`) and Quizlet import files. Re-importing updates existing cards rather than duplicating them, because note GUIDs come from the TSV ids.

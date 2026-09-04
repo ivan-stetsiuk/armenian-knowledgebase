@@ -35,6 +35,14 @@ export function groupOf(slug: string): string {
   return GROUPS.find((g) => g.slugs.includes(slug))?.name ?? "Other";
 }
 
+/* Position in the reference order, for sorting the pager. scripts/check.py
+ * fails the build if a grammar page is missing from GROUPS, so the fallback is
+ * only ever reached while a page is being written. */
+export const rankGrammar = (id: string) => {
+  const i = ORDERED.indexOf(id);
+  return i === -1 ? 999 : i;
+};
+
 /* The `> **One line.** …` summary that opens every grammar page. Shown in the
  * index so the section can be skimmed without opening anything. */
 export function oneLine(body: string): string {

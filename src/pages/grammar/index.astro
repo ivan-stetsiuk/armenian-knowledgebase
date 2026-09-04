@@ -2,8 +2,8 @@
 import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { GROUPS, oneLine } from "../../lib/grammar";
+import { base } from "../../lib/site";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const all = await getCollection("grammar");
 const byId = new Map(all.map((g) => [g.id, g]));
 
@@ -15,13 +15,11 @@ const groups = GROUPS.map((g) => ({
     .filter(Boolean)
     .map((e) => ({ id: e!.id, title: e!.data.title, line: oneLine(e!.body ?? ""), n: ++n })),
 }));
-
-const missing = all.filter((g) => !GROUPS.some((x) => x.slugs.includes(g.id)));
 ---
 
-<Base title="Grammar" section="grammar" description="Armenian grammar reference: 34 topics, each opening with the rule in one line.">
+<Base title="Grammar" section="grammar" description={`Armenian grammar reference: ${all.length} topics, each opening with the rule in one line.`}>
   <div class="shell doc wide">
-    <div class="doc__body" style="grid-column:1" data-pagefind-body>
+    <div class="doc__body" data-pagefind-body>
       <header class="title">
         <h1>Grammar <span class="count">{all.length}</span></h1>
       </header>
@@ -37,27 +35,11 @@ const missing = all.filter((g) => !GROUPS.some((x) => x.slugs.includes(g.id)));
                   {it.title}
                   {it.line && <span class="index__sub">{it.line}</span>}
                 </span>
-                <span class="index__meta"></span>
               </a>
             ))}
           </div>
         </>
       ))}
-
-      {missing.length > 0 && (
-        <>
-          <p class="index__group">Not yet placed</p>
-          <div class="index">
-            {missing.map((e) => (
-              <a class="index__row" href={`${base}/grammar/${e.id}/`}>
-                <span class="index__no">··</span>
-                <span class="index__name">{e.data.title}</span>
-                <span class="index__meta"></span>
-              </a>
-            ))}
-          </div>
-        </>
-      )}
     </div>
   </div>
 </Base>

@@ -1,15 +1,14 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
+import { base } from "../../lib/site";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lessons = (await getCollection("lessons")).sort((a, b) => b.data.lesson - a.data.lesson);
-
 ---
 
-<Base title="Lessons" section="lessons" description="Chronological record of 41 Armenian lessons.">
+<Base title="Lessons" section="lessons" description={`Chronological record of ${lessons.length} Armenian lessons.`}>
   <div class="shell doc wide">
-    <div class="doc__body" style="grid-column:1" data-pagefind-body>
+    <div class="doc__body" data-pagefind-body>
       <header class="title">
         <h1>Lessons <span class="count">{lessons.length}</span></h1>
       </header>

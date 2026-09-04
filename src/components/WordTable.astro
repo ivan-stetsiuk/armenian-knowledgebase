@@ -1,6 +1,7 @@
 ---
 import type { Word } from "../lib/vocab";
 import { stem } from "../lib/vocab";
+import { base } from "../lib/site";
 
 interface Props {
   words: Word[];
@@ -8,7 +9,6 @@ interface Props {
 }
 
 const { words, showLesson = true } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 /* `data-k` is the haystack the filter searches: Armenian, English, the phrase
  * and the tags, lowercased once at build time so typing stays instant across a
