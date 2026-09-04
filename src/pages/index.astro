@@ -2,8 +2,8 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { words, byArmenian } from "../lib/vocab";
+import { base } from "../lib/site";
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const lessons = await getCollection("lessons");
 const grammar = await getCollection("grammar");
 const howto = await getCollection("howto");
@@ -43,14 +43,18 @@ for (const w of vocab) {
   byLetter.get(first)!.push({ hy: w.hy, en: w.en });
 }
 
-/* At most 18 per letter: past that the cloud stops being readable and becomes a
- * texture. Shortest first — they place well and are the ones most likely to be
- * recognised at a glance. */
+/* Up to 30 words per letter reach the page; the cloud draws a dozen of them,
+ * picked afresh on each press. Two reasons for the cut. A dozen words have room
+ * to breathe where eighteen were crowding each other, and a letter with sixty
+ * entries would otherwise always show the same shortest ones — this way the same
+ * letter has something different to say the second time you press it.
+ *
+ * Shorter words first, because they place better, but not exclusively so. */
 const cloud: Record<string, { hy: string; en: string }[]> = {};
 for (const letter of ALPHABET) {
   const list = (byLetter.get(letter) ?? [])
     .sort((a, b) => a.hy.length - b.hy.length || byArmenian(a.hy, b.hy))
-    .slice(0, 18);
+    .slice(0, 30);
   if (list.length) cloud[letter] = list;
 }
 
@@ -119,8 +123,9 @@ const sections = [
     const FLAG = ["var(--flag-red)", "var(--flag-blue)", "var(--flag-orange)"];
     let turn = 0;
 
-    /* Deterministic jitter: one letter always draws the same cloud, so the page
-       does not reshuffle itself every time you come back to it. */
+    /* Jitter for the ring angles and the type sizes. Seeded from the letter and
+       the press, so one cloud is internally consistent while two presses of the
+       same letter differ. */
     const rnd = (seed) => {
       let x = seed * 9301 + 49297;
       return () => ((x = (x * 9301 + 49297) % 233280) / 233280);
@@ -197,27 +202,38 @@ const sections = [
       const anchorX = box.width < 560 ? cx + (box.width / 2 - cx) * 0.7 : box.width * 0.46;
       const anchorY = cy + (box.height * 0.46 - cy) * 0.3;
 
-      const next = rnd(letter.codePointAt(0));
+      const next = rnd(letter.codePointAt(0) + Math.floor(Math.random() * 997));
 
-      /* How many words the layer can actually hold. A phone gets a third of what
-         a desktop does, because the alternative is eighteen words on top of each
-         other, which is not a cloud but a smudge. */
-      const ceiling = box.width < 560 ? 10 : 18;
-      const room = Math.max(6, Math.min(list.length, ceiling, Math.round((box.width * box.height) / 11000)));
-      const shown = list.slice(0, room);
+      /* How many the layer can hold, and which ones. A phone gets fewer than a
+         desktop, because the alternative is a dozen words on top of each other,
+         which is not a cloud but a smudge.
+
+         The choice is random rather than "the first N": a letter with sixty
+         entries would otherwise show the same handful for ever. Randomised per
+         press, so pressing the same letter twice shows it twice differently. */
+      const ceiling = box.width < 560 ? 8 : 12;
+      const room = Math.max(5, Math.min(list.length, ceiling, Math.round((box.width * box.height) / 16000)));
+
+      const pool = list.slice();
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      const shown = pool.slice(0, room);
 
       /* Rings around the letter: the radius grows with the ring so later words
          land further out, and the angle is jittered so it never reads as a dial.
          The horizontal radius is stretched, because the page is wider than it is
          tall and a word is wider than it is high.
-         
+
          Both are scaled to the layer. Fixed radii threw half the words past the
          edge of a phone, where clamping stacked them against the margin — they
          were not clipped, but a column of words pinned to the left edge is not a
-         cloud either. */
-      /* No ring may start inside the letter. Scaling alone put the first ring at
-         44px on a phone while the letter itself is about 42px tall, so the
-         nearest words landed on top of the thing they belong to. */
+         cloud either.
+
+         No ring may start inside the letter either. Scaling alone put the first
+         ring at 44px on a phone while the letter itself is about 42px tall, so
+         the nearest words landed on top of the thing they belong to. */
       const guard = Math.hypot(b.width, b.height) / 2 + 34;
       const scale = Math.min(1, box.width / 980);
       const spread = box.width < 560 ? 1.15 : 1.95;
@@ -237,7 +253,11 @@ const sections = [
         a.style.transitionDelay = i * 22 + "ms";
         layer.append(a);
 
-        return { el: a, x: cx + Math.cos(angle) * radius * 1.7, y: cy + Math.sin(angle) * radius };
+        return {
+          el: a,
+          x: anchorX + Math.cos(angle) * radius * spread,
+          y: anchorY + Math.sin(angle) * radius,
+        };
       });
 
       /* Each word is centred on its coordinates, so it can only be kept inside

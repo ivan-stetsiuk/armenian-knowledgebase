@@ -44,12 +44,15 @@
   --font-sans: "Helvetica Neue", Helvetica, Inter, Arial, system-ui, sans-serif;
   --font-hy: "Noto Sans Armenian", var(--font-sans);
 
-  /* Glass is one material, so both surfaces that use it — the header and the
-     sheet the alphabet raises — read from the same three values. They looked
-     almost but not quite alike while each carried its own numbers. */
+  /* Glass is one material: the header and the sheet the alphabet raises share
+     its blur and its saturation, so they cannot end up almost-but-not-quite
+     alike. They differ in one value only, and deliberately — the header is a
+     band you read text against, while the sheet has to keep the whole page
+     legible underneath it, so it is the more transparent of the two. */
   --glass-blur: 15px;
   --glass-saturate: 1.32;
-  --glass-tint: 68%;
+  --glass-tint: 68%;        /* the header band */
+  --glass-tint-sheet: 46%;  /* the full-page frost */
 
   --label: 0.8125rem;   /* [Sections], (41), metadata */
   --measure: 34rem;
@@ -333,7 +336,7 @@ html.is-glass .head {
   z-index: 60;
   opacity: 0;
   pointer-events: none;
-  background: color-mix(in srgb, var(--c-paper) 46%, transparent);
+  background: color-mix(in srgb, var(--c-paper) var(--glass-tint-sheet), transparent);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   /* Closing: held back a moment so the words are already leaving before the
