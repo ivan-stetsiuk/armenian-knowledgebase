@@ -162,10 +162,30 @@ const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
         addEventListener("scroll", update, { passive: true });
       }
 
+      /* A section can be folded away — the exercises on a lesson page, see
+         src/plugins/rehype-fold.mjs — and the contents still links to the
+         headings inside it. Open what the link points into, then let the
+         browser do its own scrolling. */
+      function openFoldedTarget() {
+        const reveal = () => {
+          const id = decodeURIComponent(location.hash.slice(1));
+          if (!id) return;
+          const target = document.getElementById(id);
+          if (!target) return;
+          for (let d = target.closest("details"); d; d = d.parentElement?.closest("details") ?? null) {
+            d.open = true;
+          }
+          target.scrollIntoView();
+        };
+        reveal();
+        addEventListener("hashchange", reveal);
+      }
+
       themeToggle();
       tabs();
       wrapWideTables();
       markCurrentSection();
+      openFoldedTarget();
     </script>
   </body>
 </html>

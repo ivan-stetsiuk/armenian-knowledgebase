@@ -34,9 +34,6 @@
   --flag-blue: #0033a0;
   --flag-orange: #f2a800;
   --c-aura: var(--flag-red);
-  /* The colour the *next* press will use. Hovering a letter has to promise
-     the colour it is about to light up in, not repeat the last one. */
-  --c-aura-next: var(--flag-red);
 
   /* Signal colours for the three block types. Three types, three colours, and
    * they are the flag's: red for a rule, blue for new words, orange for a
@@ -55,21 +52,26 @@
   --font-sans: "Helvetica Neue", Helvetica, Inter, Arial, system-ui, sans-serif;
   --font-hy: "Noto Sans Armenian", var(--font-sans);
 
-  /* Glass is one material: the header and the sheet the alphabet raises share
-     its blur and its saturation, so they cannot end up almost-but-not-quite
-     alike. They differ in one value only, and deliberately — the header is a
-     band you read text against, while the sheet has to keep the whole page
-     legible underneath it, so it is the more transparent of the two. */
+  /* Glass is one material everywhere it appears: the header band, the sheet the
+     alphabet raises, and the search panel share this blur and this saturation.
+     They differ in tint alone, and for a reason — the sheet has to keep a whole
+     page legible under it, while the search panel is a surface you read text
+     off and is the most opaque of the three. */
   --glass-blur: 15px;
   --glass-saturate: 1.32;
   --glass-tint: 68%;        /* the header band */
   --glass-tint-sheet: 46%;  /* the full-page frost */
+  --glass-tint-panel: 82%;  /* the search panel */
 
-  /* The header takes the same material at a third of the blur, because it is
-     graduated: the strongest pane covers the top of the band only, and each one
-     below it is weaker and reaches further down, so the blur runs out before
-     the edge does. 15px applied flat across the band was reading as fog. */
-  --head-blur: 3.5px;
+  /* The header is the one graduated surface: three panes of the same material,
+     the strongest over the top of the band, each one below it weaker and
+     reaching further down, so the blur tapers out instead of stopping at a
+     line. The taper is the last few pixels of the band and no more. Spread
+     wider — a quarter of the band, which is what it started as — the same header
+     read as heavy fog on one page and as almost nothing on the next, because
+     whether a line came out blurred depended on where it happened to fall.
+     √(4² + 6.4² + 9.6²) ≈ 12px where all three overlap. */
+  --head-blur: 4px;
 
   --label: 0.8125rem;   /* [Sections], (41), metadata */
   --measure: 34rem;
@@ -205,11 +207,11 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   z-index: 50;
   padding-top: 1.1rem;
   padding-bottom: 0.9rem;
-  /* The tint fades out over the lower third for the same reason the blur does. */
+  /* The tint holds to the same three quarters the blur does, then goes. */
   background: linear-gradient(
     to bottom,
     color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 0%,
-    color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 55%,
+    color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 88%,
     transparent 100%
   );
 }
@@ -223,8 +225,8 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
   pointer-events: none;
   backdrop-filter: blur(var(--head-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--head-blur)) saturate(var(--glass-saturate));
-  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
 }
 
 .head__glass::before,
@@ -237,19 +239,19 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
 }
 
 .head__glass::before {
-  bottom: 25%;
+  bottom: 8%;
   backdrop-filter: blur(calc(var(--head-blur) * 1.6));
   -webkit-backdrop-filter: blur(calc(var(--head-blur) * 1.6));
-  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 100%);
 }
 
 .head__glass::after {
-  bottom: 55%;
+  bottom: 18%;
   backdrop-filter: blur(calc(var(--head-blur) * 2.4));
   -webkit-backdrop-filter: blur(calc(var(--head-blur) * 2.4));
-  mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
 }
 
 /* The rim. A CSS backdrop cannot be displaced, so refraction is played by the
@@ -421,7 +423,11 @@ html.is-glass .head::after {
 
 .abc__l.is-empty { color: var(--c-grey); cursor: default; opacity: 0.45; }
 
-.abc__l[data-l]:not(.is-on):hover { color: var(--c-aura-next); }
+/* Hovering greys the letter rather than colouring it. The colour belongs to the
+   press: it arrives with the aura, on the letter that was actually pressed. A
+   hover that guessed at it was either repeating the last cloud's colour or
+   promising one before anything had happened. */
+.abc__l[data-l]:not(.is-on):hover { color: var(--c-grey); }
 
 /* The aura. Three stacked shadows read as one soft bloom rather than a ring,
  * and the letter itself stays legible because only its colour warms up. */
@@ -747,6 +753,34 @@ main { min-height: 62vh; }
 .disclosure[open] > summary::before { content: "\2212"; }
 .disclosure > :last-child { margin-bottom: 0; }
 
+/* A whole section folded behind its own heading — the exercises at the foot of
+   a lesson (src/plugins/rehype-fold.mjs). The summary is the h2 itself, so the
+   section keeps its size, its id and its place in the contents, and the page
+   reads exactly as it did with one difference: the practice is put away.
+
+   The marker rides at the end of the heading rather than in the margin. A
+   heading's top margin collapses out through the summary, so anything placed
+   against the summary box lands somewhere else entirely. */
+.fold > summary { display: block; font-size: inherit; color: inherit; }
+/* The disclosure's own marker, in both states — this one carries its own. */
+.fold > summary::before,
+.fold[open] > summary::before { content: none; }
+.fold[open] > summary { margin-bottom: 0; }
+
+.fold > summary h2 { margin-bottom: 0; }
+
+.fold > summary h2::after {
+  content: "+";
+  margin-left: 0.55rem;
+  font-size: 0.75em;
+  color: var(--c-grey);
+  transition: color .15s ease;
+}
+.fold[open] > summary h2::after { content: "\2212"; }
+.fold > summary:hover h2::after { color: var(--c-ink); }
+
+.fold > summary + * { margin-top: 1.4rem; }
+
 /* ==================================================================== tabs */
 
 .tabs { margin: 1.6rem 0; }
@@ -858,9 +892,9 @@ dialog.search {
   padding: 0;
   border: 0;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--c-paper) 82%, transparent);
-  backdrop-filter: blur(28px) saturate(1.6);
-  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  background: color-mix(in srgb, var(--c-paper) var(--glass-tint-panel), transparent);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   /* Depth only. A hairline around the panel read as a box drawn on the page. */
   box-shadow: 0 26px 70px -22px color-mix(in srgb, var(--c-ink) 45%, transparent);
   color: var(--c-ink);

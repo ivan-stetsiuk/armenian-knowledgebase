@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import remarkBlocks from "./src/plugins/remark-blocks.mjs";
 import rehypeMedia from "./src/plugins/rehype-media.mjs";
 import rehypeBase from "./src/plugins/rehype-base.mjs";
+import rehypeFold from "./src/plugins/rehype-fold.mjs";
 
 const BASE = "/armenian-knowledgebase";
 
@@ -17,7 +18,7 @@ export default defineConfig({
     // remarkDirective parses `:::rule{…}`; remarkBlocks turns it into HTML.
     // Order matters: the parser has to run first.
     remarkPlugins: [remarkDirective, remarkBlocks],
-    rehypePlugins: [rehypeMedia, [rehypeBase, BASE]],
+    rehypePlugins: [rehypeMedia, rehypeFold, [rehypeBase, BASE]],
     // The corpus uses ։ and ՞ inside Armenian sentences; smartypants would
     // rewrite the surrounding quotes and dashes into forms the tutor did not use.
     smartypants: false,

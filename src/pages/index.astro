@@ -103,11 +103,6 @@ const sections = [
     const FLAG = ["var(--flag-red)", "var(--flag-blue)", "var(--flag-orange)"];
     let turn = 0;
 
-    /* Hovering a letter shows the colour that letter would open in, which is the
-       next one in the cycle — not the one already on screen. */
-    const promise = () => home.style.setProperty("--c-aura-next", FLAG[turn % FLAG.length]);
-    promise();
-
     /* Jitter for the ring angles and the type sizes. Seeded from the letter and
        the press, so one cloud is internally consistent while two presses of the
        same letter differ. */
@@ -153,9 +148,11 @@ const sections = [
       clear(true);
       active = letter;
 
+      /* Set here and nowhere else: the colour of a press is decided as the aura
+         is built, so the letter, its halo and its words all light up in it at
+         once. Hovering does not touch it — see .abc__l:hover in global.css. */
       const aura = FLAG[turn++ % FLAG.length];
       home.style.setProperty("--c-aura", aura);
-      promise();
 
       btn.classList.add("is-on");
       btn.setAttribute("aria-pressed", "true");
