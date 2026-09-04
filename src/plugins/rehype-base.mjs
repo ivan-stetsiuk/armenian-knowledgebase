@@ -6,7 +6,7 @@ import { visit } from "unist-util-visit";
  * The content says `/grammar/genitive/` because that is what it means and what
  * a CMS preview can resolve. On GitHub Pages the site actually lives under
  * /armenian-knowledgebase/, and Astro only rewrites paths it generates itself,
- * not ones inside markdown — so without this every cross-reference in the
+ * not ones inside markdown, so without this every cross-reference in the
  * corpus 404s in production while working perfectly in dev.
  */
 export default function rehypeBase(base = "") {

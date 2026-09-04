@@ -11,7 +11,7 @@ src/lib/               the ordering registries: which grammar group, which runni
 src/plugins/           remark/rehype: directives → HTML, base paths, image sizing
 src/layouts/           Base (head, header, client scripts) and Doc (rails, pager)
 src/pages/             one route per section, index + [slug]
-data/vocab.tsv         single source of truth for words — the site and Anki both read it
+data/vocab.tsv         single source of truth for words: the site and Anki both read it
 data/grammar.tsv       transformation cards
 decks/                 generated flashcards, committed on purpose
 public/admin/          Decap CMS, the browser editor at /admin/
@@ -27,7 +27,7 @@ invariant is enforced.
 npm install
 npm run dev                                  # http://localhost:4321/armenian-knowledgebase/
 npm run build                                # astro build + pagefind search index
-npm run check                                # astro check — types across .astro and src/lib
+npm run check                                # astro check: types across .astro and src/lib
 python3 scripts/check.py                     # repository invariants
 python3 scripts/build_decks.py               # data/*.tsv → decks/
 ```
@@ -36,7 +36,7 @@ The flashcard build needs `pip install -r requirements.txt`; nothing else does.
 
 CI runs all four on every push to `main`, plus two checks that only exist there:
 that every directive in the content reached the page as the markup it means, and
-that `decks/` still matches `data/*.tsv` — it is generated output under version
+that `decks/` still matches `data/*.tsv`, which is generated output under version
 control, so an edit through the CMS can leave it behind.
 
 **Editing a remark or rehype plugin?** Delete `node_modules/.astro` first. Astro's content layer caches rendered markdown between builds and does not invalidate it when a plugin changes, so a local build will keep serving the old HTML and a fix will look like it did nothing.

@@ -13,7 +13,7 @@ interface Props {
 const { title, description = SITE_DESCRIPTION, section } = Astro.props;
 /* The home page is titled with the site name alone; every other page hangs
  * its own name off it. */
-const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
+const full = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
 ---
 
 <!doctype html>
@@ -53,7 +53,7 @@ const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
 
     {/* Frosts the whole page while a letter is open. It is a sibling of the
         content rather than a filter on it, because backdrop-filter blurs what is
-        behind the element — which lets the words and the open letter sit on the
+        behind the element, which lets the words and the open letter sit on the
         glass instead of under it. Inert to the pointer, so a click still lands
         on the page and closes the cloud. */}
     <div class="glass" aria-hidden="true"></div>
@@ -66,8 +66,8 @@ const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
          which is why they can all run unconditionally. */
 
       /* Theme. Stored per browser; the OS preference is the default. The class
-         is already on <html> before first paint — see the inline script in the
-         head — so this only has to handle the button. */
+         is already on <html> before first paint (see the inline script in the
+         head), so this only has to handle the button. */
       function themeToggle() {
         const root = document.documentElement;
         document.getElementById("theme")?.addEventListener("click", () => {
@@ -79,7 +79,7 @@ const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
       }
 
       /* Tabs. Panels are all visible until this runs, so a paradigm is readable
-         with JavaScript off — it just stops being a tab set. */
+         with JavaScript off. It just stops being a tab set. */
       function tabs() {
         for (const set of document.querySelectorAll("[data-tabs]")) {
           const btns = [...set.querySelectorAll<HTMLButtonElement>(".tabs__btn")];
@@ -166,8 +166,8 @@ const full = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
         addEventListener("scroll", update, { passive: true });
       }
 
-      /* A section can be folded away — the exercises on a lesson page, see
-         src/plugins/rehype-fold.mjs — and the contents still links to the
+      /* A section can be folded away (the exercises on a lesson page, see
+         src/plugins/rehype-fold.mjs) and the contents still links to the
          headings inside it. Open what the link points into, then let the
          browser do its own scrolling. */
       function openFoldedTarget() {

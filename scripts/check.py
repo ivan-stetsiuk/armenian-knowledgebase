@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the repository's own invariants — the ones the site build cannot see.
+"""Validate the repository's own invariants: the ones the site build cannot see.
 
   1. Lesson front matter: the lesson number matches the file name, the date parses,
      and every grammar slug names a page that exists.
@@ -10,7 +10,7 @@
   5. Grammar pages never link back to a lesson, and each opens with "One line".
   6. data/grammar.tsv points only at grammar pages that exist.
   7. The three ordering registries in src/lib cover every page and tag they are
-     responsible for. Nothing renders a page that is missing from one — it just
+     responsible for. Nothing renders a page that is missing from one. It just
      quietly stops appearing in its index, which is the kind of thing you find
      out about months later.
 
@@ -61,7 +61,7 @@ def check_fences(rel: str, body: str) -> None:
         if name:
             if stack and colons >= stack[-1][1]:
                 fail(f"{rel}:{n}: `{name}` opens with {colons} colons inside "
-                     f"`{stack[-1][0]}` which has {stack[-1][1]} — the outer block "
+                     f"`{stack[-1][0]}` which has {stack[-1][1]}; the outer block "
                      f"closes here instead of wrapping this one")
             stack.append((name, colons, n))
         else:
@@ -148,19 +148,19 @@ def ts_array(path: Path, name: str, pattern: str) -> set[str]:
 
     The registries live in TypeScript because that is where they are used, and
     they carry the comments explaining each ordering. Reading them from here
-    means a mis-parse must fail loudly rather than silently find nothing —
+    means a mis-parse must fail loudly rather than silently find nothing:
     a check that quietly matches zero entries is worse than no check.
     """
     text = path.read_text(encoding="utf-8")
     start = text.find(f"export const {name}")
     if start == -1:
-        fail(f"{path.relative_to(ROOT)}: cannot find `export const {name}` — "
+        fail(f"{path.relative_to(ROOT)}: cannot find `export const {name}`. "
              f"scripts/check.py needs updating alongside it")
         return set()
     end = text.find("];", start)
     found = set(re.findall(pattern, text[start:end], re.S))
     if not found:
-        fail(f"{path.relative_to(ROOT)}: parsed no entries out of {name} — "
+        fail(f"{path.relative_to(ROOT)}: parsed no entries out of {name}. "
              f"the shape changed and scripts/check.py needs updating")
     return found
 
@@ -174,7 +174,7 @@ def check_registries(grammar_slugs: set[str]) -> None:
                             (lib / "grammar.ts").read_text(encoding="utf-8"), re.S):
         grouped |= set(re.findall(r'"([a-z0-9-]+)"', block))
     if not grouped:
-        fail("src/lib/grammar.ts: parsed no slugs out of GROUPS — "
+        fail("src/lib/grammar.ts: parsed no slugs out of GROUPS. "
              "the shape changed and scripts/check.py needs updating")
     for slug in sorted(grammar_slugs - grouped):
         fail(f"src/lib/grammar.ts: grammar page {slug!r} is in no GROUPS entry, "
@@ -210,7 +210,7 @@ def check_registries(grammar_slugs: set[str]) -> None:
     declared = topics | non_topic
     for tag in sorted(set(used) - declared):
         fail(f"data/vocab.tsv: tag {tag!r} ({used[tag]} words) is in neither TOPICS "
-             f"nor NON_TOPIC_TAGS in src/lib/vocab.ts — a typo, or a topic page "
+             f"nor NON_TOPIC_TAGS in src/lib/vocab.ts: a typo, or a topic page "
              f"waiting to be declared")
     for tag in sorted(topics - set(used)):
         fail(f"src/lib/vocab.ts: TOPICS declares {tag!r}, which no word carries")

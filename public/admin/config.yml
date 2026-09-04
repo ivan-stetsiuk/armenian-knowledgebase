@@ -1,11 +1,11 @@
-# Decap CMS — edit the knowledge base from the site itself.
+# Decap CMS: edit the knowledge base from the site itself.
 #
 # The CMS writes plain Markdown with YAML front matter straight into this
 # repository, which is why the content was migrated to `:::rule{…}` directives
 # rather than to components: the editor has to be able to round-trip the file.
 #
 # Authentication needs a small OAuth helper, because GitHub Pages cannot hold a
-# client secret. Deploy sveltia-cms-auth (a free Cloudflare Worker — see the
+# client secret. Deploy sveltia-cms-auth (a free Cloudflare Worker, see the
 # README) and put its address in `base_url` below. Everything else is ready.
 
 backend:
@@ -61,7 +61,7 @@ collections:
         label: Topics
         widget: string
         required: false
-        hint: One line, items separated by · — shown under the title and in the index.
+        hint: One line, items separated by ·, shown under the title and in the index.
       - name: grammar
         label: Grammar topics covered
         widget: list
@@ -71,7 +71,7 @@ collections:
         label: Body
         widget: markdown
         hint: >-
-          Blocks are :::vocab{title="…"} … ::: and :::rule{title="…"} … ::: —
+          Blocks are :::vocab{title="…"} … ::: and :::rule{title="…"} … ::: ;
           an outer block needs MORE colons than anything inside it.
 
   - name: grammar

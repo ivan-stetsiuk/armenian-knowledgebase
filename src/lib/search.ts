@@ -5,12 +5,12 @@ import { words, TOPICS } from "./vocab";
 
 /* The index the search dialog ranks against.
  *
- * Pagefind reads the built HTML and answers "which page says this?" — which it
+ * Pagefind reads the built HTML and answers "which page says this?", which it
  * does well, and which is not the question most searches here are asking. A
  * reader typing "L2", "ablative" or "գալ" is naming a thing on the site, not
  * quoting it, and full text cannot tell the title of lesson 2 from the three
- * hundred other pages with a 2 in a table. So the things themselves — every
- * lesson, grammar page, how-to, topic and word — are listed here, and
+ * hundred other pages with a 2 in a table. So the things themselves (every
+ * lesson, grammar page, how-to, topic and word) are listed here, and
  * src/components/Search.astro ranks that list by how well a query names an
  * entry. Pagefind still answers the other question, underneath.
  *

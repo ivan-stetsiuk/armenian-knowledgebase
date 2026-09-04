@@ -4,12 +4,12 @@
  * The lower one is Pagefind: it indexes the built HTML, so it can answer "which
  * page says this?" for every word on the site. That is a genuinely different
  * question from the one most searches here ask, and for a while it was the only
- * one being answered — with results to match. Typing "L2" returned thirty-six
+ * one being answered, with results to match. Typing "L2" returned thirty-six
  * pages and not lesson 2; "Lesson 2" put the thousand-word glossary first,
  * because that page contains the word "lesson" and a great many 2s, and BM25
  * has no way to know that one of those 2s is a name and the rest are furniture.
  *
- * So above it sits an index of the things themselves — every lesson, grammar
+ * So above it sits an index of the things themselves: every lesson, grammar
  * page, how-to, topic and word, with its title, its one-line summary and its
  * number (src/lib/search.ts). A query is ranked against that list by how well it
  * *names* an entry: an exact title beats a title that starts with the query,
@@ -18,7 +18,7 @@
  * and nothing else.
  *
  * Full text still runs, underneath a divider, for everything a title cannot
- * answer — a phrase from an exercise, a word inside a table. Both layers load
+ * answer, such as a phrase from an exercise or a word inside a table. Both layers load
  * on first open and never again; a reader who does not search pays nothing.
  *
  * The ranking itself is src/lib/search-rank.ts. This file is the panel: what is
@@ -35,7 +35,7 @@
       autocomplete="off"
       autocorrect="off"
       spellcheck="false"
-      placeholder="Search — a word, a rule, or L2"
+      placeholder="Search: a word, a rule, or L2"
       aria-label="Search"
       aria-controls="search-out"
     />
@@ -43,7 +43,10 @@
         keyboard escape, and clearing it by holding backspace is not clearing
         it. */}
     <button type="button" class="search__clear" id="search-clear" aria-label="Clear search" hidden>
-      ×
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
+        <path d="M4.5 4.5l7 7M11.5 4.5l-7 7" />
+      </svg>
     </button>
   </form>
 
@@ -212,7 +215,7 @@
       entries = await fetch(`${base}/search-index.json`).then((r) => r.json()).catch(() => []);
     }
     if (!pf) {
-      /* Pagefind exists only in a built site — `astro dev` serves no bundle, and
+      /* Pagefind exists only in a built site. `astro dev` serves no bundle, and
          there the dialog runs on the index of things alone. */
       try {
         pf = await import(/* @vite-ignore */ `${base}/pagefind/pagefind.js`);

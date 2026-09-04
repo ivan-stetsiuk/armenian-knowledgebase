@@ -29,6 +29,11 @@ jobs:
       - name: Check repository invariants
         run: python scripts/check.py
 
+      # GUIDELINES.md states the type and space scales; this is what keeps a
+      # hand-written 0.42rem out of the stylesheets.
+      - name: Check the design system
+        run: python scripts/check_design.py
+
       # decks/ is generated from data/*.tsv and committed, so it can go stale
       # without anything noticing — the CMS edits the TSV and never runs the
       # build. The Quizlet files are deterministic; the .apkg is a zip and

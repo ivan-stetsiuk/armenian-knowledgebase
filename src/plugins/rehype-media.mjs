@@ -4,7 +4,7 @@ import path from "node:path";
 
 /* PNG stores its dimensions in the first 24 bytes. Reading them here means an
  * image can reserve its space before it loads, which is what stops the page
- * jumping as the letter strips arrive — they are lazy-loaded, so they arrive
+ * jumping as the letter strips arrive. They are lazy-loaded, so they arrive
  * after the text has already been read. */
 const size = new Map();
 function pngSize(src) {
@@ -24,7 +24,7 @@ function pngSize(src) {
 
 /* Classes for the two kinds of image in the corpus, assigned by path rather
  * than by markup. The alternative was an attribute on every image in every
- * lesson, which is one more thing to get wrong when adding a lesson — and the
+ * lesson, which is one more thing to get wrong when adding a lesson, and the
  * path already says what the picture is.
  *
  * Also lazy-loads and gives every image an intrinsic-size hint so the page does

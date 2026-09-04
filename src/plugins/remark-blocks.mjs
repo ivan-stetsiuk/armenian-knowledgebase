@@ -2,8 +2,8 @@ import { visit } from "unist-util-visit";
 
 /* Turns the directive syntax the content uses into plain HTML.
  *
- * Content stays editable as markdown — a CMS or a text editor sees
- * `:::rule{title="…"}`, not a component import — while the site gets real
+ * Content stays editable as markdown (a CMS or a text editor sees
+ * `:::rule{title="…"}`, not a component import) while the site gets real
  * elements it can style. Nothing here hydrates: tabs are the only interactive
  * piece and they are progressively enhanced by a few lines in the layout.
  */
@@ -96,7 +96,7 @@ export default function remarkBlocks() {
 
       /* A tab is configured by its own tab set, which `visit` reaches first.
          Without this it falls through to the catch-all below, which overwrites
-         the panel markup with a plain div — the buttons then control nothing
+         the panel markup with a plain div: the buttons then control nothing
          and every paradigm renders as one long stack. */
       if (name === "tab") return;
 

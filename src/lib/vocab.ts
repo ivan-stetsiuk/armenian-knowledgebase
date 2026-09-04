@@ -51,7 +51,7 @@ export function grammarCards() {
 
 /* Tags carried into the Anki notes that deliberately get no page of their own.
  * A part of speech is worth filtering a deck by, but "all 426 nouns" is not a
- * topic anybody browses — the ones that are (verbs, adjectives, phrases,
+ * topic anybody browses. The ones that are (verbs, adjectives, phrases,
  * question words, postpositions) appear in TOPICS below.
  *
  * scripts/check.py fails the build on any tag in data/vocab.tsv that is in

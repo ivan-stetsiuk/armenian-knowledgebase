@@ -5,7 +5,7 @@ import type { Entry } from "./search";
  * tested, as what it is: a function from a query and a list of things to the
  * things that query names.
  *
- * Full text — Pagefind, underneath — answers "which page says this?". This
+ * Full text (Pagefind, underneath) answers "which page says this?". This
  * answers "which thing is this?", which is the question nearly every search on
  * this site is actually asking, and the one BM25 over the built HTML cannot get
  * right: "L2" is a name, and the corpus is full of 2s that are not.
@@ -62,7 +62,7 @@ function score(entry: Entry, tokens: string[]): number {
   return total;
 }
 
-/* "2", "L2", "l02", "lesson 2", "урок 2" — all the second lesson. Spelled out
+/* "2", "L2", "l02", "lesson 2", "урок 2" all mean the second lesson. Spelled out
  * here rather than left to the text index, which cannot tell a lesson number
  * from the several hundred other 2s in the tables. A bare number scores lower
  * than a named one: it is a guess about intent, not a statement of it. */
@@ -101,7 +101,7 @@ export function rank(entries: Entry[], q: string, base: string, limit = 10): Ent
   }
 
   /* Ties go to the shorter name: it is the more exact answer to the same query
-   * — "come" over "come back", ձեռք over ձեռքերով. */
+   * "come" over "come back", ձեռք over ձեռքերով. */
   hits.sort((a, b) => b[0] - a[0] || a[1].n.length - b[1].n.length);
   return hits.slice(0, limit).map((h) => h[1]);
 }

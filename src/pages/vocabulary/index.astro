@@ -24,15 +24,24 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
 
       {/* Filter, then the words. Arriving here from a word on the home page the
           search is the thing being used, and the topics are a different way in
-          entirely — they belong after the list, not between it and the field. */}
+          entirely: they belong after the list, not between it and the field. */}
       <div class="filter">
         <input
           type="search"
           id="wfilter"
-          placeholder="Filter — Armenian, English, or L7 for one lesson"
+          placeholder="Filter: Armenian, English, or L7 for one lesson"
           aria-label="Filter words"
           autocomplete="off"
         />
+        {/* The same clear button the search panel has. The browser draws one
+            of its own on a search field, in its own colour and its own idea of
+            a cross; this is that one, hidden, in the site's hand. */}
+        <button type="button" class="filter__clear" id="wclear" aria-label="Clear filter" hidden>
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none"
+               stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
+            <path d="M4.5 4.5l7 7M11.5 4.5l-7 7" />
+          </svg>
+        </button>
         <span class="filter__count" id="wcount">{all.length}</span>
       </div>
 
@@ -54,7 +63,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       {/* Arriving from the word cloud or from search, the page is asked for one
           word out of a thousand. Without this the browser painted the whole list
           first and the filter then reordered it under the reader's eyes, ending
-          with a scroll to a row that had just moved — three frames of thrashing
+          with a scroll to a row that had just moved: three frames of thrashing
           for one answer. Marking the document before the table is parsed keeps
           the list unpainted until it is the list that was asked for; the script
           at the foot of the page clears the mark once it is. */}
@@ -74,6 +83,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
 
   <script is:inline define:vars={{ SUFFIXES }}>
     const input = document.getElementById("wfilter");
+    const wclear = document.getElementById("wclear");
     const count = document.getElementById("wcount");
     const empty = document.getElementById("wempty");
     const rows = [...document.querySelectorAll("tbody tr[data-k]")];
@@ -90,7 +100,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       else if (groups.length) groups[groups.length - 1].rows.push(el);
     }
 
-    /* Same rule as the build uses to stem the rows — the suffix list itself is
+    /* Same rule as the build uses to stem the rows. The suffix list itself is
        injected, so the two cannot drift apart. */
     const stemOf = (w) => {
       const s = w.toLowerCase().trim();
@@ -102,7 +112,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
 
     /* A substring match is not the same as the word you asked for. Coming here
        from the alphabet on the home page, the word clicked has to be the first
-       row, not the fourteenth — so matches are ordered by how exactly they
+       row, not the fourteenth, so matches are ordered by how exactly they
        answer the query, and words that merely share its root come last. */
     const rank = (row, q) => {
       const hy = row.dataset.hy || "";
@@ -122,6 +132,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
     function apply() {
       const q = input.value.trim().toLowerCase();
       const lesson = LESSON.exec(q);
+      wclear.hidden = input.value === "";
 
       /* Root matching only kicks in for a real word. On two or three letters
          every stem in the language is a prefix of something and the filter
@@ -177,8 +188,15 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
     }
 
     input?.addEventListener("input", () => {
+      wclear.hidden = input.value === "";
       clearTimeout(timer);
       timer = setTimeout(apply, 90);
+    });
+
+    wclear?.addEventListener("click", () => {
+      input.value = "";
+      input.focus();
+      apply();
     });
 
     /* A lesson page links here with ?q=L7, the alphabet on the home page with
@@ -191,7 +209,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       hit?.scrollIntoView({ block: "center", behavior: "instant" });
       input.focus({ preventScroll: true });
     }
-    /* Filtered, ordered and scrolled — now it can be looked at. */
+    /* Filtered, ordered and scrolled. Now it can be looked at. */
     delete document.documentElement.dataset.filtering;
   </script>
 
@@ -209,7 +227,7 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
     .topic {
       font-size: var(--t-14);
       line-height: var(--lh-14);
-      /* 24px of hit area for a 20px line — WCAG 2.5.8. */
+      /* 24px of hit area for a 20px line (WCAG 2.5.8). */
       padding: var(--s-4) 0;
       text-decoration: none;
       color: var(--c-ink);
@@ -233,6 +251,24 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
     }
 
     .filter input:focus { outline: none; border-bottom-color: var(--c-ink); }
+    .filter input::-webkit-search-decoration,
+    .filter input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+    .filter__clear {
+      align-self: center;
+      display: grid;
+      place-items: center;
+      width: var(--s-32);
+      height: var(--s-32);
+      appearance: none;
+      border: 0;
+      background: none;
+      padding: 0;
+      color: var(--c-grey);
+      cursor: pointer;
+      transition: color .15s ease;
+    }
+    .filter__clear:hover { color: var(--c-ink); }
     .filter input::placeholder { color: var(--c-grey); }
     .filter__count { color: var(--c-grey); font-size: var(--label); line-height: var(--lh-14); font-variant-numeric: tabular-nums; white-space: nowrap; }
 

@@ -4,7 +4,7 @@
  * reads on the way past: they are a page of prompts to work through later, and
  * left open they push the flashcards and the grammar links off the screen. So
  * the section becomes a <details> whose <summary> is the heading it already
- * had — the contents still links to it, the page still reads as a page, and the
+ * had: the contents still links to it, the page still reads as a page, and the
  * practice unfolds when it is wanted.
  *
  * FOLD is matched against the heading text, lower-cased. Anything listed here
@@ -39,7 +39,7 @@ export default function rehypeFold() {
         body.push(next);
       }
 
-      /* How much is behind the fold, in the site's own (count) notation — the
+      /* How much is behind the fold, in the site's own (count) notation:
        * same promise the topics list on the words index makes. */
       const n = body.filter((c) => c.type === "element" && c.tagName === "h3").length;
       if (n > 1) {

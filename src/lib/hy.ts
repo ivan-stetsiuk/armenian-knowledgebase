@@ -1,8 +1,8 @@
 /* The language rules, with nothing else in them.
  *
  * Split out of vocab.ts because that file reads data/*.tsv through node:fs at
- * build time, and these four things — the stemmer, the alphabet, the letter a
- * word files under, the sort order — are also needed in the browser, by the
+ * build time, and these four things (the stemmer, the alphabet, the letter a
+ * word files under, the sort order) are also needed in the browser, by the
  * word filter and by the search dialog. A module the client bundles cannot
  * import node:fs, so the rules live here and vocab.ts re-exports them.
  */
@@ -33,7 +33,7 @@ export function stem(word: string): string {
 /* The 39 letters, in the order and the forms the tutor's own table gives in
  * lesson 1. Two of them are digraphs rather than single code points: ՈՒ, which
  * modern Eastern Armenian teaches in place of the obsolete Ւ, and ԵՎ, the
- * ligature written և in lower case. Uppercase throughout — they are being shown
+ * ligature written և in lower case. Uppercase throughout: they are being shown
  * as the alphabet here, not as words.
  *
  * Both the alphabet on the home page and the letter dividers in the word table

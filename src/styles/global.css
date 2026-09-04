@@ -1,4 +1,4 @@
-/* Armenian Knowledge Base — the whole design system.
+/* Armenian Knowledge Base: the whole design system.
  *
  * The only file in the repository holding a hex value.
  *
@@ -9,7 +9,7 @@
  *    and a row takes a faint ink wash. The only colour on the site is the halo
  *    under an open letter, which cycles through the flag.
  * 2. One neutral grotesk at three sizes. No serif, no monospace, no second
- *    voice — hierarchy comes from size and grey, never from a change of face.
+ *    voice. Hierarchy comes from size and grey, never from a change of face.
  * 3. [Brackets] mark a label; (numbers) in grey mark a count. Both are set in
  *    the body face, smaller and grey, so the page reads as an index.
  * 4. No boxes and almost no rules. Structure is whitespace and alignment.
@@ -23,7 +23,7 @@
   --c-ink: #000000;
   --c-ink-2: #555555;
   /* The quiet layer: [labels], (counts), glosses, the contents. Quiet, but it
-     is still text — at #a6a6a6 it measured 2.4:1 against the page, well under
+     is still text. At #a6a6a6 it measured 2.4:1 against the page, well under
      the 4.5:1 a reader is entitled to. Dark enough to read, light enough to
      stay in the background. */
   --c-grey: #6c675f;
@@ -38,11 +38,11 @@
   /* Signal colours for the three block types. Three types, three colours, and
    * they are the flag's: red for a rule, blue for new words, orange for a
    * pitfall. Nothing else on the site is coloured, so the page still reads as
-   * ink on paper — and a reader who has seen two lesson pages knows what a blue
+   * ink on paper, and a reader who has seen two lesson pages knows what a blue
    * rule down the left means without reading the label.
    *
    * Orange is the exception the other two do not need: at flag strength it is a
-   * rule you can see and a label you cannot read — under 2:1 against the page.
+   * rule you can see and a label you cannot read, under 2:1 against the page.
    * The label darkens it; the rule itself keeps the flag. */
   --c-rule: var(--flag-red);
   --c-vocab: var(--flag-blue);
@@ -54,7 +54,7 @@
 
   /* Glass is one material everywhere it appears: the header band, the sheet the
      alphabet raises, and the search panel share this blur and this saturation.
-     They differ in tint alone, and for a reason — the sheet has to keep a whole
+     They differ in tint alone, and for a reason: the sheet has to keep a whole
      page legible under it, while the search panel is a surface you read text
      off and is the most opaque of the three. */
   --glass-blur: 15px;
@@ -67,7 +67,7 @@
      the strongest over the top of the band, each one below it weaker and
      reaching further down, so the blur tapers out instead of stopping at a
      line. The taper is the last few pixels of the band and no more. Spread
-     wider — a quarter of the band, which is what it started as — the same header
+     wider (a quarter of the band, which is what it started as) the same header
      read as heavy fog on one page and as almost nothing on the next, because
      whether a line came out blurred depended on where it happened to fall.
      √(4² + 6.4² + 9.6²) ≈ 12px where all three overlap. */
@@ -77,7 +77,7 @@
 
   /* Type: seven steps and nothing between them, each with the line height it is
    * set on. Every one of those products is a multiple of 4px, so a page that
-   * mixes steps still sits on one rhythm. 17 is the reading size — the step the
+   * mixes steps still sits on one rhythm. 17 is the reading size, the step the
    * body, the prose and every input are set in.
    *
    * Line heights are px rather than ratios on purpose: a ratio times a step
@@ -114,7 +114,7 @@
 :root[data-theme="dark"] {
   /* Not pure black and not pure white. #000 against #fff is the highest
      contrast a screen can produce, and on a page that is mostly text it reads
-     as glare rather than as ink — the letters buzz at their edges. A near-black
+     as glare rather than as ink: the letters buzz at their edges. A near-black
      with a trace of warmth in it sits still, and the text is dropped a little
      off white for the same reason. */
   --c-ink: #ece9e3;
@@ -168,12 +168,12 @@ hr { border: 0; border-top: 1px solid var(--c-line); margin: var(--s-48) 0; }
 /* Armenian runs a little smaller than Latin at the same size and its letters
  * need their own air: the page's slight negative tracking is a correction for
  * Helvetica, and applied to Armenian it closes the script up. This is the one
- * place a font-size is relative rather than a step — it has to follow whatever
+ * place a font-size is relative rather than a step: it has to follow whatever
  * Latin context it is quoted inside. */
 .hy, [lang="hy"] { font-family: var(--font-hy); font-size: 1.06em; letter-spacing: 0; }
 
 /* Available to a screen reader, absent from the page. Used where the design has
- * no room for something the document still needs — the home page has no visible
+ * no room for something the document still needs. The home page has no visible
  * title, but a page without an h1 gives assistive software nothing to land on. */
 .sr-only {
   position: absolute;
@@ -224,7 +224,7 @@ code, kbd, samp { font-family: inherit; font-size: 1em; }
 /* ================================================================== header */
 
 /* The header is glass too. It used to be a solid white band, so a long list
- * scrolling under it simply disappeared at a hard edge — on a phone, where the
+ * scrolling under it simply disappeared at a hard edge. On a phone, where the
  * band is two rows tall, that reads as content spilling out of it rather than
  * passing behind it. Blurred, the text visibly goes under the header instead of
  * being cut off by it.
@@ -233,7 +233,7 @@ code, kbd, samp { font-family: inherit; font-size: 1em; }
  * uniform, so it stops dead at the bottom of the band: a horizontal line where
  * a word is sharp on one side and fogged on the other, which is a photocopy
  * artefact, not a material. And it does nothing at its own edge, where real
- * glass does the most — light bends through the rim and comes back brighter.
+ * glass does the most: light bends through the rim and comes back brighter.
  *
  * So the band is built the way Apple's bars are: blur that is graduated rather
  * than flat, and a rim that refracts.
@@ -304,7 +304,7 @@ code, kbd, samp { font-family: inherit; font-size: 1em; }
  *
  * It carries no tint of its own, and it fades out at both of its edges. It used
  * to add a wash of paper that peaked exactly where the band's own tint had
- * already faded to nothing — which put a pale stripe across whatever was
+ * already faded to nothing, which put a pale stripe across whatever was
  * passing underneath. On a phone, where the header is twice as tall and there
  * is always something under it, that stripe read as a divider line. */
 .head::after {
@@ -515,7 +515,7 @@ html.is-glass .head::after {
 }
 
 /* Opening is immediate, and the sheet takes the clicks: while it is up, nothing
-   underneath it is reachable — not the header, not the contents. A click on the
+   underneath it is reachable, not the header and not the contents. A click on the
    glass is what closes the cloud. */
 html.is-glass .glass {
   opacity: 1;
@@ -814,7 +814,7 @@ main { min-height: 62vh; }
 .disclosure[open] > summary::before { content: "\2212"; }
 .disclosure > :last-child { margin-bottom: 0; }
 
-/* A whole section folded behind its own heading — the exercises at the foot of
+/* A whole section folded behind its own heading: the exercises at the foot of
    a lesson (src/plugins/rehype-fold.mjs). The summary is the h2 itself, so the
    section keeps its size, its id and its place in the contents, and the page
    reads exactly as it did with one difference: the practice is put away.
@@ -823,7 +823,7 @@ main { min-height: 62vh; }
    heading's top margin collapses out through the summary, so anything placed
    against the summary box lands somewhere else entirely. */
 .fold > summary { display: block; font-size: inherit; color: inherit; }
-/* The disclosure's own marker, in both states — this one carries its own. */
+/* The disclosure's own marker, in both states. This one carries its own. */
 .fold > summary::before,
 .fold[open] > summary::before { content: none; }
 .fold[open] > summary { margin-bottom: 0; }
@@ -945,8 +945,8 @@ main { min-height: 62vh; }
  * page, a single oversized field, results as a plain list.
  *
  * The panel used to be Pagefind's own UI with this file fighting its stylesheet
- * for control of every rule. The dialog now draws its own results — see
- * src/components/Search.astro for why the ranking had to be ours — so these are
+ * for control of every rule. The dialog now draws its own results (see
+ * src/components/Search.astro for why the ranking had to be ours) so these are
  * plain classes with nothing to out-weigh. */
 
 dialog.search {
@@ -1017,9 +1017,8 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
   border: 0;
   border-radius: 50%;
   background: none;
-  font: inherit;
-  font-size: var(--t-21);
-  line-height: var(--lh-21);
+  /* Two strokes drawn in the current colour: a glyph would be whatever the
+     platform decides a cross looks like, which on some of them is an emoji. */
   color: var(--c-grey);
   cursor: pointer;
   transition: color .15s ease;
@@ -1035,7 +1034,7 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 .search__out { overflow-y: auto; padding: var(--s-4) 0; }
 
 /* A result is a name, a line of context under it, and the kind of thing it is
-   ranged right — the same three-part shape as an entry in the contents. */
+   ranged right: the same three-part shape as an entry in the contents. */
 .res {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1068,7 +1067,7 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 
 .res:hover, .res.is-sel { background: color-mix(in srgb, var(--c-ink) 6%, transparent); }
 
-/* The hit inside a result — ours in the name, Pagefind's in the excerpt. This
+/* The hit inside a result: ours in the name, Pagefind's in the excerpt. This
    site has no highlighter; a match is shown by weight and by being the one
    piece of the line set in full ink. */
 .res mark { background: none; color: var(--c-ink); font-weight: 650; }

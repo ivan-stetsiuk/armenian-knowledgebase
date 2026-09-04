@@ -37,7 +37,7 @@ const { title, number, meta = [], section, description, headings, prev, next } =
         <slot />
       </div>
 
-      {/* The pager is out of the text index: "Previous — Lesson 1 / Next —
+      {/* The pager is out of the text index. "Previous, Lesson 1 / Next,
           Lesson 3" put the titles of both neighbours into every lesson's body,
           so a search for one lesson matched three. */}
       {(prev || next) && (
