@@ -67,9 +67,15 @@ red for a rule, blue for new words, orange for a pitfall. Every text colour
 clears 4.5:1 against its background in both themes, and is checked in both,
 because a colour lightened for the dark page usually fails on the light one.
 
-Orange at flag strength is under 2:1 on white, so the rule keeps the flag colour
-and the label takes a darkened one. That is the pattern for any accent that
-cannot carry text at full strength.
+Orange at flag strength is under 2:1 on white, so the rule and the label both
+take a darkened one. That is the pattern for any accent that cannot carry text
+at full strength.
+
+Lines come in two weights. A separator (`--c-line`) is faint on purpose: at any
+strength the eye can resolve, a table stops being spaced and starts being ruled,
+and a row hairline that lands at the bottom of the sticky header reads as a
+divider drawn under it. A boundary (`--c-line-strong`), meaning the edge of a
+control such as a field underline, is a component and clears 3:1.
 
 ## Targets
 

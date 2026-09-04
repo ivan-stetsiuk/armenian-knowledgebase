@@ -28,12 +28,18 @@
      stay in the background. */
   --c-grey: #6c675f;
   --c-paper: #ffffff;
-  /* Separators. #e6e6e6 was 1.25:1 against the page: visible as a rhythm,
-     invisible as a line. This is 2.7:1, which is as dark as a hairline can go
-     before the tables start to look ruled rather than spaced. Anything that is
-     a control boundary rather than a separator takes --c-line-strong, which
-     clears the 3:1 of WCAG 1.4.11. */
-  --c-line: #c8c8c8;
+  /* Two weights of line, and the difference matters.
+   *
+   * --c-line is a separator: the rule between two rows of a table, the line
+   * over a pager. It is deliberately faint, because at any strength a reader
+   * can name it stops separating rows and starts ruling them, and because a
+   * table hairline that happens to sit at the bottom edge of the sticky header
+   * then reads as a divider drawn under the header. WCAG 1.4.11 does not ask
+   * for contrast here: nothing is lost if the eye never resolves the line.
+   *
+   * --c-line-strong is a boundary: the underline of a field, the edge of a
+   * control. That is a component, and it clears 3:1. */
+  --c-line: #e6e6e6;
   --c-line-strong: #949494;
   /* The halo cycles through the flag, top stripe first. Official values. */
   --flag-red: #d90012;
@@ -127,7 +133,7 @@
   --c-ink-2: #a9a59d;
   --c-grey: #8e8a82;
   --c-paper: #17161a;
-  --c-line: #46454d;
+  --c-line: #2b2a30;
   --c-line-strong: #6f6d78;
 
   /* The same three, lifted off the dark page. Flag blue at #0033a0 is very
@@ -258,12 +264,21 @@ code, kbd, samp { font-family: inherit; font-size: 1em; }
   z-index: 50;
   padding-top: var(--s-16);
   padding-bottom: var(--s-16);
-  /* The tint holds to the same three quarters the blur does, then goes. */
+  /* The tint does not fade. The blur tapers, because a blur that stops dead
+     draws a line; the tint must not, because it is the tint that dims whatever
+     is passing underneath, and the last few pixels of the band are where
+     something is always passing. Faded there, a table rule sliding under the
+     header came through at full strength right at the boundary and read as a
+     divider drawn under the header. Measured on the phone layout, that rule at
+     the edge went from 16 levels above the page to 6.
+
+     Nothing is lost at the boundary itself: over blank page the tint is the
+     page colour mixed with itself, so the band has no edge of its own. */
   background: linear-gradient(
     to bottom,
     color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 0%,
-    color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 88%,
-    transparent 100%
+    color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) calc(100% - 10px),
+    var(--c-paper) 100%
   );
 }
 
@@ -276,8 +291,8 @@ code, kbd, samp { font-family: inherit; font-size: 1em; }
   pointer-events: none;
   backdrop-filter: blur(var(--head-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--head-blur)) saturate(var(--glass-saturate));
-  mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 4px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 4px), transparent 100%);
 }
 
 .head__glass::before,
@@ -293,55 +308,30 @@ code, kbd, samp { font-family: inherit; font-size: 1em; }
   bottom: 8%;
   backdrop-filter: blur(calc(var(--head-blur) * 1.6));
   -webkit-backdrop-filter: blur(calc(var(--head-blur) * 1.6));
-  mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 6px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 6px), transparent 100%);
 }
 
 .head__glass::after {
   bottom: 18%;
   backdrop-filter: blur(calc(var(--head-blur) * 2.4));
   -webkit-backdrop-filter: blur(calc(var(--head-blur) * 2.4));
-  mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 6px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 6px), transparent 100%);
 }
 
-/* The rim. A CSS backdrop cannot be displaced, so refraction is played by the
- * one thing it does to the light that survives at this size: a narrow band
- * where the backdrop is lifted and its colour comes back a little stronger.
- *
- * It carries no tint of its own, and it fades out at both of its edges. It used
- * to add a wash of paper that peaked exactly where the band's own tint had
- * already faded to nothing, which put a pale stripe across whatever was
- * passing underneath. On a phone, where the header is twice as tall and there
- * is always something under it, that stripe read as a divider line. */
-.head::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: var(--s-12);
-  z-index: 0;
-  pointer-events: none;
-  backdrop-filter: brightness(1.04) saturate(1.1);
-  -webkit-backdrop-filter: brightness(1.04) saturate(1.1);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, transparent 100%);
-}
-
-:root[data-theme="dark"] .head::after {
-  /* Dark glass lifts further before the eye reads it as light at all. */
-  backdrop-filter: brightness(1.1) saturate(1.1);
-  -webkit-backdrop-filter: brightness(1.1) saturate(1.1);
-}
+/* No rim. A CSS backdrop cannot be displaced, so refraction had to be played by
+ * lifting the light in a narrow band along the edge, and that band is exactly
+ * where a header over moving text can least afford more light: measured, it put
+ * another five levels into the stripe that was reading as a divider. The edge
+ * is the tint ending and nothing else. */
 
 /* While the alphabet is open the page already has a sheet of glass over it;
  * a second one on the header would double the blur along that strip. */
 html.is-glass .head,
 html.is-glass .head__glass,
 html.is-glass .head__glass::before,
-html.is-glass .head__glass::after,
-html.is-glass .head::after {
+html.is-glass .head__glass::after {
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
