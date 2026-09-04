@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import { words, byArmenian } from "../lib/vocab";
+import { words, byArmenian, ALPHABET, initialLetter } from "../lib/vocab";
 import { base } from "../lib/site";
 
 const lessons = await getCollection("lessons");
@@ -9,35 +9,15 @@ const grammar = await getCollection("grammar");
 const howto = await getCollection("howto");
 const vocab = words();
 
-/* The 39 letters, in the order and the forms the tutor's own table gives in
- * lesson 1. Two of them are digraphs rather than single code points: ՈՒ, which
- * modern Eastern Armenian teaches in place of the obsolete Ւ, and ԵՎ, the
- * ligature written և in lower case. Uppercase throughout — they are being shown
- * as the alphabet here, not as words.
+/* Words grouped by initial letter — the alphabet and the letter a word files
+ * under both come from src/lib/vocab.ts, which the word table reads too.
  *
  * The first six lessons are nothing but these, so the alphabet is the contents
  * of the site standing in for a picture of it; pressing a letter shows what has
  * actually been learned under it. */
-const ALPHABET = [
-  "Ա", "Բ", "Գ", "Դ", "Ե", "Զ", "Է", "Ը", "Թ", "Ժ",
-  "Ի", "Լ", "Խ", "Ծ", "Կ", "Հ", "Ձ", "Ղ", "Ճ", "Մ",
-  "Յ", "Ն", "Շ", "Ո", "Չ", "Պ", "Ջ", "Ռ", "Ս", "Վ",
-  "Տ", "Ր", "Ց", "ՈՒ", "Փ", "Ք", "ԵՎ", "Օ", "Ֆ",
-];
-
-/* Words grouped by initial letter. Case-folded, because proper nouns are
- * capitalised in the corpus and Հայաստան belongs under Հ like everything else.
- * The digraphs are tested first: ուտել starts with ՈՒ, not with Ո. */
-const initial = (word: string): string => {
-  const w = word.trim().toUpperCase();
-  if (w.startsWith("ՈՒ")) return "ՈՒ";
-  if (w.startsWith("ԵՎ") || w.startsWith("Եւ".toUpperCase()) || word.trim().startsWith("և")) return "ԵՎ";
-  return w[0] ?? "";
-};
-
 const byLetter = new Map<string, { hy: string; en: string }[]>();
 for (const w of vocab) {
-  const first = initial(w.hy);
+  const first = initialLetter(w.hy);
   if (!first) continue;
   if (!byLetter.has(first)) byLetter.set(first, []);
   byLetter.get(first)!.push({ hy: w.hy, en: w.en });
@@ -123,6 +103,11 @@ const sections = [
     const FLAG = ["var(--flag-red)", "var(--flag-blue)", "var(--flag-orange)"];
     let turn = 0;
 
+    /* Hovering a letter shows the colour that letter would open in, which is the
+       next one in the cycle — not the one already on screen. */
+    const promise = () => home.style.setProperty("--c-aura-next", FLAG[turn % FLAG.length]);
+    promise();
+
     /* Jitter for the ring angles and the type sizes. Seeded from the letter and
        the press, so one cloud is internally consistent while two presses of the
        same letter differ. */
@@ -170,6 +155,7 @@ const sections = [
 
       const aura = FLAG[turn++ % FLAG.length];
       home.style.setProperty("--c-aura", aura);
+      promise();
 
       btn.classList.add("is-on");
       btn.setAttribute("aria-pressed", "true");

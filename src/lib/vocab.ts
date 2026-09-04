@@ -98,42 +98,7 @@ export const TOPICS: [string, string, string][] = [
   ["postposition", "Postpositions", "for, about, with, on, under, near."],
 ];
 
-/* Armenian builds words by piling suffixes on a root: հիշել "to remember" and
- * հիշեցնել "to remind" share հիշ, but a substring search for one will never find
- * the other. Stripping the longest ending both words carry gives a stem the
- * filter can compare, which is what lets a search find a word's relatives.
- *
- * Longest first, or -ել would fire before -եցնել and leave two different stems.
- * The list is deliberately short: these are the endings the lessons actually
- * teach, and every entry added is another chance to mangle an unrelated word. */
-export const SUFFIXES = [
-  "եցնել", "ացնել", "ցնել", "անալ", "ենալ", "նալ", "ալ", "ել",
-  "ների", "երի", "ներ", "եր",
-  "ից", "ով", "ում", "ին", "ի", "ու", "ը", "ն",
-];
-
-/* A stem shorter than two letters is not a stem, it is a coincidence. */
-export function stem(word: string): string {
-  const w = word.toLowerCase().trim();
-  for (const suf of SUFFIXES) {
-    if (w.length - suf.length >= 2 && w.endsWith(suf)) return w.slice(0, -suf.length);
-  }
-  return w;
-}
-
-/* Armenian alphabetical order. JavaScript's default sort would put every word
- * beginning with a capital letter first, which is not how a dictionary reads. */
-const ARM = "աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտրցուփքևօֆ";
-const ORDER = new Map([...ARM].map((c, i) => [c, i]));
-
-export function byArmenian(a: string, b: string): number {
-  const norm = (s: string) => [...s.toLowerCase().replace(/^[-\s]+/, "")];
-  const x = norm(a);
-  const y = norm(b);
-  for (let i = 0; i < Math.max(x.length, y.length); i++) {
-    const p = ORDER.get(x[i]) ?? (x[i] ? 100 + x[i].charCodeAt(0) : -1);
-    const q = ORDER.get(y[i]) ?? (y[i] ? 100 + y[i].charCodeAt(0) : -1);
-    if (p !== q) return p - q;
-  }
-  return 0;
-}
+/* The language rules themselves live in hy.ts, which has no build-time
+ * dependencies and can therefore be bundled into the page. Re-exported here so
+ * that "the words and how they behave" stays one import for the pages. */
+export { SUFFIXES, stem, ALPHABET, initialLetter, byArmenian } from "./hy";

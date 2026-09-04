@@ -23,6 +23,7 @@ flowchart TD
     subgraph site["Site pipeline — Node"]
         astro["astro build<br/>zod schemas, plugin chain, layouts"]
         pagefind["pagefind<br/>indexes the built HTML"]
+        searchidx["dist/search-index.json<br/>every lesson, rule, word<br/>as a named thing"]
         dist["dist/<br/>one directory per route"]
     end
 
@@ -36,6 +37,7 @@ flowchart TD
     grammarTsv --> astro
     registries --> astro
     astro --> dist --> pagefind --> pages["GitHub Pages"]
+    astro --> searchidx --> pages
 
     vocabTsv --> builddecks
     grammarTsv --> builddecks
@@ -75,26 +77,63 @@ markdown between builds and does not invalidate it when a plugin changes.
 
 ## src/lib — the registries
 
-Four small modules, each the single place that answers one question. All of them
-are plain data plus a helper; none of them touch the filesystem except `vocab.ts`.
+Each module is the single place that answers one question. Only `vocab.ts`
+touches the filesystem; the rest are plain data plus a helper.
 
 | Module | Answers | Consumers |
 |---|---|---|
 | `site.ts` | What is the base path? What is the site called? | every page and component |
 | `grammar.ts` | `GROUPS` — which group a topic is in, and the reference order that drives the index and the pager | `/grammar/` index, `/grammar/[slug]` |
 | `howto.ts` | `HOWTO_ORDER` — the running order, by when you need a script | `/how-to/` index, `/how-to/[slug]` |
-| `vocab.ts` | The words themselves, plus `TOPICS`, `NON_TOPIC_TAGS`, Armenian collation, and stemming | `/vocabulary/*`, `WordTable`, home page |
+| `vocab.ts` | The words themselves, plus `TOPICS` and `NON_TOPIC_TAGS` | `/vocabulary/*`, `WordTable`, home page |
+| `hy.ts` | The language rules: `SUFFIXES` + `stem()`, `ALPHABET`, `initialLetter()`, `byArmenian` | `vocab.ts`, `search-rank.ts`, word filter |
+| `search.ts` | Every lesson, rule, how-to, topic and word as a named thing | `pages/search-index.json.ts` |
+| `search-rank.ts` | Which of those things a query names, in order | `Search.astro` |
 
 A page missing from its registry does not error — it quietly stops appearing in
 its own index. `scripts/check.py` is what makes that impossible; see below.
 
-Two things in `vocab.ts` are shared across the build/runtime line:
+`hy.ts` exists because of the build/runtime line. `vocab.ts` reads `data/*.tsv`
+through `node:fs`, so nothing the browser bundles can import it — and the same
+four rules are needed on both sides:
 
-- `SUFFIXES` is used by `stem()` at build time to fill `data-stem` on every row,
-  and injected into the filter script so the client stems a query the same way.
-  One list, so a search and the rows it searches cannot drift.
+- `SUFFIXES` and `stem()` fill `data-stem` on every row at build time, and stem
+  the query in the word filter and in search. One list, so a search and the rows
+  it searches cannot drift.
 - `byArmenian` is the collation the whole site sorts by. `Array.sort` would put
   every capitalised proper noun first.
+- `ALPHABET` and `initialLetter()` decide what a letter is — for the cloud on the
+  home page and for the dividers in the word table, which therefore agree.
+
+## Search
+
+Two layers, because two different questions get typed into one field.
+
+```mermaid
+flowchart TD
+    q["a query"] --> rank["src/lib/search-rank.ts<br/>which thing is this?"]
+    q --> pfq["pagefind<br/>which page says this?"]
+    idx["dist/search-index.json<br/>1144 named things"] --> rank
+    html["the built HTML"] --> pfq
+    rank --> panel["the results panel<br/>named things first,<br/>then 'In the text'"]
+    pfq --> panel
+```
+
+Full text alone was answering the wrong question. "L2" returned thirty-six pages
+and not lesson 2; "Lesson 2" put the thousand-word glossary first, because that
+page holds the word "lesson" and a great many 2s and BM25 cannot tell which of
+them is a name. So `src/lib/search.ts` lists the things themselves — every
+lesson, grammar page, how-to, topic and word, with its title, its one-line
+summary and its number — and `search-rank.ts` scores a query against that list by
+how well it *names* an entry: exact title, then title prefix, then a word inside
+it, then a mention. Lesson numbers are parsed rather than matched, so `L2`,
+`l02`, `lesson 2` and `урок 2` all mean one page.
+
+Two things follow for the pages themselves. The pager carries
+`data-pagefind-ignore`, or every lesson would contain the titles of its two
+neighbours; and so does `WordTable`, because a thousand words on one page made
+the glossary the best full-text answer to nearly everything. Words are still
+searchable — as entries of their own, with their gloss and their lesson.
 
 ## Where each invariant is enforced
 
@@ -136,6 +175,7 @@ no check.
 | a how-to script | `src/content/howto/<slug>.md` **and** an entry in `HOWTO_ORDER` | — |
 | a vocabulary topic | a `TOPICS` row in `src/lib/vocab.ts`, and the tag on the words | the page at `/vocabulary/<tag>/` generates itself |
 | a tag with no page of its own | `NON_TOPIC_TAGS` in `src/lib/vocab.ts` | it still reaches the Anki notes |
+| a search intent (a new way to name a thing) | `LESSON_Q` or the field weights in `src/lib/search-rank.ts` | new pages and words need nothing: `search.ts` walks the collections |
 | a block type | `BLOCKS` in `src/plugins/remark-blocks.mjs`, styles in `global.css`, and the allowed set in `scripts/check.py` | the CI markup grep catches a directive that renders unhandled |
 
 `scripts/check.py` fails on any of these done by halves, which is the point:
@@ -150,12 +190,14 @@ There is no framework and nothing hydrates. Five pieces, all progressive:
 |---|---|---|
 | `Base.astro` head, inline | reads the stored theme before first paint | light theme |
 | `Base.astro`, bundled | theme toggle, tab sets, table wrapping, contents highlight | tabs render as one stacked paradigm |
-| `Search.astro` | loads the Pagefind UI on first open only | the button does nothing |
+| `Search.astro`, bundled | ranks `search-index.json`, then Pagefind underneath; both fetched on first open only | the button does nothing |
 | `pages/index.astro` | the alphabet word cloud | the alphabet is inert text |
 | `pages/vocabulary/index.astro` | filter, stem matching, `?q=` deep links | the full table is there |
 
-All three `define:vars` scripts are `is:inline` because that is what `define:vars`
-implies — Astro cannot process a script whose source it has to interpolate into.
+The two `define:vars` scripts — the cloud and the word filter — are `is:inline`
+because that is what `define:vars` implies: Astro cannot process a script whose
+source it has to interpolate into. `Search.astro` is bundled instead, which is
+why its ranking can live in `src/lib` and be imported.
 
 ## Styling
 

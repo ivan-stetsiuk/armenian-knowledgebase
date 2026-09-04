@@ -12,6 +12,11 @@ const nav = [
 ---
 
 <header class="head">
+  {/* The material. Three stacked panes rather than one: see the header block in
+      global.css — a single backdrop-filter ends at a line, and a line is the one
+      thing glass does not have. */}
+  <div class="head__glass" aria-hidden="true"></div>
+
   <div class="shell head__in">
     <a class="head__mark" href={`${base}/`}>հայերեն</a>
 

@@ -1,14 +1,18 @@
 ---
 import type { Word } from "../lib/vocab";
-import { stem } from "../lib/vocab";
+import { stem, initialLetter } from "../lib/vocab";
 import { base } from "../lib/site";
 
 interface Props {
   words: Word[];
   showLesson?: boolean;
+  /* Dividers between letters. Worth it on the thousand-word list, where a
+   * reader scrolls looking for a place in the alphabet; pointless on a topic
+   * page of forty words, where they would outnumber the words. */
+  byLetter?: boolean;
 }
 
-const { words, showLesson = true } = Astro.props;
+const { words, showLesson = true, byLetter = false } = Astro.props;
 
 /* `data-k` is the haystack the filter searches: Armenian, English, the phrase
  * and the tags, lowercased once at build time so typing stays instant across a
@@ -20,9 +24,38 @@ const { words, showLesson = true } = Astro.props;
  * an "L5" query. */
 const key = (w: Word) =>
   [w.hy, w.en, w.phrase_hy, w.phrase_en, w.note, ...w.tags].join(" ").toLowerCase();
+
+/* One flat list of rows to render: the words, with a divider slipped in wherever
+ * the initial letter changes. Flat rather than a table section per letter,
+ * because the filter reorders rows by how well they answer a query and a
+ * <tbody> per letter would fence the good answers into their own group. */
+type Row = { letter: string; n: number } | { word: Word };
+const rows: Row[] = [];
+if (byLetter) {
+  const per = new Map<string, number>();
+  for (const w of words) per.set(initialLetter(w.hy), (per.get(initialLetter(w.hy)) ?? 0) + 1);
+
+  let seen = "";
+  for (const w of words) {
+    const first = initialLetter(w.hy);
+    if (first !== seen) {
+      seen = first;
+      rows.push({ letter: first, n: per.get(first) ?? 0 });
+    }
+    rows.push({ word: w });
+  }
+} else {
+  for (const w of words) rows.push({ word: w });
+}
+
+const cols = showLesson ? 4 : 3;
 ---
 
-<div class="table-wrap">
+{/* Out of the text index. A thousand words on the glossary page made it the
+    best full-text answer to almost any query, which is how "Lesson 2" used to
+    return the word list first. The words are searchable in their own right —
+    the search dialog indexes each one as an entry of its own. */}
+<div class="table-wrap" data-pagefind-ignore>
   <table class="words">
     <thead>
       <tr>
@@ -33,26 +66,41 @@ const key = (w: Word) =>
       </tr>
     </thead>
     <tbody>
-      {words.map((w) => (
-        <tr data-k={key(w)} data-hy={w.hy.toLowerCase()} data-stem={stem(w.hy)} data-lesson={w.lesson}>
-          <td class="hy">{w.hy}</td>
-          <td>
-            {w.en}
-            {w.note && <em class="note"> {w.note}</em>}
-          </td>
-          <td>
-            {w.phrase_hy && (
-              <>
-                <span class="hy">{w.phrase_hy}</span>
-                {w.phrase_en && <span class="gloss"> — {w.phrase_en}</span>}
-              </>
+      {rows.map((row) =>
+        "letter" in row ? (
+          <tr class="words__letter" data-letter={row.letter}>
+            <th colspan={cols} scope="rowgroup">
+              <span class="hy">{row.letter}</span> <span class="count">{row.n}</span>
+            </th>
+          </tr>
+        ) : (
+          <tr
+            data-k={key(row.word)}
+            data-hy={row.word.hy.toLowerCase()}
+            data-stem={stem(row.word.hy)}
+            data-lesson={row.word.lesson}
+          >
+            <td class="hy">{row.word.hy}</td>
+            <td>
+              {row.word.en}
+              {row.word.note && <em class="note"> {row.word.note}</em>}
+            </td>
+            <td>
+              {row.word.phrase_hy && (
+                <>
+                  <span class="hy">{row.word.phrase_hy}</span>
+                  {row.word.phrase_en && <span class="gloss"> — {row.word.phrase_en}</span>}
+                </>
+              )}
+            </td>
+            {showLesson && (
+              <td class="num">
+                <a href={`${base}/lessons/l${String(row.word.lesson).padStart(2, "0")}/`}>{row.word.lesson}</a>
+              </td>
             )}
-          </td>
-          {showLesson && (
-            <td class="num"><a href={`${base}/lessons/l${String(w.lesson).padStart(2, "0")}/`}>{w.lesson}</a></td>
-          )}
-        </tr>
-      ))}
+          </tr>
+        )
+      )}
     </tbody>
   </table>
 </div>
@@ -61,9 +109,16 @@ const key = (w: Word) =>
   .words { width: 100%; border-collapse: collapse; font-size: 0.875rem;
     font-variant-numeric: tabular-nums; }
 
+  /* The filter marks a row by filling it with grey, and flush against the text
+     that fill looked like a printing error. The wrapper is pulled out by the
+     same amount the cells are padded, so the highlight gains air on both sides
+     and every column stays exactly where it was. */
+  .table-wrap { margin-inline: calc(-1 * var(--pad)); }
+  .words { --pad: 0.55rem; }
+
   .words thead th {
     text-align: left;
-    padding: 0 1.1rem 0.45rem 0;
+    padding: 0 1.1rem 0.45rem var(--pad);
     border-bottom: 1px solid var(--c-line);
     font-size: var(--label);
     font-weight: 400;
@@ -72,7 +127,7 @@ const key = (w: Word) =>
   }
 
   .words td {
-    padding: 0.42rem 1.1rem 0.42rem 0;
+    padding: 0.42rem 1.1rem 0.42rem var(--pad);
     border-bottom: 1px solid var(--c-line);
     vertical-align: top;
   }
@@ -92,7 +147,29 @@ const key = (w: Word) =>
     color: var(--c-grey);
   }
 
-  .words td:last-child, .words th:last-child { padding-right: 0; }
+  .words td:last-child, .words th:last-child { padding-right: var(--pad); }
+
+  /* Letter dividers. A row of the table rather than a heading between tables,
+     so the columns below one letter line up with the columns below every other.
+     The rule sits on top of the divider, which is what turns a thousand rows
+     into thirty-nine short lists. */
+  .words__letter th {
+    text-align: left;
+    padding: 1.5rem var(--pad) 0.35rem;
+    border-bottom: 1px solid var(--c-line);
+    font-weight: 400;
+  }
+
+  .words__letter:first-child th { padding-top: 0.2rem; }
+
+  .words__letter .hy {
+    font-family: var(--font-hy);
+    font-size: 1.25rem;
+    color: var(--c-ink);
+  }
+
+  /* Colour and the parentheses come from the global .count. */
+  .words__letter .count { margin-left: 0.35rem; font-size: 0.72rem; }
 
   .words .hy { font-family: var(--font-hy); }
   .words .gloss { color: var(--c-grey); }

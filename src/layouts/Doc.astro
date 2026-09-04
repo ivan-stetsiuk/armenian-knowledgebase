@@ -37,8 +37,11 @@ const { title, number, meta = [], section, description, headings, prev, next } =
         <slot />
       </div>
 
+      {/* The pager is out of the text index: "Previous — Lesson 1 / Next —
+          Lesson 3" put the titles of both neighbours into every lesson's body,
+          so a search for one lesson matched three. */}
       {(prev || next) && (
-        <nav class="pager" aria-label="Pagination">
+        <nav class="pager" aria-label="Pagination" data-pagefind-ignore>
           {prev ? (
             <a href={prev.href}><span>Previous</span><strong>{prev.label}</strong></a>
           ) : (

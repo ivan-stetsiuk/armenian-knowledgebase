@@ -34,12 +34,23 @@
   --flag-blue: #0033a0;
   --flag-orange: #f2a800;
   --c-aura: var(--flag-red);
+  /* The colour the *next* press will use. Hovering a letter has to promise
+     the colour it is about to light up in, not repeat the last one. */
+  --c-aura-next: var(--flag-red);
 
-  /* Signal colours for the three block types. Desaturated on purpose: on a
-   * white page a saturated left rule reads as a warning, not as a category. */
-  --c-rule: #2c5c8a;
-  --c-vocab: #35704a;
-  --c-pitfall: #9a6614;
+  /* Signal colours for the three block types. Three types, three colours, and
+   * they are the flag's: red for a rule, blue for new words, orange for a
+   * pitfall. Nothing else on the site is coloured, so the page still reads as
+   * ink on paper — and a reader who has seen two lesson pages knows what a blue
+   * rule down the left means without reading the label.
+   *
+   * Orange is the exception the other two do not need: at flag strength it is a
+   * rule you can see and a label you cannot read — under 2:1 against the page.
+   * The label darkens it; the rule itself keeps the flag. */
+  --c-rule: var(--flag-red);
+  --c-vocab: var(--flag-blue);
+  --c-pitfall: var(--flag-orange);
+  --c-pitfall-ink: #9a6614;
 
   --font-sans: "Helvetica Neue", Helvetica, Inter, Arial, system-ui, sans-serif;
   --font-hy: "Noto Sans Armenian", var(--font-sans);
@@ -53,6 +64,12 @@
   --glass-saturate: 1.32;
   --glass-tint: 68%;        /* the header band */
   --glass-tint-sheet: 46%;  /* the full-page frost */
+
+  /* The header takes the same material at a third of the blur, because it is
+     graduated: the strongest pane covers the top of the band only, and each one
+     below it is weaker and reaches further down, so the blur runs out before
+     the edge does. 15px applied flat across the band was reading as fog. */
+  --head-blur: 3.5px;
 
   --label: 0.8125rem;   /* [Sections], (41), metadata */
   --measure: 34rem;
@@ -71,9 +88,12 @@
   --c-paper: #17161a;
   --c-line: #2b2a30;
 
-  --c-rule: #7aa9d8;
-  --c-vocab: #6cb489;
-  --c-pitfall: #d2a24e;
+  /* The same three, lifted off the dark page. Flag blue at #0033a0 is very
+     nearly the background here, and flag red is only three to one against it. */
+  --c-rule: color-mix(in srgb, var(--flag-red) 74%, #ffffff);
+  --c-vocab: color-mix(in srgb, var(--flag-blue) 42%, #ffffff);
+  --c-pitfall: var(--flag-orange);
+  --c-pitfall-ink: var(--flag-orange);
 }
 
 /* ============================================================ foundations */
@@ -161,22 +181,117 @@ code, kbd, samp { font-family: inherit; font-size: 0.95em; }
  * scrolling under it simply disappeared at a hard edge — on a phone, where the
  * band is two rows tall, that reads as content spilling out of it rather than
  * passing behind it. Blurred, the text visibly goes under the header instead of
- * being cut off by it — and it needs no rule underneath, because the blur is
- * already the edge. */
+ * being cut off by it.
+ *
+ * One flat backdrop-filter was the wrong glass, for two reasons. Its blur is
+ * uniform, so it stops dead at the bottom of the band: a horizontal line where
+ * a word is sharp on one side and fogged on the other, which is a photocopy
+ * artefact, not a material. And it does nothing at its own edge, where real
+ * glass does the most — light bends through the rim and comes back brighter.
+ *
+ * So the band is built the way Apple's bars are: blur that is graduated rather
+ * than flat, and a rim that refracts.
+ *
+ *   .head__glass          softest pane, the full height
+ *   .head__glass::before  middle pane, the top three quarters
+ *   .head__glass::after   strongest pane, the top half
+ *
+ * Each pane filters what the pane behind it produced, so the radii add up
+ * towards the top and taper to nothing at the bottom. Every pane is masked with
+ * a gradient rather than clipped, which is what removes the line. */
 .head {
   position: sticky;
   top: 0;
   z-index: 50;
   padding-top: 1.1rem;
   padding-bottom: 0.9rem;
-  background: color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  /* The tint fades out over the lower third for the same reason the blur does. */
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 0%,
+    color-mix(in srgb, var(--c-paper) var(--glass-tint), transparent) 55%,
+    transparent 100%
+  );
+}
+
+.head__in { position: relative; z-index: 1; }
+
+.head__glass {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  backdrop-filter: blur(var(--head-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--head-blur)) saturate(var(--glass-saturate));
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+
+.head__glass::before,
+.head__glass::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.head__glass::before {
+  bottom: 25%;
+  backdrop-filter: blur(calc(var(--head-blur) * 1.6));
+  -webkit-backdrop-filter: blur(calc(var(--head-blur) * 1.6));
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+}
+
+.head__glass::after {
+  bottom: 55%;
+  backdrop-filter: blur(calc(var(--head-blur) * 2.4));
+  -webkit-backdrop-filter: blur(calc(var(--head-blur) * 2.4));
+  mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
+}
+
+/* The rim. A CSS backdrop cannot be displaced, so refraction is played by the
+ * two things it does to the light that survive at this size: a thin band where
+ * the backdrop is lifted and pulled towards white, and a highlight along the
+ * very edge. Two pixels of it is the whole effect — any more and the band grows
+ * a border, which is the thing being avoided. */
+.head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.85rem;
+  z-index: 0;
+  pointer-events: none;
+  backdrop-filter: brightness(1.05) saturate(1.12);
+  -webkit-backdrop-filter: brightness(1.05) saturate(1.12);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--c-paper) 14%, transparent) 55%,
+    color-mix(in srgb, var(--c-paper) 30%, transparent) 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 70%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 70%, #000 100%);
+}
+
+:root[data-theme="dark"] .head::after {
+  /* Dark glass catches the rim light the other way round: the edge darkens and
+     only a trace of it lights up. */
+  backdrop-filter: brightness(1.14) saturate(1.12);
+  -webkit-backdrop-filter: brightness(1.14) saturate(1.12);
 }
 
 /* While the alphabet is open the page already has a sheet of glass over it;
  * a second one on the header would double the blur along that strip. */
-html.is-glass .head {
+html.is-glass .head,
+html.is-glass .head__glass,
+html.is-glass .head__glass::before,
+html.is-glass .head__glass::after,
+html.is-glass .head::after {
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -306,7 +421,7 @@ html.is-glass .head {
 
 .abc__l.is-empty { color: var(--c-grey); cursor: default; opacity: 0.45; }
 
-.abc__l[data-l]:hover { color: var(--c-aura); }
+.abc__l[data-l]:not(.is-on):hover { color: var(--c-aura-next); }
 
 /* The aura. Three stacked shadows read as one soft bloom rather than a ring,
  * and the letter itself stays legible because only its colour warms up. */
@@ -608,7 +723,7 @@ main { min-height: 62vh; }
 .block--vocab   { border-left-color: var(--c-vocab); }
 .block--vocab   .block__kind { color: var(--c-vocab); }
 .block--pitfall { border-left-color: var(--c-pitfall); }
-.block--pitfall .block__kind { color: var(--c-pitfall); }
+.block--pitfall .block__kind { color: var(--c-pitfall-ink); }
 
 .example { margin: 0.8rem 0; padding-left: 1rem; border-left: 1px solid var(--c-line);
   color: var(--c-ink); }
@@ -731,11 +846,10 @@ main { min-height: 62vh; }
 /* Spotlight, in this site's own materials: one panel of glass over a dimmed
  * page, a single oversized field, results as a plain list.
  *
- * Every rule here is written `dialog.search .search__ui …`. Pagefind's own
- * stylesheet is fetched when the dialog first opens — after this file — and its
- * selectors carry two classes, so anything written with less weight silently
- * loses. That is how the field ended up bold at 21px with two magnifiers on it:
- * half these rules were being applied and half were not. */
+ * The panel used to be Pagefind's own UI with this file fighting its stylesheet
+ * for control of every rule. The dialog now draws its own results — see
+ * src/components/Search.astro for why the ranking had to be ours — so these are
+ * plain classes with nothing to out-weigh. */
 
 dialog.search {
   width: min(38rem, 92vw);
@@ -759,7 +873,11 @@ dialog.search::backdrop {
   -webkit-backdrop-filter: blur(2px);
 }
 
-dialog.search[open] { animation: spotlight .18s cubic-bezier(.2, .8, .3, 1); }
+dialog.search[open] {
+  animation: spotlight .18s cubic-bezier(.2, .8, .3, 1);
+  display: flex;
+  flex-direction: column;
+}
 dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 
 @keyframes spotlight {
@@ -768,111 +886,95 @@ dialog.search[open]::backdrop { animation: spotlight-bg .18s ease; }
 }
 @keyframes spotlight-bg { from { opacity: 0; } to { opacity: 1; } }
 
-.search__ui {
-  --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: var(--c-ink);
-  --pagefind-ui-text: var(--c-ink);
-  --pagefind-ui-background: transparent;
-  --pagefind-ui-border: transparent;
-  --pagefind-ui-tag: transparent;
-  --pagefind-ui-border-width: 0;
-  --pagefind-ui-border-radius: 0;
-  --pagefind-ui-font: var(--font-sans);
-  --pagefind-ui-image-box-ratio: 0;
-  overflow-y: auto;
-  max-height: 70vh;
-}
+.search__form { border-bottom: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent); }
 
-dialog.search .search__ui .pagefind-ui__form { position: relative; }
-
-/* Pagefind draws its own magnifier as a masked ::before on the form. Keeping it
- * and tinting it beats adding a second one, which is what was happening. */
-dialog.search .search__ui .pagefind-ui__form::before {
-  background-color: var(--c-grey);
-  opacity: 1;
-  left: 1.3rem;
-  top: 1.35rem;
-}
-
-dialog.search .search__ui .pagefind-ui__search-input {
-  height: auto;
-  padding: 1.1rem 3.2rem 1.1rem 3.4rem;
+.search__input {
+  width: 100%;
+  padding: 1.1rem 1.4rem;
   border: 0;
   border-radius: 0;
-  background: transparent;
-  font-family: var(--font-sans);
-  font-size: 1.3rem;
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  background: none;
+  color: var(--c-ink);
+  font: inherit;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.search__input::placeholder { color: var(--c-grey); opacity: 1; }
+.search__input:focus { outline: none; }
+/* Safari draws its own clear button on a search field, over ours. */
+.search__input::-webkit-search-decoration,
+.search__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.search__out { overflow-y: auto; padding: 0.35rem 0; }
+
+/* A result is a name, a line of context under it, and the kind of thing it is
+   ranged right — the same three-part shape as an entry in the contents. */
+.res {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 1rem;
+  padding: 0.5rem 1.4rem;
+  text-decoration: none;
   color: var(--c-ink);
 }
 
-dialog.search .search__ui .pagefind-ui__search-input::placeholder { color: var(--c-grey); opacity: 1; }
-dialog.search .search__ui .pagefind-ui__search-input:focus { outline: none; box-shadow: none; }
+.res__n { min-width: 0; font-size: 1rem; font-weight: 550; letter-spacing: -0.01em; }
+.res__n.is-hy { font-family: var(--font-hy); font-weight: 500; }
 
-dialog.search .search__ui .pagefind-ui__search-clear {
-  position: absolute;
-  top: 0;
-  right: 0.6rem;
-  height: 100%;
-  padding: 0 0.8rem;
-  background: transparent;
-  border: 0;
-  color: var(--c-grey);
-  font-size: var(--label);
-  font-weight: 400;
-  cursor: pointer;
-}
-dialog.search .search__ui .pagefind-ui__search-clear:hover { color: var(--c-ink); }
+.res__kind { grid-column: 2; grid-row: 1; font-size: var(--label); color: var(--c-grey); white-space: nowrap; }
+.res__kind::before { content: "["; }
+.res__kind::after { content: "]"; }
 
-dialog.search .search__ui .pagefind-ui__drawer { padding: 0; }
-dialog.search .search__ui .pagefind-ui__results-area { padding: 0; }
-
-dialog.search .search__ui .pagefind-ui__message {
-  margin: 0;
-  padding: 0.7rem 1.4rem;
-  border-top: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent);
-  font-size: var(--label);
-  font-weight: 400;
-  color: var(--c-grey);
-}
-
-dialog.search .search__ui .pagefind-ui__results { padding: 0.3rem 0 0.6rem; }
-
-dialog.search .search__ui .pagefind-ui__result {
-  padding: 0.6rem 1.4rem;
-  border: 0;
-  transition: background .12s ease;
-}
-
-dialog.search .search__ui .pagefind-ui__result:hover,
-dialog.search .search__ui .pagefind-ui__result:focus-within {
-  background: color-mix(in srgb, var(--c-ink) 6%, transparent);
-}
-
-dialog.search .search__ui .pagefind-ui__result-title { margin: 0; font-size: 1rem; font-weight: 550; }
-dialog.search .search__ui .pagefind-ui__result-link { color: var(--c-ink); text-decoration: none; }
-dialog.search .search__ui .pagefind-ui__result-inner { margin: 0; gap: 0.15rem; }
-
-dialog.search .search__ui .pagefind-ui__result-excerpt {
-  margin: 0;
+/* One line of it, whatever it is: a summary, a gloss, an excerpt with the hit
+   marked. Two lines of context and the list stops being scannable. */
+.res__s {
+  grid-column: 1 / -1;
+  margin-top: 0.1rem;
   font-size: 0.85rem;
   line-height: 1.45;
   color: var(--c-ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-dialog.search .search__ui .pagefind-ui__result-nested { padding: 0.3rem 0 0 0.9rem; }
-dialog.search .search__ui .pagefind-ui__result-nested .pagefind-ui__result-link {
-  font-size: 0.85rem;
-  color: var(--c-ink-2);
+.res:hover, .res.is-sel { background: color-mix(in srgb, var(--c-ink) 6%, transparent); }
+
+/* The hit inside a result — ours in the name, Pagefind's in the excerpt. This
+   site has no highlighter; a match is shown by weight and by being the one
+   piece of the line set in full ink. */
+.res mark { background: none; color: var(--c-ink); font-weight: 650; }
+
+.res__group {
+  margin: 0.6rem 0 0.15rem;
+  padding: 0.5rem 1.4rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent);
+  font-size: var(--label);
+  color: var(--c-grey);
 }
 
-mark { background: none; color: var(--c-ink); font-weight: 650; }
+.res__none { margin: 0; padding: 0.9rem 1.4rem 1.1rem; font-size: var(--label); color: var(--c-grey); }
+
+.search__foot {
+  display: flex;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0.6rem 1.4rem;
+  border-top: 1px solid color-mix(in srgb, var(--c-ink) 9%, transparent);
+  font-size: var(--label);
+  color: var(--c-grey);
+}
+
+.search__foot kbd { margin-right: 0.25rem; color: var(--c-ink-2); }
 
 @media (max-width: 40rem) {
   dialog.search { margin-top: 6vh; width: 94vw; max-height: 80vh; }
-  dialog.search .search__ui .pagefind-ui__search-input { font-size: 1.1rem; padding: 0.95rem 2.9rem 0.95rem 3rem; }
-  dialog.search .search__ui .pagefind-ui__form::before { top: 1.15rem; left: 1.1rem; }
+  .search__input { font-size: 1.1rem; padding: 0.95rem 1.1rem; }
+  .res, .res__group, .res__none, .search__foot { padding-left: 1.1rem; padding-right: 1.1rem; }
+  /* Three hints and a phone keyboard leave no room for the results. */
+  .search__foot { display: none; }
 }
 
 /* ================================================================= images */

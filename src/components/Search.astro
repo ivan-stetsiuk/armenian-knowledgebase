@@ -1,47 +1,226 @@
 ---
-import { base } from "../lib/site";
-/* Pagefind indexes the built HTML after `astro build`, so search covers every
- * word of every lesson without a separate index to keep in sync. The UI is only
- * loaded when the dialog is first opened — it is a few hundred KB that a reader
- * who never searches should not pay for. */
+/* Search, in two layers.
+ *
+ * The lower one is Pagefind: it indexes the built HTML, so it can answer "which
+ * page says this?" for every word on the site. That is a genuinely different
+ * question from the one most searches here ask, and for a while it was the only
+ * one being answered — with results to match. Typing "L2" returned thirty-six
+ * pages and not lesson 2; "Lesson 2" put the thousand-word glossary first,
+ * because that page contains the word "lesson" and a great many 2s, and BM25
+ * has no way to know that one of those 2s is a name and the rest are furniture.
+ *
+ * So above it sits an index of the things themselves — every lesson, grammar
+ * page, how-to, topic and word, with its title, its one-line summary and its
+ * number (src/lib/search.ts). A query is ranked against that list by how well it
+ * *names* an entry: an exact title beats a title that starts with the query,
+ * which beats a word inside it, which beats a mention. Numbers are read as
+ * numbers, so "L2", "l02", "lesson 2" and "урок 2" all mean the second lesson
+ * and nothing else.
+ *
+ * Full text still runs, underneath a divider, for everything a title cannot
+ * answer — a phrase from an exercise, a word inside a table. Both layers load
+ * on first open and never again; a reader who does not search pays nothing.
+ *
+ * The ranking itself is src/lib/search-rank.ts. This file is the panel: what is
+ * drawn, in what order, and what the keyboard does.
+ */
 ---
 
-<dialog class="search" id="search">
-  <div class="search__ui" id="search-ui"></div>
+<dialog class="search" id="search" aria-label="Search">
+  <form class="search__form" role="search">
+    <input
+      class="search__input"
+      id="search-input"
+      type="search"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      placeholder="Search — a word, a rule, or L2"
+      aria-label="Search"
+      aria-controls="search-out"
+    />
+  </form>
+
+  <div class="search__out" id="search-out" role="listbox" aria-label="Results"></div>
+
+  <p class="search__foot">
+    <span><kbd>↑</kbd><kbd>↓</kbd> move</span>
+    <span><kbd>↵</kbd> open</span>
+    <span><kbd>esc</kbd> close</span>
+  </p>
 </dialog>
 
-<script is:inline define:vars={{ base }}>
-  const dlg = document.getElementById("search");
-  let loaded = false;
+<script>
+  import { rank, cut } from "../lib/search-rank";
+  import type { Entry } from "../lib/search";
 
-  async function open() {
-    if (!loaded) {
-      loaded = true;
-      await new Promise((done) => {
-        const css = document.createElement("link");
-        css.rel = "stylesheet";
-        css.href = `${base}/pagefind/pagefind-ui.css`;
-        document.head.append(css);
-        const js = document.createElement("script");
-        js.src = `${base}/pagefind/pagefind-ui.js`;
-        js.onload = done;
-        js.onerror = done;
-        document.head.append(js);
-      });
-      if (window.PagefindUI) {
-        new window.PagefindUI({
-          element: "#search-ui",
-          bundlePath: `${base}/pagefind/`,
-          showImages: false,
-          showSubResults: true,
-          pageSize: 8,
-          resetStyles: false,
-          translations: { placeholder: "Search", clear_search: "Clear", zero_results: "Nothing for [SEARCH_TERM]" },
-        });
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+  const dlg = document.getElementById("search") as HTMLDialogElement;
+  const input = document.getElementById("search-input") as HTMLInputElement;
+  const out = document.getElementById("search-out") as HTMLElement;
+
+  let entries: Entry[] | null = null;   /* the index of things, fetched once */
+  let pf: any = null;                   /* Pagefind, loaded once */
+  let items: HTMLAnchorElement[] = [];  /* the rows on screen, in order */
+  let cursor = -1;
+  let run = 0;   /* so a slow full-text answer cannot land on top of a newer query */
+
+  const KIND: Record<string, string> = {
+    lesson: "Lesson", grammar: "Grammar", howto: "How-to",
+    topic: "Words", word: "Word", page: "Section",
+  };
+
+  /* The matched run of letters, marked. Built as nodes rather than as a string
+     of HTML, because these are words out of a TSV and not markup. */
+  function mark(text: string, tokens: string[]): Node {
+    const low = text.toLowerCase();
+    let at = -1;
+    let len = 0;
+    for (const t of tokens) {
+      const i = low.indexOf(t);
+      if (i !== -1 && (at === -1 || i < at)) { at = i; len = t.length; }
+    }
+    if (at === -1) return document.createTextNode(text);
+
+    const frag = document.createDocumentFragment();
+    const em = document.createElement("mark");
+    em.textContent = text.slice(at, at + len);
+    frag.append(text.slice(0, at), em, text.slice(at + len));
+    return frag;
+  }
+
+  function row(name: string, sub: string, kind: string, href: string, tokens: string[], hy = false) {
+    const a = document.createElement("a");
+    a.className = "res";
+    a.href = href;
+    a.setAttribute("role", "option");
+
+    const n = document.createElement("span");
+    n.className = hy ? "res__n is-hy" : "res__n";
+    n.append(mark(name, tokens));
+    a.append(n);
+
+    /* Full-text hits carry no kind label: the brackets would be empty, and the
+       divider above them has already said what they are. */
+    if (kind) {
+      const k = document.createElement("span");
+      k.className = "res__kind";
+      k.textContent = kind;
+      a.append(k);
+    }
+
+    if (sub) {
+      const s = document.createElement("span");
+      s.className = "res__s";
+      s.textContent = sub;
+      a.append(s);
+    }
+    return a;
+  }
+
+  function select(i: number) {
+    if (!items.length) return;
+    cursor = (i + items.length) % items.length;
+    items.forEach((el, n) => el.classList.toggle("is-sel", n === cursor));
+    items[cursor].scrollIntoView({ block: "nearest" });
+  }
+
+  function note(text: string) {
+    const p = document.createElement("p");
+    p.className = "res__none";
+    p.textContent = text;
+    return p;
+  }
+
+  function draw(q: string, direct: Entry[], text: any[]) {
+    const tokens = cut(q);
+    out.replaceChildren();
+    items = [];
+
+    for (const e of direct) {
+      const sub = e.t === "word" && e.l ? `${e.s} · lesson ${e.l}` : e.s || "";
+      const el = row(e.n, sub, KIND[e.t] ?? "", e.u, tokens, e.t === "word");
+      out.append(el);
+      items.push(el);
+    }
+
+    if (text.length) {
+      const head = document.createElement("p");
+      head.className = "res__group";
+      head.textContent = "In the text";
+      out.append(head);
+
+      for (const r of text) {
+        const el = row(r.meta?.title || r.url, "", "", r.url, tokens);
+        el.classList.add("res--text");
+        const s = document.createElement("span");
+        s.className = "res__s";
+        /* Pagefind's excerpt is this site's own page text with the hit already
+           wrapped in <mark>, which is why this one is set as HTML. */
+        s.innerHTML = r.excerpt;
+        el.append(s);
+        out.append(el);
+        items.push(el);
       }
     }
+
+    if (!items.length) out.append(note(q.trim() ? `Nothing for ${q.trim()}` : ""));
+    select(0);
+  }
+
+  let timer: ReturnType<typeof setTimeout>;
+
+  async function query() {
+    const q = input.value;
+    const mine = ++run;
+
+    if (!q.trim()) {
+      out.replaceChildren(note("A word, a rule, or a lesson number."));
+      items = [];
+      cursor = -1;
+      return;
+    }
+
+    const direct = entries ? rank(entries, q, base) : [];
+    draw(q, direct, []);
+
+    /* Full text is the slower half and the less important one, so it is drawn
+       when it arrives rather than waited for. Pages already named above are
+       dropped from it: the same answer twice is not two answers. */
+    if (!pf) return;
+    const seen = new Set(direct.map((e) => e.u.split("?")[0]));
+    const res = await pf.search(q);
+    if (mine !== run) return;
+    const text = (await Promise.all(res.results.slice(0, 8).map((r: any) => r.data())))
+      .filter((r: any) => !seen.has(r.url))
+      .slice(0, 5);
+    if (mine !== run) return;
+    draw(q, direct, text);
+  }
+
+  async function load() {
+    if (!entries) {
+      entries = await fetch(`${base}/search-index.json`).then((r) => r.json()).catch(() => []);
+    }
+    if (!pf) {
+      /* Pagefind exists only in a built site — `astro dev` serves no bundle, and
+         there the dialog runs on the index of things alone. */
+      try {
+        pf = await import(/* @vite-ignore */ `${base}/pagefind/pagefind.js`);
+        pf.init();
+      } catch {
+        pf = null;
+      }
+    }
+  }
+
+  async function open() {
     dlg.showModal();
-    dlg.querySelector("input")?.focus();
+    input.focus();
+    input.select();
+    await load();
+    query();
   }
 
   document.getElementById("search-open")?.addEventListener("click", open);
@@ -52,6 +231,26 @@ import { base } from "../lib/site";
       e.preventDefault();
       open();
     }
+  });
+
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(query, 80);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); select(cursor + 1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); select(cursor - 1); }
+    else if (e.key === "Enter") {
+      e.preventDefault();
+      if (items[cursor]) location.href = items[cursor].href;
+    }
+  });
+
+  /* The form is there so a phone keyboard offers a Go key; it never submits. */
+  dlg.querySelector(".search__form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (items[cursor]) location.href = items[cursor].href;
   });
 
   /* Clicking the backdrop closes the dialog. */

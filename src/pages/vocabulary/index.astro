@@ -51,7 +51,20 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
 
       <p class="index__group">All words</p>
 
-      <WordTable words={all} showLesson={true} />
+      {/* Arriving from the word cloud or from search, the page is asked for one
+          word out of a thousand. Without this the browser painted the whole list
+          first and the filter then reordered it under the reader's eyes, ending
+          with a scroll to a row that had just moved — three frames of thrashing
+          for one answer. Marking the document before the table is parsed keeps
+          the list unpainted until it is the list that was asked for; the script
+          at the foot of the page clears the mark once it is. */}
+      <script is:inline>
+        if (new URLSearchParams(location.search).get("q")) {
+          document.documentElement.dataset.filtering = "1";
+        }
+      </script>
+
+      <WordTable words={all} showLesson={true} byLetter={true} />
 
       <p class="filter__empty" id="wempty" hidden>
         Nothing matches. Try the Armenian spelling, or a lesson number.
@@ -65,7 +78,17 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
     const empty = document.getElementById("wempty");
     const rows = [...document.querySelectorAll("tbody tr[data-k]")];
     const tbody = rows[0]?.parentNode;
-    const original = rows.slice();
+    /* Every child of the body, letter dividers included: putting the list back
+       the way it was means putting the letters back with it. */
+    const original = tbody ? [...tbody.children] : [];
+
+    /* Each divider with the rows filed under it, so a filter can drop the
+       letters that nothing was found beneath. */
+    const groups = [];
+    for (const el of original) {
+      if (el.classList.contains("words__letter")) groups.push({ head: el, rows: [] });
+      else if (groups.length) groups[groups.length - 1].rows.push(el);
+    }
 
     /* Same rule as the build uses to stem the rows — the suffix list itself is
        injected, so the two cannot drift apart. */
@@ -123,8 +146,16 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
         if (root) related++;
       }
 
+      /* The alphabet survives a lesson filter, which leaves the list in
+         alphabetical order, but not a text query: that reorders the rows by how
+         well they answer it, and a letter over a ranked list is a lie. */
+      const ranked = q && !lesson;
+      for (const g of groups) {
+        g.head.hidden = ranked || (q ? !g.rows.some((r) => !r.hidden) : false);
+      }
+
       const frag = document.createDocumentFragment();
-      if (q && !lesson) {
+      if (ranked) {
         const matched = rows.filter((r) => !r.hidden).sort((a, b) => rank(a, q) - rank(b, q));
         for (const r of matched) frag.append(r);
         tbody.prepend(frag);
@@ -134,12 +165,14 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
         tbody.append(frag);
       }
 
+      /* Counted against the words, not against `original`, which also holds the
+         letter dividers. */
       count.textContent =
-        shown === original.length
-          ? String(original.length)
+        shown === rows.length
+          ? String(rows.length)
           : lesson
             ? shown + " in lesson " + Number(lesson[1])
-            : shown + " / " + original.length + (related ? " · " + related + " by root" : "");
+            : shown + " / " + rows.length + (related ? " · " + related + " by root" : "");
       empty.hidden = shown !== 0;
     }
 
@@ -158,7 +191,16 @@ const topics = TOPICS.filter(([tag]) => counts.get(tag)).map(([tag, title, blurb
       hit?.scrollIntoView({ block: "center", behavior: "instant" });
       input.focus({ preventScroll: true });
     }
+    /* Filtered, ordered and scrolled — now it can be looked at. */
+    delete document.documentElement.dataset.filtering;
   </script>
+
+  <style is:global>
+    /* Set by the script above the table and cleared by the one below it. Only
+       the rows are held back: the field, the count and the topics are already
+       correct, and blanking the page would be its own kind of flicker. */
+    :root[data-filtering] .table-wrap { visibility: hidden; }
+  </style>
 
   <style>
     .topics-fold { margin: 0.2rem 0 1.6rem; }
