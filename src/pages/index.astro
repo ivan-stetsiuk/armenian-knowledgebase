@@ -173,6 +173,10 @@ const sections = [
       document.documentElement.classList.add("is-glass");
 
       const box = layer.getBoundingClientRect();
+      /* The layer covers the shell's padding box, so without this the words can
+         sit right against the window edge while every other element on the page
+         starts at the gutter. They stay inside the same column as the text. */
+      const gutter = parseFloat(getComputedStyle(home).paddingLeft) || 8;
       const b = btn.getBoundingClientRect();
       let cx = b.left - box.left + b.width / 2;
       let cy = b.top - box.top + b.height / 2;
@@ -195,20 +199,27 @@ const sections = [
       /* Rings around the letter: the radius grows with the ring so later words
          land further out, and the angle is jittered so it never reads as a dial.
          The horizontal radius is stretched, because the page is wider than it is
-         tall and a word is wider than it is high. */
-      const perRing = 6;
+         tall and a word is wider than it is high.
+         
+         Both are scaled to the layer. Fixed radii threw half the words past the
+         edge of a phone, where clamping stacked them against the margin — they
+         were not clipped, but a column of words pinned to the left edge is not a
+         cloud either. */
+      const scale = Math.min(1, box.width / 980);
+      const spread = box.width < 560 ? 1.15 : 1.7;
+      const perRing = box.width < 560 ? 5 : 6;
       const items = shown.map((w, i) => {
         const ring = Math.floor(i / perRing);
         const angle =
           ((i % perRing) / perRing) * Math.PI * 2 + ring * 0.8 + (next() - 0.5) * 0.5;
-        const radius = 104 + ring * 86 + next() * 44;
+        const radius = (104 + ring * 86 + next() * 44) * Math.max(0.42, scale);
 
         const a = document.createElement("a");
         a.className = "cloud__w hy";
         a.href = base + "/vocabulary/?q=" + encodeURIComponent(w.hy);
         a.textContent = w.hy;
         a.title = w.en;
-        a.style.fontSize = 0.95 + next() * 0.5 + "rem";
+        a.style.fontSize = (box.width < 560 ? 0.9 : 0.95) + next() * (box.width < 560 ? 0.3 : 0.5) + "rem";
         a.style.transitionDelay = i * 22 + "ms";
         layer.append(a);
 
@@ -218,7 +229,7 @@ const sections = [
       /* Each word is centred on its coordinates, so it can only be kept inside
          the layer once its own width is known — which is why the measuring pass
          happens after they are all in the DOM. One layout, then arithmetic. */
-      const PAD = 6;
+      const PAD = gutter;
       for (const m of items) {
         m.w = m.el.offsetWidth;
         m.h = m.el.offsetHeight;

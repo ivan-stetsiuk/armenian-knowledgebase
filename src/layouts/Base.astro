@@ -102,18 +102,36 @@ const full = title === "Armenian Knowledge Base" ? title : `${title} — Armenia
         wrap.append(t);
       }
 
-      /* Highlight the section of the page currently in view in the contents. */
+      /* Highlight the section currently in view in the contents. */
       const links = [...document.querySelectorAll(".toc a")];
       if (links.length) {
         const byId = new Map(links.map((a) => [decodeURIComponent(a.hash.slice(1)), a]));
         const seen = new Set();
+
+        const mark = (id) => {
+          links.forEach((a) => a.classList.remove("is-active"));
+          if (id) byId.get(id)?.classList.add("is-active");
+        };
+
+        /* A page usually ends with two or three short sections that never reach
+           the top third of the window, so scrolling to the very bottom used to
+           leave the highlight stuck several entries short. At the bottom of the
+           page the last section is the one being read, whatever the observer
+           can see. */
+        const atBottom = () =>
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+        const update = () => {
+          if (atBottom()) return mark([...byId.keys()].pop());
+          let current = null;
+          for (const [id] of byId) if (seen.has(id)) { current = id; break; }
+          mark(current);
+        };
+
         const io = new IntersectionObserver(
           (entries) => {
             for (const e of entries) e.isIntersecting ? seen.add(e.target.id) : seen.delete(e.target.id);
-            let current = null;
-            for (const [id] of byId) if (seen.has(id)) { current = id; break; }
-            links.forEach((a) => a.classList.remove("is-active"));
-            if (current) byId.get(current)?.classList.add("is-active");
+            update();
           },
           { rootMargin: "-80px 0px -70% 0px" }
         );
@@ -121,6 +139,7 @@ const full = title === "Armenian Knowledge Base" ? title : `${title} — Armenia
           const el = document.getElementById(id);
           if (el) io.observe(el);
         }
+        addEventListener("scroll", update, { passive: true });
       }
     </script>
   </body>

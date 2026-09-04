@@ -10,13 +10,16 @@ interface Props {
 const { words, showLesson = true } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-/* `data-k` is the haystack the filter on the index page searches: Armenian,
- * English, the phrase and the lesson number, lowercased once at build time so
- * typing stays instant across a thousand rows. */
+/* `data-k` is the haystack the filter searches: Armenian, English, the phrase
+ * and the tags, lowercased once at build time so typing stays instant across a
+ * thousand rows.
+ *
+ * The lesson number is deliberately not in it. It used to be, and searching for
+ * "5" then returned every word whose example sentence happened to contain a
+ * five. The number lives in `data-lesson`, which the filter matches exactly on
+ * an "L5" query. */
 const key = (w: Word) =>
-  [w.hy, w.en, w.phrase_hy, w.phrase_en, w.note, `l${w.lesson}`, String(w.lesson), ...w.tags]
-    .join(" ")
-    .toLowerCase();
+  [w.hy, w.en, w.phrase_hy, w.phrase_en, w.note, ...w.tags].join(" ").toLowerCase();
 ---
 
 <div class="table-wrap">
@@ -26,12 +29,12 @@ const key = (w: Word) =>
         <th>Armenian</th>
         <th>English</th>
         <th>In a phrase</th>
-        {showLesson && <th class="num">L</th>}
+        {showLesson && <th>L</th>}
       </tr>
     </thead>
     <tbody>
       {words.map((w) => (
-        <tr data-k={key(w)} data-hy={w.hy.toLowerCase()} data-stem={stem(w.hy)}>
+        <tr data-k={key(w)} data-hy={w.hy.toLowerCase()} data-stem={stem(w.hy)} data-lesson={w.lesson}>
           <td class="hy">{w.hy}</td>
           <td>
             {w.en}
@@ -95,15 +98,13 @@ const key = (w: Word) =>
   .words .gloss { color: var(--c-grey); }
   .words .note { color: var(--c-grey); font-size: 0.92em; }
 
-  /* The header has to sit over its own column: the lesson numbers are ranged
-     right, so the letter above them is too. */
-  .words thead th.num { text-align: right; }
-
+  /* Every column in this table is ranged left, including this one: a lesson
+     number is a label, not a quantity, and nothing is ever added up. */
   .words .num {
     font-size: var(--label);
     color: var(--c-grey);
-    text-align: right;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .words .num a { text-decoration: none; color: inherit; }

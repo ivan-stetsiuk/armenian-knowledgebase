@@ -19,8 +19,11 @@ const { title, number, meta = [], section, description, headings, prev, next } =
 
 <Base title={title} section={section} description={description}>
   <div class="shell doc">
+    {/* Contents on the left, page facts on the right. Navigation is what a
+        reader reaches for on a long page, so it takes the side the eye returns
+        to first. */}
     <div class="doc__rail">
-      <div class="rail"><slot name="rail" /></div>
+      <div><Toc headings={headings} /></div>
     </div>
 
     <article class="doc__body" data-pagefind-body>
@@ -47,9 +50,7 @@ const { title, number, meta = [], section, description, headings, prev, next } =
     </article>
 
     <div class="doc__aside">
-      <div>
-        <Toc headings={headings} />
-      </div>
+      <div class="rail"><slot name="rail" /></div>
     </div>
   </div>
 </Base>
